@@ -4,9 +4,6 @@
  */
 package com.jp1.persistencia;
 
-import com.jp1.visao.TelaMarcas;
-import com.jp1.tools.ID;
-
 import com.jp1.modelos.Marca;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,30 +20,46 @@ import java.util.ArrayList;
  */
 public class MarcaDao implements IMarcaDao {
     
-    String nomeDoArquivoNoDisco = ".src/com/jp1/arquivosdedados/marca.txt";
+    String nomeDoArquivoNoDisco = "./src/com/jp1/arquivosdedados/marca.txt";
     
     public MarcaDao(){
         
     }
     
     @Override
-    public void incluir(Marca objeto, ID id) throws IOException, FileNotFoundException {
+    public void incluir(Marca objeto) throws IOException, FileNotFoundException {
+        //if(inclu)
         try {
             FileWriter fw = new FileWriter(nomeDoArquivoNoDisco, true);
             BufferedWriter bw  = new BufferedWriter(fw);
             bw.write(objeto.toString());
             bw.close();
-        } catch (Exception e) {
-            
+        } catch (Exception erro) {
+            throw erro;
         }
     }
 
     @Override
     public void alterar(Marca objeto) throws IOException, FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+        BufferedReader br = new BufferedReader(fr);
+        String linha = "";
+        int contador = 0;
+        String banco = "";
+        while((linha = br.readLine()) != null){
+            if(linha.contains(objeto.getId()+"")){
+                banco+= objeto.getId() + ";" + objeto.getDescricao() + ";" + objeto.getUrl() + "\n";
+            }else{
+                banco+= linha + "\n";
+            }
+        }
+        br.close();
+        FileWriter fw = new FileWriter(nomeDoArquivoNoDisco);
+        BufferedWriter bw  = new BufferedWriter(fw);
+        bw.write(banco);
+        bw.close();       
     }
-
-    @Override
+             @Override
     public ArrayList<Marca> listar() throws IOException, FileNotFoundException {
         try {
             ArrayList<Marca> listaDeMarcas = new ArrayList<Marca>();
@@ -56,7 +70,7 @@ public class MarcaDao implements IMarcaDao {
 
             while((linha = br.readLine()) != null){
                 Marca objetoMarca = new Marca();
-                String vetorString[] = br.readLine().split(";");
+                String vetorString[] = linha.split(";");
                 objetoMarca.setId(Integer.parseInt(vetorString[0]));
                 objetoMarca.setDescricao(vetorString[1]);
                 objetoMarca.setUrl(vetorString[2]);

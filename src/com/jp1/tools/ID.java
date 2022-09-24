@@ -21,7 +21,7 @@ import java.io.IOException; // Outros problemas de I/O
 public class ID {
     
     public static void criarArquivoDeID()throws FileNotFoundException, IOException{
-        String nomeDoArquivo ="./src/com/jp1/arquivodedados/id.txt";
+        String nomeDoArquivo ="./src/com/jp1/arquivosdedados/id.txt";
         FileWriter fw = new FileWriter(nomeDoArquivo);
         //Criar o buffer do arquivo
         BufferedWriter bw =new BufferedWriter(fw);
@@ -33,7 +33,7 @@ public class ID {
     }
     
     public static int getID()throws FileNotFoundException, IOException{
-        String nomeDoArquivo ="./src/com/jp1/arquivodedados/id.txt";
+        String nomeDoArquivo ="./src/com/jp1/arquivosdedados/id.txt";
         FileReader fr = new FileReader(nomeDoArquivo);
         BufferedReader br  = new BufferedReader(fr);
         int id = Integer.parseInt(br.readLine());

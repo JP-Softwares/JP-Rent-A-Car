@@ -4,7 +4,6 @@
  */
 package com.jp1.persistencia;
 import com.jp1.modelos.Marca;
-import com.jp1.tools.ID;
 
 import java.util.ArrayList;
 /**
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface IMarcaDao {
     
-    void incluir(Marca objeto, ID id) throws Exception;
+    void incluir(Marca objeto) throws Exception;
     void alterar(Marca objeto) throws Exception;
     ArrayList<Marca> listar() throws Exception;
 }
