@@ -51,8 +51,10 @@ public class GradeRenderer extends DefaultTableCellRenderer {
         }
         
         if(value != null){
-            ImageIcon iconLogo = new ImageIcon(table.getValueAt(row, column).toString());
+            ImageIcon iconLogo = new ImageIcon(table.getValueAt(row, column-1).toString());
             icone.setText((String) value);
+            iconLogo.setImage(iconLogo.getImage().getScaledInstance(
+                table.getHeight(),table.getHeight(),1));
             icone.setIcon(iconLogo);
         }
         

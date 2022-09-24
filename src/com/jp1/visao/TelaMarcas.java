@@ -35,7 +35,7 @@ public class TelaMarcas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         //MyModel m = new MyModel();
-        jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
+        //jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
         
         try {
             listar(marcadao.listar());
@@ -167,7 +167,7 @@ public class TelaMarcas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableMarcas.setRowHeight(100);
+        jTableMarcas.setRowHeight(50);
         jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMarcasMouseClicked(evt);
@@ -179,7 +179,7 @@ public class TelaMarcas extends javax.swing.JFrame {
             jTableMarcas.getColumnModel().getColumn(1).setResizable(false);
             jTableMarcas.getColumnModel().getColumn(2).setResizable(false);
             jTableMarcas.getColumnModel().getColumn(3).setResizable(false);
-            jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(null);
+            jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
         }
 
         jButtonBuscar.setText("BUSCAR");
