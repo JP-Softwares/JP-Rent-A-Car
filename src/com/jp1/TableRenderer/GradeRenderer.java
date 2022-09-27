@@ -19,24 +19,6 @@ public class GradeRenderer extends DefaultTableCellRenderer {
     
     JLabel icone = new JLabel();
     
-    class MyModel extends AbstractTableModel{
-
-        @Override
-        public int getRowCount() {
-            return 4;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 4;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return "Player" + (rowIndex*columnIndex);
-        }
-        
-    }
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -52,9 +34,11 @@ public class GradeRenderer extends DefaultTableCellRenderer {
         
         if(value != null){
             ImageIcon iconLogo = new ImageIcon(table.getValueAt(row, column-1).toString());
+            int tamanho = table.getHeight();
+            int recuo = 20 * tamanho/ 100;
             icone.setText((String) value);
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                table.getHeight(),table.getHeight(),1));
+                tamanho - recuo,tamanho - recuo,1));
             icone.setIcon(iconLogo);
         }
         

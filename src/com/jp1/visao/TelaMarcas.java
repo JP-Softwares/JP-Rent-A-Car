@@ -12,11 +12,11 @@ import com.jp1.tools.ID;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import java.awt.Color;
+import java.awt.Cursor;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,10 +28,22 @@ public class TelaMarcas extends javax.swing.JFrame {
     /**
      * Creates new form TelaMarcas
      */
+    
+    int localx = 0;
+    int localy = 0;
+    int mousex = 0;
+    int mousey = 0;
+    
+    
+    int larguraLogo = 0;
+    int alturaLogo = 0;
     IMarcaDao marcadao = new MarcaDao();
     Marca marca = null;
     public TelaMarcas() {
+        this.setUndecorated(true);
         initComponents();
+        larguraLogo = jLabelLogo.getWidth();
+        alturaLogo = jLabelLogo.getHeight();
         this.setLocationRelativeTo(null);
         
         //MyModel m = new MyModel();
@@ -42,11 +54,20 @@ public class TelaMarcas extends javax.swing.JFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
+        localx = getX();
+        localy = getY();
         
     }
     
     
-    
+    public void mouse(java.awt.event.MouseEvent evt){
+        if(mousex != evt.getX())localx += (evt.getX() - mousex);
+
+        //System.out.println("O Localx é: " + localx + "\no mousex é: " + mousex + "  o evt getx é: " + evt.getX());
+
+        if(mousey != evt.getY()) localy += (evt.getY() - mousey);
+        
+    }
     
     
     public void listar(ArrayList<Marca> listaDeMarcas){
@@ -80,8 +101,11 @@ public class TelaMarcas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelBarra = new javax.swing.JPanel();
+        jPanelX = new javax.swing.JPanel();
+        jLabelX = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
         jPanelFundo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -99,11 +123,72 @@ public class TelaMarcas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanelFundo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelBarra.setBackground(new java.awt.Color(230, 238, 231));
+        jPanelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelBarraMouseDragged(evt);
+            }
+        });
+        jPanelBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelBarraMousePressed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 3, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MANTER MARCAS");
+        jPanelX.setBackground(jPanelBarra.getBackground());
+        jPanelX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelXMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelXMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jPanelXMouseReleased(evt);
+            }
+        });
+
+        jLabelX.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabelX.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelX.setText("X");
+
+        javax.swing.GroupLayout jPanelXLayout = new javax.swing.GroupLayout(jPanelX);
+        jPanelX.setLayout(jPanelXLayout);
+        jPanelXLayout.setHorizontalGroup(
+            jPanelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelX, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+        );
+        jPanelXLayout.setVerticalGroup(
+            jPanelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelX, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanelBarraLayout = new javax.swing.GroupLayout(jPanelBarra);
+        jPanelBarra.setLayout(jPanelBarraLayout);
+        jPanelBarraLayout.setHorizontalGroup(
+            jPanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBarraLayout.createSequentialGroup()
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 834, Short.MAX_VALUE)
+                .addComponent(jPanelX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelBarraLayout.setVerticalGroup(
+            jPanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+        );
+
+        jPanelFundo.setBackground(new java.awt.Color(246, 246, 246));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Identificador");
@@ -114,6 +199,7 @@ public class TelaMarcas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("URL");
 
+        jTextFieldIdentificador.setBackground(new java.awt.Color(242, 247, 246));
         jTextFieldIdentificador.setEnabled(false);
 
         jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +216,7 @@ public class TelaMarcas extends javax.swing.JFrame {
         jTextFieldURL.setEnabled(false);
 
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jLabelLogo.setPreferredSize(new java.awt.Dimension(150, 150));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -167,6 +254,7 @@ public class TelaMarcas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableMarcas.setFocusable(false);
         jTableMarcas.setRowHeight(50);
         jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -194,29 +282,24 @@ public class TelaMarcas extends javax.swing.JFrame {
         jPanelFundo.setLayout(jPanelFundoLayout);
         jPanelFundoLayout.setHorizontalGroup(
             jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFundoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFundoLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelFundoLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldURL))
+                        .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelFundoLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldDescricao))
                     .addGroup(jPanelFundoLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(jLabelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,20 +308,22 @@ public class TelaMarcas extends javax.swing.JFrame {
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
+            .addGroup(jPanelFundoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanelFundoLayout.setVerticalGroup(
             jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFundoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFundoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(72, 72, 72)
                         .addComponent(jLabel6)
                         .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelFundoLayout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFundoLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonBuscar)
@@ -248,7 +333,7 @@ public class TelaMarcas extends javax.swing.JFrame {
                                 .addComponent(jButtonAlterar)
                                 .addGap(46, 46, 46))))
                     .addGroup(jPanelFundoLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(99, 99, 99)
                         .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -261,19 +346,24 @@ public class TelaMarcas extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanelFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -349,9 +439,49 @@ public class TelaMarcas extends javax.swing.JFrame {
         
         ImageIcon iconLogo = new ImageIcon(marca.getUrl());
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                jLabelLogo.getWidth(),jLabelLogo.getHeight(),1));
+                larguraLogo,alturaLogo,1));
         jLabelLogo.setIcon(iconLogo);
     }//GEN-LAST:event_jTableMarcasMouseClicked
+
+    private void jPanelXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jPanelXMouseClicked
+
+    private void jPanelXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMouseEntered
+        // TODO add your handling code here:
+        jPanelX.setBackground(new Color(255,100,100));
+        jLabelX.setForeground(new Color(242,242,242));
+        jPanelX.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanelXMouseEntered
+
+    private void jPanelXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMouseExited
+        // TODO add your handling code here:
+        jPanelX.setBackground(jPanelBarra.getBackground());
+        jLabelX.setForeground(new Color(102,102,102));
+        jPanelX.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jPanelXMouseExited
+
+    private void jPanelXMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMousePressed
+        // TODO add your handling code here:
+        jPanelX.setBackground(new Color(200,100,100));
+    }//GEN-LAST:event_jPanelXMousePressed
+
+    private void jPanelXMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelXMouseReleased
+
+    private void jPanelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMouseDragged
+        // TODO add your handling code here:
+        mouse(evt);
+        this.setLocation(localx, localy);
+    }//GEN-LAST:event_jPanelBarraMouseDragged
+
+    private void jPanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMousePressed
+        // TODO add your handling code here:
+        mousex = evt.getX();
+        mousey = evt.getY();
+    }//GEN-LAST:event_jPanelBarraMousePressed
 
     /**
      * @param args the command line arguments
@@ -392,13 +522,16 @@ public class TelaMarcas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelX;
+    private javax.swing.JPanel jPanelBarra;
     private javax.swing.JPanel jPanelFundo;
+    private javax.swing.JPanel jPanelX;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMarcas;
     private javax.swing.JTextField jTextFieldDescricao;
