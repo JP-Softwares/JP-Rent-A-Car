@@ -100,7 +100,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Marcas");
         jButton1.setBorder(null);
         jButton1.setFocusable(false);
@@ -110,7 +109,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Modelos");
         jButton2.setBorder(null);
         jButton2.setFocusable(false);
