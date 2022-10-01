@@ -34,7 +34,7 @@ public class GradeRenderer extends DefaultTableCellRenderer {
         
         if(value != null){
             ImageIcon iconLogo = new ImageIcon(table.getValueAt(row, column-1).toString());
-            int tamanho = table.getHeight();
+            int tamanho = table.getRowHeight();
             int recuo = 20 * tamanho/ 100;
             icone.setText((String) value);
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(

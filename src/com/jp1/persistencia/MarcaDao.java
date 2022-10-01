@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author HP
@@ -24,11 +25,31 @@ public class MarcaDao implements IMarcaDao {
     
     public MarcaDao(){
         
+    } 
+    
+     private void incluirLogo(){
+
+     }
+
+    private void alterarLogo(String URL){
+        //Codigo para alterar logo da marca
+        /*
+         edit(URL);
+        EntityManager.persist(URL);
+        url.setName("");
+        url updatURL = edit(URL);
+        EntityManager.persist(updateURL);
+        URL.setName("");
+        return URL;*/
+       
+
+
     }
+
+
     
     @Override
     public void incluir(Marca objeto) throws IOException, FileNotFoundException {
-        //if(inclu)
         try {
             FileWriter fw = new FileWriter(nomeDoArquivoNoDisco, true);
             BufferedWriter bw  = new BufferedWriter(fw);
