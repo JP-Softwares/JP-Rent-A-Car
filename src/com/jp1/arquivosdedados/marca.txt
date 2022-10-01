@@ -1,1 +1,1 @@
-100001;FIAT;C:\Users\HP\OneDrive\Documents\img20211116_14090732.jpg
+100001;TOYOTA;./src/com/jp1/logosdainternet/TOYOTA.png

@@ -39,6 +39,7 @@ public class MarcaControle implements IMarcaControle {
     }
 
      public void incluir(Marca objeto) throws Exception{
+         if(objeto.getDescricao().equals("")) throw new Exception("O nome da Marca não pode ser vazio.");
         if(buscarMarca(objeto.getDescricao())){
             throw new Exception("Marca já cadastrada");
         }
@@ -46,12 +47,11 @@ public class MarcaControle implements IMarcaControle {
      }
 
      public void alterar(Marca objeto) throws Exception{
-       throw new UnsupportedOperationException("Not supported yet."); 
-
+       marcaPersistencia.alterar(objeto);
      }
      
 
-     public ArrayList<Marca> listagem() throws Exception{
+     public ArrayList<Marca> listar() throws Exception{
         return marcaPersistencia.listar();
       
      }

@@ -14,6 +14,9 @@
         <group>
             <file>file:/C:/Users/aluno/Desktop/LocaGyn/src/com/jp1/visao/TelaPrincipal.java</file>
             <file>file:/C:/Users/aluno/Desktop/LocaGyn/src/com/jp1/visao/TelaMarcas.java</file>
+            <file>file:/C:/Users/aluno/Desktop/LocaGyn/src/com/jp1/persistencia/MarcaDao.java</file>
+            <file>file:/C:/Users/aluno/Desktop/LocaGyn/src/com/jp1/controle/MarcaControle.java</file>
+            <file>file:/C:/Users/aluno/Desktop/LocaGyn/src/com/jp1/Networking/Logo.java</file>
         </group>
     </open-files>
 </project-private>
