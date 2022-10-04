@@ -9,6 +9,8 @@ import com.jp1.persistencia.IMarcaDao;
 import com.jp1.persistencia.MarcaDao;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
+import com.jp1.tools.ID;
 
 /**
  *
@@ -37,17 +39,26 @@ public class MarcaControle implements IMarcaControle {
             throw erro;
         }
     }
+    public boolean verificarVazio(Marca objeto){
+        if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
+        return false;
+    }
 
      public void incluir(Marca objeto) throws Exception{
-         if(objeto.getDescricao().equals("")) throw new Exception("O nome da Marca não pode ser vazio.");
+        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
         if(buscarMarca(objeto.getDescricao())){
             throw new Exception("Marca já cadastrada");
         }
+        objeto.setId(ID.getID());
         marcaPersistencia.incluir(objeto);
      }
 
      public void alterar(Marca objeto) throws Exception{
-       marcaPersistencia.alterar(objeto);
+        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
+        if(buscarMarca(objeto.getDescricao())){
+            throw new Exception("Marca já cadastrada");
+        }
+        marcaPersistencia.alterar(objeto);
      }
      
 
