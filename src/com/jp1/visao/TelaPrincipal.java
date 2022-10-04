@@ -5,7 +5,6 @@
 package com.jp1.visao;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.JInternalFrame;
 
@@ -29,16 +28,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
     JInternalFrame tela = null;
     
     public TelaPrincipal() {
+        lookAndFeel();
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         jPanelVeiculosExp.setVisible(false);
         jPanelVeiculosExp.setLocale(jPanelVeiculos.getLocale());
-        jButton1.setBackground(Color.WHITE);
-        jButton2.setBackground(Color.WHITE);
+        jButtonMarcas.setBackground(Color.WHITE);
+        jButtonModelos.setBackground(Color.WHITE);
         
         localx = getX();
         localy = getY();
+    }
+    
+    public void lookAndFeel(){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
     
     public void mouse(java.awt.event.MouseEvent evt){
@@ -65,8 +84,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelVeiculosExp = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonMarcas = new javax.swing.JButton();
+        jButtonModelos = new javax.swing.JButton();
         jPanelBarra = new javax.swing.JPanel();
         jPanelX = new javax.swing.JPanel();
         jLabelX = new javax.swing.JLabel();
@@ -102,47 +121,52 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Marcas");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonMarcas.setText("Marcas");
+        jButtonMarcas.setBorder(null);
+        jButtonMarcas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonMarcas.setFocusable(false);
+        jButtonMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                jButtonMarcasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton1MouseExited(evt);
+                jButtonMarcasMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
+                jButtonMarcasMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButton1MouseReleased(evt);
+                jButtonMarcasMouseReleased(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonMarcas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonMarcasActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Modelos");
-        jButton2.setBorder(null);
-        jButton2.setFocusable(false);
+        jButtonModelos.setText("Modelos");
+        jButtonModelos.setBorder(null);
+        jButtonModelos.setFocusable(false);
+        jButtonModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModelosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelVeiculosExpLayout = new javax.swing.GroupLayout(jPanelVeiculosExp);
         jPanelVeiculosExp.setLayout(jPanelVeiculosExpLayout);
         jPanelVeiculosExpLayout.setHorizontalGroup(
             jPanelVeiculosExpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+            .addComponent(jButtonMarcas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonModelos, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
         );
         jPanelVeiculosExpLayout.setVerticalGroup(
             jPanelVeiculosExpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelVeiculosExpLayout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -475,12 +499,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanelVeiculosExpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosExpMouseExited
         // TODO add your handling code here:
+        jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jPanelVeiculosExpMouseExited
 
     private void jPanelBarraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMouseEntered
         // TODO add your handling code here:
-        jPanelVeiculosExp.setVisible(false);
-        
     }//GEN-LAST:event_jPanelBarraMouseEntered
 
     private void jDesktopPane1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseEntered
@@ -493,44 +516,56 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_formMouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMarcasActionPerformed
         // TODO add your handling code here:
         TelaMarcas telaMarcas = new TelaMarcas();
         ((BasicInternalFrameUI)telaMarcas.getUI()).setNorthPane(null);
         jDesktopPane1.add(telaMarcas);
         telaMarcas.setVisible(true);
         jPanelVeiculosExp.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonMarcasActionPerformed
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+    private void jButtonMarcasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseEntered
         // TODO add your handling code here:
-        jButton1.setBackground(new Color(242,242,242));
-    }//GEN-LAST:event_jButton1MouseEntered
+        jButtonMarcas.setBackground(new Color(242,242,242));
+    }//GEN-LAST:event_jButtonMarcasMouseEntered
 
-    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+    private void jButtonMarcasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseExited
         // TODO add your handling code here:
-        jButton1.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton1MouseExited
+        jButtonMarcas.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jButtonMarcasMouseExited
 
-    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+    private void jButtonMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMousePressed
         // TODO add your handling code here:
-        jButton1.setBackground(new Color(220,220,220));
-    }//GEN-LAST:event_jButton1MousePressed
+        jButtonMarcas.setBackground(new Color(220,220,220));
+    }//GEN-LAST:event_jButtonMarcasMousePressed
 
-    private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
+    private void jButtonMarcasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseReleased
         // TODO add your handling code here:
-        jButton1.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton1MouseReleased
+        jButtonMarcas.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jButtonMarcasMouseReleased
 
+    private void jButtonModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModelosActionPerformed
+        // TODO add your handling code here:
+        TelaModelos telaModelos = new TelaModelos();
+        ((BasicInternalFrameUI)telaModelos.getUI()).setNorthPane(null);
+        jDesktopPane1.add(telaModelos);
+        telaModelos.setVisible(true);
+        jPanelVeiculosExp.setVisible(false);
+    }//GEN-LAST:event_jButtonModelosActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
+    /* aqui
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+    /* aqui
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -550,16 +585,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /* aqui
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaPrincipal().setVisible(true);
             }
         });
-    }
+    }e aqui */ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonMarcas;
+    private javax.swing.JButton jButtonModelos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabelClientes;
     private javax.swing.JLabel jLabelClientes1;
@@ -573,7 +609,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBarra;
     private javax.swing.JPanel jPanelMinimizar;
     private javax.swing.JPanel jPanelVeiculos;
-    private javax.swing.JPanel jPanelVeiculosExp;
+    protected javax.swing.JPanel jPanelVeiculosExp;
     private javax.swing.JPanel jPanelX;
     // End of variables declaration//GEN-END:variables
 }

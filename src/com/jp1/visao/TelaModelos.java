@@ -4,14 +4,10 @@
  */
 package com.jp1.visao;
 
-import com.jp1.TableRenderer.GradeRenderer;
-import com.jp1.modelos.Marca;
-
 import com.jp1.controle.*;
+import com.jp1.modelos.Marca;
 import com.jp1.tools.ID;
 
-import com.jp1.Networking.Logo;
-import java.awt.event.KeyEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,36 +21,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aluno
  */
-public class TelaMarcas extends javax.swing.JInternalFrame {
+public class TelaModelos extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaMarcas
+     * Creates new form TelaModelos
      */
     IMarcaControle marcaControle = new MarcaControle();
     Marca marca = null;
     boolean espaco = false;
-    public TelaMarcas() {
+    public TelaModelos() {
         initComponents();
         this.setLocation(-8, 0);
-        /*
-        try {
-            ImageIcon logo = Logo.pegarLogo();
-            logo.setImage(logo.getImage().getScaledInstance(148, 148, 1));
-            jLabelLogo.setIcon(logo);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }*/
-        
-        
-        
-        //MyModel m = new MyModel();
-        //jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
-        
-        try {
-            listar(marcaControle.listar());
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }
     }
     
     public void listar(ArrayList<Marca> listaDeMarcas){
@@ -104,15 +81,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jTableMarcas = new javax.swing.JTable();
         jButtonLogoPredefinida = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(996, 540));
-
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
-        jPanel1.setPreferredSize(new java.awt.Dimension(996, 504));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Identificador");
@@ -199,9 +168,6 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableMarcas);
-        if (jTableMarcas.getColumnModel().getColumnCount() > 0) {
-            jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
-        }
 
         jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
         jButtonLogoPredefinida.setFocusable(false);
@@ -289,11 +255,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, 984, 984, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -303,10 +269,16 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
 
+    private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) espaco = true;
+        else espaco = false;
+    }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
+
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
         char c=evt.getKeyChar();
-        
+
         if(Character.isDigit(c) || (!Character.isLetterOrDigit(c) && !espaco)){
             evt.consume();
         }
@@ -314,7 +286,6 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         if(Character.isLowerCase(c)){
             evt.setKeyChar(Character.toUpperCase(c));
         }
-
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -346,7 +317,6 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
-
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -357,7 +327,6 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
-
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTableMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMouseClicked
@@ -373,14 +342,14 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         ImageIcon iconLogo = new ImageIcon(marca.getUrl());
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
             larguraLogo - borda,alturaLogo - borda,1));
-        jLabelLogo.setIcon(iconLogo);
+    jLabelLogo.setIcon(iconLogo);
     }//GEN-LAST:event_jTableMarcasMouseClicked
 
     private void jButtonLogoPredefinidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoPredefinidaActionPerformed
         // TODO add your handling code here:
         String texto = jTextFieldDescricao.getText();
         if(!texto.equals("")){
-            
+
             /*
             if(texto.contains(" ")){
                 String textos[] = texto.split(" ");
@@ -388,7 +357,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                     texto = textos[0];
                 }else texto = textos[1];
             }*/
-            
+
             String url = "./src/com/jp1/logosdainternet/"+ jTextFieldDescricao.getText() + ".jpg";
             int larguraLogo = jLabelLogo.getWidth();
             int alturaLogo = jLabelLogo.getHeight();
@@ -410,23 +379,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
             imagem.setImage(imagem.getImage().getScaledInstance(
                 larguraLogo - borda,alturaLogo - borda,1));
-            jLabelLogo.setIcon(imagem);
-            jTextFieldURL.setText(url);
+        jLabelLogo.setIcon(imagem);
+        jTextFieldURL.setText(url);
         }else JOptionPane.showMessageDialog(null, "Digite algo no campo Observação!");
-        
-        
+
     }//GEN-LAST:event_jButtonLogoPredefinidaActionPerformed
-
-    private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE) espaco = true;
-        else espaco = false;
-    }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
-
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-        // TODO add your handling code here:
-        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
-    }//GEN-LAST:event_jPanel1MouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
