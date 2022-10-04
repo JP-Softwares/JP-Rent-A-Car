@@ -147,7 +147,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButtonModelos.setText("Modelos");
         jButtonModelos.setBorder(null);
+        jButtonModelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonModelos.setFocusable(false);
+        jButtonModelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonModelosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonModelosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonModelosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonModelosMouseReleased(evt);
+            }
+        });
         jButtonModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModelosActionPerformed(evt);
@@ -404,7 +419,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -553,6 +568,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaModelos.setVisible(true);
         jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jButtonModelosActionPerformed
+
+    private void jButtonModelosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseEntered
+        // TODO add your handling code here:
+        jButtonModelos.setBackground(new Color(242,242,242));
+    }//GEN-LAST:event_jButtonModelosMouseEntered
+
+    private void jButtonModelosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseExited
+        // TODO add your handling code here:
+        jButtonModelos.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jButtonModelosMouseExited
+
+    private void jButtonModelosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMousePressed
+        // TODO add your handling code here:
+        jButtonModelos.setBackground(new Color(220,220,220));
+    }//GEN-LAST:event_jButtonModelosMousePressed
+
+    private void jButtonModelosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseReleased
+        // TODO add your handling code here:
+        jButtonModelos.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jButtonModelosMouseReleased
 
     
     /**

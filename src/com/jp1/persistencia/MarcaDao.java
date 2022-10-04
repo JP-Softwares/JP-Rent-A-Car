@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -26,6 +25,8 @@ public class MarcaDao implements IMarcaDao {
     public MarcaDao(){
         
     } 
+
+  
     
      private void incluirLogo(){
 
@@ -65,7 +66,6 @@ public class MarcaDao implements IMarcaDao {
         FileReader fr = new FileReader(nomeDoArquivoNoDisco);
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
-        int contador = 0;
         String banco = "";
         while((linha = br.readLine()) != null){
             if(linha.contains(objeto.getId()+"")){
@@ -104,6 +104,32 @@ public class MarcaDao implements IMarcaDao {
             throw erro;
         }
         
+    }
+
+      public Marca buscar(String descricao) throws IOException, FileNotFoundException {
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String linha =  "";
+
+            Marca objetoMarca = new Marca();
+
+            while(!(linha = br.readLine()).contains(descricao)){
+             String vetorString[] = linha.split(";");
+             objetoMarca.setId(Integer.parseInt(vetorString[0]));
+             objetoMarca.setDescricao(vetorString[1]);
+             objetoMarca.setUrl(vetorString[2]);
+
+
+            }
+            br.close();
+            return objetoMarca;
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
+     
     }
 
     

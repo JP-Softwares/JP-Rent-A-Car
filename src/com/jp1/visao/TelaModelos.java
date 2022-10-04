@@ -5,13 +5,14 @@
 package com.jp1.visao;
 
 import com.jp1.controle.*;
-import com.jp1.modelos.Marca;
+import com.jp1.modelos.*;
 import com.jp1.tools.ID;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,23 +27,37 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaModelos
      */
+    IModeloControle modeloControle = new ModeloControle();
+    Modelo modelo = null;
     IMarcaControle marcaControle = new MarcaControle();
-    Marca marca = null;
     boolean espaco = false;
     public TelaModelos() {
         initComponents();
         this.setLocation(-8, 0);
+        
+        try {
+            Object vetorMarcas[] = marcaControle.listar().toArray();
+            String marcas[] = new String[vetorMarcas.length];
+            
+            for(int i = 0; i < marcas.length; i++){
+                marcas[i] = vetorMarcas[i].toString();
+            }
+            
+            jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
+        } catch (Exception e) {
+        }
+        
     }
     
-    public void listar(ArrayList<Marca> listaDeMarcas){
+    public void listar(ArrayList<Modelo> listaDeModelos){
         try {
             DefaultTableModel model =  (DefaultTableModel) jTableMarcas.getModel();
             //Limpa a tabela 
             model.setNumRows(0);
-            Iterator<Marca> lista = listaDeMarcas.iterator();
+            Iterator<Modelo> lista = listaDeModelos.iterator();
             while(lista.hasNext()){
                 Object[] saida= new Object[4];
-                Marca aux = lista.next();
+                Modelo aux = lista.next();
                 saida[0]= aux.getId()+"";
                 saida[1]= aux.getDescricao();
                 saida[2] = aux.getUrl();
@@ -80,6 +95,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMarcas = new javax.swing.JTable();
         jButtonLogoPredefinida = new javax.swing.JButton();
+        jComboBoxMarca = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
 
@@ -177,6 +194,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("MARCA");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,21 +206,27 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 952, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonLogoPredefinida))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonLogoPredefinida)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +243,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +257,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                                 .addComponent(jButtonIncluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonAlterar)
-                                .addGap(46, 46, 46))))
+                                .addGap(46, 46, 46)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,8 +272,12 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(20, 20, 20)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -311,9 +342,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         try {
-            marca = new Marca(ID.getID(), jTextFieldDescricao.getText(), jTextFieldURL.getText());
-            marcaControle.incluir(marca);
-            listar(marcaControle.listar());
+            modelo = new Modelo(0, jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jTextFieldDescricao.getText()));
+            modeloControle.incluir(modelo);
+            listar(modeloControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
@@ -322,8 +353,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         // TODO add your handling code here:
         try {
-            marcaControle.alterar(new Marca(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText()));
-            listar(marcaControle.listar());
+            modeloControle.alterar(new Marca(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText()));
+            listar(modeloControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
@@ -334,12 +365,17 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         int larguraLogo = jLabelLogo.getWidth();
         int alturaLogo = jLabelLogo.getHeight();
         int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
-        marca = new Marca(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString());
-        jTextFieldIdentificador.setText(marca.getId() + "");
-        jTextFieldDescricao.setText(marca.getDescricao());
-        jTextFieldURL.setText(marca.getUrl());
+        try {
+            modelo = new Modelo(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString(), modelo.buscar(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString()));
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        }
+        
+        jTextFieldIdentificador.setText(modelo.getId() + "");
+        jTextFieldDescricao.setText(modelo.getDescricao());
+        jTextFieldURL.setText(modelo.getUrl());
 
-        ImageIcon iconLogo = new ImageIcon(marca.getUrl());
+        ImageIcon iconLogo = new ImageIcon(modelo.getUrl());
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
             larguraLogo - borda,alturaLogo - borda,1));
     jLabelLogo.setIcon(iconLogo);
@@ -391,9 +427,11 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLogoPredefinida;
+    private javax.swing.JComboBox<String> jComboBoxMarca;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JPanel jPanel1;

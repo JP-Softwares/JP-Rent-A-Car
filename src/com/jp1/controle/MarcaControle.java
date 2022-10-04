@@ -39,7 +39,11 @@ public class MarcaControle implements IMarcaControle {
             throw erro;
         }
     }
-    public boolean verificarVazio(Marca objeto){
+    public Marca buscar(String descricao) throws Exception{
+        return marcaPersistencia.buscar(descricao);
+    }
+
+    private boolean verificarVazio(Marca objeto){
         if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
         return false;
     }
