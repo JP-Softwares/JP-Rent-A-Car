@@ -6,7 +6,6 @@ package com.jp1.visao;
 
 import java.awt.Color;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JInternalFrame;
 
 /**
  *
@@ -25,7 +24,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     boolean texto = false;
     boolean panel = false;
     
-    JInternalFrame tela = null;
     
     public TelaPrincipal() {
         lookAndFeel();
@@ -49,13 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
@@ -419,7 +411,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,6 +511,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanelBarraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMouseEntered
         // TODO add your handling code here:
+        jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jPanelBarraMouseEntered
 
     private void jDesktopPane1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseEntered

@@ -13,6 +13,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -26,32 +35,27 @@ public class MarcaDao implements IMarcaDao {
         
     } 
 
-  
-    
-     private void incluirLogo(){
-
-     }
-
-    private void alterarLogo(String URL){
-        //Codigo para alterar logo da marca
-        /*
-         edit(URL);
-        EntityManager.persist(URL);
-        url.setName("");
-        url updatURL = edit(URL);
-        EntityManager.persist(updateURL);
-        URL.setName("");
-        return URL;*/
-       
-
-
+    private String incluirLogo(Marca objeto) throws Exception{
+        if(objeto.getUrl().contains("logosdainternet")) return "";
+        BufferedImage imagem = null;
+        try {
+            imagem = ImageIO.read(new File(objeto.getUrl()));
+            File outputfile = new File("./src/com/jp1/logos/"+ objeto.getId()+".png");
+            ImageIO.write(imagem, "png", outputfile);
+            return outputfile.toString();
+        } catch (Exception e) {
+            throw e;
+        }
+        
     }
-
 
     
     @Override
-    public void incluir(Marca objeto) throws IOException, FileNotFoundException {
+    public void incluir(Marca objeto) throws IOException, FileNotFoundException, Exception {
         try {
+            String url = incluirLogo(objeto);
+            if(!url.equals("")) objeto.setUrl(url);
+            
             FileWriter fw = new FileWriter(nomeDoArquivoNoDisco, true);
             BufferedWriter bw  = new BufferedWriter(fw);
             bw.write(objeto.toString());
@@ -62,7 +66,15 @@ public class MarcaDao implements IMarcaDao {
     }
 
     @Override
-    public void alterar(Marca objeto) throws IOException, FileNotFoundException {
+    public void alterar(Marca objeto) throws IOException, FileNotFoundException, Exception {
+        String url = "";
+        try {
+            url = incluirLogo(objeto);
+            if(!url.equals("")) objeto.setUrl(url);
+        } catch (Exception e) {
+            throw e;
+        }
+        
         FileReader fr = new FileReader(nomeDoArquivoNoDisco);
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
@@ -78,7 +90,7 @@ public class MarcaDao implements IMarcaDao {
         FileWriter fw = new FileWriter(nomeDoArquivoNoDisco);
         BufferedWriter bw  = new BufferedWriter(fw);
         bw.write(banco);
-        bw.close();       
+        bw.close();
     }
              @Override
     public ArrayList<Marca> listar() throws IOException, FileNotFoundException {
@@ -106,31 +118,6 @@ public class MarcaDao implements IMarcaDao {
         
     }
 
-      public Marca buscar(String descricao) throws IOException, FileNotFoundException {
-        try {
-            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
-            BufferedReader br = new BufferedReader(fr); 
-
-            String linha =  "";
-
-            Marca objetoMarca = new Marca();
-
-            while(!(linha = br.readLine()).contains(descricao)){
-             String vetorString[] = linha.split(";");
-             objetoMarca.setId(Integer.parseInt(vetorString[0]));
-             objetoMarca.setDescricao(vetorString[1]);
-             objetoMarca.setUrl(vetorString[2]);
-
-
-            }
-            br.close();
-            return objetoMarca;
-            
-        } catch (Exception erro) {
-            throw erro;
-        }
-     
-    }
 
     
 }

@@ -6,16 +6,16 @@ package com.jp1.visao;
 
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
-import com.jp1.tools.ID;
+import com.jp1.TableRenderer.GradeRenderer;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +28,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
      * Creates new form TelaModelos
      */
     IModeloControle modeloControle = new ModeloControle();
-    Modelo modelo = null;
+    Modelo modelo = new Modelo();
     IMarcaControle marcaControle = new MarcaControle();
     boolean espaco = false;
     public TelaModelos() {
@@ -40,7 +40,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             String marcas[] = new String[vetorMarcas.length];
             
             for(int i = 0; i < marcas.length; i++){
-                marcas[i] = vetorMarcas[i].toString();
+                String aux[] = vetorMarcas[i].toString().split(";");
+                marcas[i] = aux[1];
             }
             
             jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
@@ -51,7 +52,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     
     public void listar(ArrayList<Modelo> listaDeModelos){
         try {
-            DefaultTableModel model =  (DefaultTableModel) jTableMarcas.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTableModelos.getModel();
             //Limpa a tabela 
             model.setNumRows(0);
             Iterator<Modelo> lista = listaDeModelos.iterator();
@@ -65,7 +66,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                 //Incluir nova linha na Tabela
                 model.addRow(saida);
             }
-            jTableMarcas.setModel(model);
+            jTableModelos.setModel(model);
         } catch(Exception erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
       }
@@ -93,12 +94,17 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jButtonIncluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableMarcas = new javax.swing.JTable();
-        jButtonLogoPredefinida = new javax.swing.JButton();
+        jTableModelos = new javax.swing.JTable();
         jComboBoxMarca = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Identificador");
@@ -132,7 +138,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("LOGO");
+        jLabel6.setText("AUTO-RETRATO");
 
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabelLogo.setPreferredSize(new java.awt.Dimension(152, 152));
@@ -161,41 +167,43 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
 
-        jTableMarcas.setModel(new javax.swing.table.DefaultTableModel(
+        jTableModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IDENTIFICADOR", "DESCRIÇÃO", "URL", "LOGO"
+                "IDENTIFICADOR", "DESCRIÇÃO", "URL", "AUTO-RETRATO", "MARCA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTableMarcas.setFocusable(false);
-        jTableMarcas.setRowHeight(50);
-        jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableModelos.setFocusable(false);
+        jTableModelos.setRowHeight(50);
+        jTableModelos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMarcasMouseClicked(evt);
+                jTableModelosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableMarcas);
+        jScrollPane1.setViewportView(jTableModelos);
+        if (jTableModelos.getColumnModel().getColumnCount() > 0) {
+            jTableModelos.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
+            jTableModelos.getColumnModel().getColumn(4).setCellRenderer(new GradeRenderer());
+        }
 
-        jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
-        jButtonLogoPredefinida.setFocusable(false);
-        jButtonLogoPredefinida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLogoPredefinidaActionPerformed(evt);
-            }
-        });
+        jComboBoxMarca.setFocusable(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("MARCA");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("MODELOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -208,76 +216,83 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(17, 17, 17)
+                                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonLogoPredefinida))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
+                                .addGap(40, 40, 40))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(143, 143, 143)))))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonIncluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonAlterar)
-                                .addGap(46, 46, 46)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonLogoPredefinida))
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonBuscar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(20, 20, 20)))
+                        .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(jButtonIncluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonAlterar)
+                                .addGap(46, 46, 46)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -286,11 +301,11 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -302,8 +317,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
     private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) espaco = true;
-        else espaco = false;
+        espaco = evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE;
     }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
 
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
@@ -323,6 +337,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             JFileChooser fc = new JFileChooser();
+            fc.setAcceptAllFileFilterUsed(false);
+            fc.addChoosableFileFilter(new FileNameExtensionFilter("Imagens (*.jpg, *.jpeg, *.png)", "jpg", "jpeg", "png"));
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.showOpenDialog(this);
             File arquivo = fc.getSelectedFile();
@@ -342,7 +358,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         try {
-            modelo = new Modelo(0, jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jTextFieldDescricao.getText()));
+            modelo = new Modelo(0, jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jComboBoxMarca.getSelectedItem().toString()));
             modeloControle.incluir(modelo);
             listar(modeloControle.listar());
         } catch (Exception erro) {
@@ -353,20 +369,20 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         // TODO add your handling code here:
         try {
-            modeloControle.alterar(new Marca(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText()));
+            modeloControle.alterar(new Modelo(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jComboBoxMarca.getSelectedItem().toString())));
             listar(modeloControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
-    private void jTableMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMouseClicked
+    private void jTableModelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModelosMouseClicked
         // TODO add your handling code here:
         int larguraLogo = jLabelLogo.getWidth();
         int alturaLogo = jLabelLogo.getHeight();
         int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
         try {
-            modelo = new Modelo(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString(), modelo.buscar(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString()));
+            modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), modelo.buscar(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString()));
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
@@ -379,64 +395,29 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
             larguraLogo - borda,alturaLogo - borda,1));
     jLabelLogo.setIcon(iconLogo);
-    }//GEN-LAST:event_jTableMarcasMouseClicked
+    }//GEN-LAST:event_jTableModelosMouseClicked
 
-    private void jButtonLogoPredefinidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoPredefinidaActionPerformed
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         // TODO add your handling code here:
-        String texto = jTextFieldDescricao.getText();
-        if(!texto.equals("")){
-
-            /*
-            if(texto.contains(" ")){
-                String textos[] = texto.split(" ");
-                if(!textos[0].equals("")){
-                    texto = textos[0];
-                }else texto = textos[1];
-            }*/
-
-            String url = "./src/com/jp1/logosdainternet/"+ jTextFieldDescricao.getText() + ".jpg";
-            int larguraLogo = jLabelLogo.getWidth();
-            int alturaLogo = jLabelLogo.getHeight();
-            int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
-            ImageIcon imagem = null;
-            try {
-                imagem = new ImageIcon(url);
-                if(imagem.getIconWidth() == -1){
-                    url = "./src/com/jp1/logosdainternet/"+ jTextFieldDescricao.getText() + ".png";
-                    imagem = new ImageIcon(url);
-                    if(imagem.getIconWidth() == -1) {
-                        url = "";
-                        throw new Exception("Esta marca não existe no nosso banco de dados :(");
-                    }
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-
-            imagem.setImage(imagem.getImage().getScaledInstance(
-                larguraLogo - borda,alturaLogo - borda,1));
-        jLabelLogo.setIcon(imagem);
-        jTextFieldURL.setText(url);
-        }else JOptionPane.showMessageDialog(null, "Digite algo no campo Observação!");
-
-    }//GEN-LAST:event_jButtonLogoPredefinidaActionPerformed
+        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
+    }//GEN-LAST:event_jPanel1MouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JButton jButtonLogoPredefinida;
     private javax.swing.JComboBox<String> jComboBoxMarca;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableMarcas;
+    private javax.swing.JTable jTableModelos;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldIdentificador;
     private javax.swing.JTextField jTextFieldURL;

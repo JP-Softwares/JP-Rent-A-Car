@@ -1,1 +1,1 @@
-100001;TOYOTA;./src/com/jp1/logosdainternet/TOYOTA.png
+100001;TOYOTA;.\src\com\jp1\logos\100001.png

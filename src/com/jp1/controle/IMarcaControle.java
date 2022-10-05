@@ -17,7 +17,6 @@ public interface IMarcaControle {
     
     void alterar(Marca objeto) throws Exception;
 
-    Marca buscar(String descricao) throws Exception;
     
     ArrayList<Marca> listar() throws Exception;
     
