@@ -34,35 +34,38 @@ public class GradeRenderer extends DefaultTableCellRenderer {
             this.setBackground(table.getBackground());
             this.setForeground(table.getForeground());
         }
-        
         if(value != null){
-            ImageIcon iconLogo = null;
-            try {
-                if(column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
-                else if(column == 4){
-                    Object[] lista = modeloControle.listar().toArray();
-                    String idMarca = "";
-                    for(int i = 0; i < lista.length; i++){
-                        if(lista[i].toString().contains(table.getValueAt(row, 1).toString())){
-                            String linha[] = lista[i].toString().split(";");
-                            idMarca = linha[3];
+            if(value.toString().equals("")){
+                ImageIcon iconLogo = null;
+                try {
+                    if(column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
+                    else if(column == 4){
+                        Object[] lista = modeloControle.listar().toArray();
+                        int idMarca = 0;
+                        for(int i = 0; i < lista.length; i++){
+                            if(lista[i].toString().contains(table.getValueAt(row, 1).toString())){
+                                String linha[] = lista[i].toString().split(";|"
+                                        + "");
+                                idMarca = Integer.parseInt(linha[3]);
+                            }
                         }
+                        iconLogo = new ImageIcon(modelo.buscar(idMarca).getUrl());
+
                     }
-                    iconLogo = new ImageIcon(modelo.buscar(idMarca).getUrl());
-                    
+                } catch (Exception e) {
+
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
-            } catch (Exception e) {
-                
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+
+
+                int tamanho = table.getRowHeight();
+                int recuo = 20 * tamanho/ 100;
+                icone.setText((String) value);
+                iconLogo.setImage(iconLogo.getImage().getScaledInstance(
+                    tamanho - recuo,tamanho - recuo,1));
+                icone.setIcon(iconLogo);
+            }else icone = new JLabel(value.toString());
             
-            
-            int tamanho = table.getRowHeight();
-            int recuo = 20 * tamanho/ 100;
-            icone.setText((String) value);
-            iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                tamanho - recuo,tamanho - recuo,1));
-            icone.setIcon(iconLogo);
         }
         
         icone.setHorizontalAlignment(JLabel.CENTER);

@@ -79,5 +79,13 @@ public class Modelo {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
     
 }

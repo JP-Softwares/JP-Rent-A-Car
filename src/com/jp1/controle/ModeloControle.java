@@ -64,9 +64,7 @@ public class ModeloControle implements IModeloControle{
 
      public void alterar(Modelo objeto) throws Exception{
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
-        if(buscarModelo(objeto.getDescricao())){
-            throw new Exception("Modelo já cadastrado");
-        }
+        
         modeloPersistencia.alterar(objeto);
     }
 

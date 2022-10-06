@@ -6,7 +6,7 @@ package com.jp1.visao;
 
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
-import com.jp1.TableRenderer.GradeRenderer;
+import com.jp1.TableRenderer.*;
 
 
 import java.io.File;
@@ -15,7 +15,9 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +37,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         initComponents();
         this.setLocation(-8, 0);
         
+        ((DefaultTableCellRenderer) jTableModelos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        
         try {
             Object vetorMarcas[] = marcaControle.listar().toArray();
             String marcas[] = new String[vetorMarcas.length];
@@ -45,6 +49,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
             
             jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
+            listar(modeloControle.listar());
         } catch (Exception e) {
         }
         
@@ -57,12 +62,13 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             model.setNumRows(0);
             Iterator<Modelo> lista = listaDeModelos.iterator();
             while(lista.hasNext()){
-                Object[] saida= new Object[4];
+                Object[] saida= new Object[5];
                 Modelo aux = lista.next();
                 saida[0]= aux.getId()+"";
                 saida[1]= aux.getDescricao();
                 saida[2] = aux.getUrl();
                 saida[3] = "";
+                saida[4] = "";
                 //Incluir nova linha na Tabela
                 model.addRow(saida);
             }
@@ -185,6 +191,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         });
         jTableModelos.setFocusable(false);
         jTableModelos.setRowHeight(50);
+        jTableModelos.getTableHeader().setResizingAllowed(false);
+        jTableModelos.getTableHeader().setReorderingAllowed(false);
         jTableModelos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableModelosMouseClicked(evt);
@@ -192,6 +200,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableModelos);
         if (jTableModelos.getColumnModel().getColumnCount() > 0) {
+            jTableModelos.getColumnModel().getColumn(0).setCellRenderer(new GradeRenderer());
+            jTableModelos.getColumnModel().getColumn(1).setCellRenderer(new GradeRenderer());
+            jTableModelos.getColumnModel().getColumn(2).setCellRenderer(new GradeRenderer());
             jTableModelos.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
             jTableModelos.getColumnModel().getColumn(4).setCellRenderer(new GradeRenderer());
         }
@@ -382,7 +393,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         int alturaLogo = jLabelLogo.getHeight();
         int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
         try {
-            modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), modelo.buscar(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString()));
+            modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), modelo.buscar(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 3).toString()));
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
@@ -394,7 +405,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         ImageIcon iconLogo = new ImageIcon(modelo.getUrl());
         iconLogo.setImage(iconLogo.getImage().getScaledInstance(
             larguraLogo - borda,alturaLogo - borda,1));
-    jLabelLogo.setIcon(iconLogo);
+        jLabelLogo.setIcon(iconLogo);
     }//GEN-LAST:event_jTableModelosMouseClicked
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered

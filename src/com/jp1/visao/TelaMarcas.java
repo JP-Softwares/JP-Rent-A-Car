@@ -17,7 +17,9 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +38,8 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     public TelaMarcas() {
         initComponents();
         this.setLocation(-8, 0);
+        
+        ((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         /*
         try {
             ImageIcon logo = Logo.pegarLogo();
@@ -200,6 +204,9 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableMarcas);
         if (jTableMarcas.getColumnModel().getColumnCount() > 0) {
+            jTableMarcas.getColumnModel().getColumn(0).setCellRenderer(new GradeRenderer());
+            jTableMarcas.getColumnModel().getColumn(1).setCellRenderer(new GradeRenderer());
+            jTableMarcas.getColumnModel().getColumn(2).setCellRenderer(new GradeRenderer());
             jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
         }
 

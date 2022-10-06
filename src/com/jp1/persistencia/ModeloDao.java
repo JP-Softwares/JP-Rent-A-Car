@@ -91,6 +91,7 @@ public class ModeloDao implements IModeloDao {
         while((linha = br.readLine()) != null){
             if(linha.contains(objeto.getId()+"")){
                 banco+= objeto.getId() + ";" + objeto.getDescricao() + ";" + objeto.getUrl() + "\n";
+                // Falta colocar o id da marca aí
             }else{
                 banco+= linha + "\n";
             }
@@ -104,7 +105,7 @@ public class ModeloDao implements IModeloDao {
     }
 
        @Override
-    public ArrayList<Modelo> listar() throws IOException, FileNotFoundException {
+    public ArrayList<Modelo> listar() throws IOException, FileNotFoundException, Exception {
         try {
             ArrayList<Modelo> listaDeModelos = new ArrayList<Modelo>();
             FileReader fr = new FileReader(nomeDoArquivoNoDisco);
@@ -118,6 +119,7 @@ public class ModeloDao implements IModeloDao {
                 objetoModelo.setId(Integer.parseInt(vetorString[0]));
                 objetoModelo.setDescricao(vetorString[1]);
                 objetoModelo.setUrl(vetorString[2]);
+                objetoModelo.setMarca(objetoModelo.buscar(vetorString[3]));
                 listaDeModelos.add(objetoModelo);
                 //TelaMarcas.jTableMarcas.add
             }
