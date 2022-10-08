@@ -70,7 +70,23 @@ public class MarcaDao implements IMarcaDao {
         String url = "";
         try {
             url = incluirLogo(objeto);
-            if(!url.equals("")) objeto.setUrl(url);
+           
+            
+            if(url.equals("")) {
+                File outputfile = new File("./src/com/jp1/logos/"+ objeto.getId()+".png");
+                if(outputfile.exists()){
+                     if(outputfile.delete()){
+
+                }else{
+                    throw new Exception("A imagem do package logos não foi deletada com sucesso");
+                }
+                }else throw new Exception ("Imagem não existe no package logos");
+               
+
+            }else{ objeto.setUrl(url);
+
+            }
+
         } catch (Exception e) {
             throw e;
         }
@@ -81,7 +97,7 @@ public class MarcaDao implements IMarcaDao {
         String banco = "";
         while((linha = br.readLine()) != null){
             if(linha.contains(objeto.getId()+"")){
-                banco+= objeto.getId() + ";" + objeto.getDescricao() + ";" + objeto.getUrl() + "\n";
+                banco+= objeto.toString();
             }else{
                 banco+= linha + "\n";
             }

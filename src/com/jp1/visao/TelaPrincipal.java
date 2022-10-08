@@ -28,6 +28,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         lookAndFeel();
         this.setUndecorated(true);
+        javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
+        jPanelInicial.setSize(980, 540);
+        jPanelInicial.setVisible(true);
+        jPanelInicial.setVisible(false);
         initComponents();
         this.setLocationRelativeTo(null);
         jPanelVeiculosExp.setVisible(false);
@@ -239,6 +243,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/jp1/icones/Home_26x26.png"))); // NOI18N
         jLabelTitulo.setPreferredSize(new java.awt.Dimension(48, 30));
+        jLabelTitulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelTituloMouseClicked(evt);
+            }
+        });
 
         jPanelMinimizar.setBackground(jPanelBarra.getBackground());
         jPanelMinimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -398,7 +407,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 994, Short.MAX_VALUE)
+            .addGap(0, 980, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,15 +420,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 30, 994, 510);
+        jDesktopPane1.setBounds(0, 30, 980, 510);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -528,6 +537,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaMarcas telaMarcas = new TelaMarcas();
         ((BasicInternalFrameUI)telaMarcas.getUI()).setNorthPane(null);
+        jDesktopPane1.removeAll();
         jDesktopPane1.add(telaMarcas);
         telaMarcas.setVisible(true);
         jPanelVeiculosExp.setVisible(false);
@@ -557,6 +567,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaModelos telaModelos = new TelaModelos();
         ((BasicInternalFrameUI)telaModelos.getUI()).setNorthPane(null);
+        jDesktopPane1.removeAll();
         jDesktopPane1.add(telaModelos);
         telaModelos.setVisible(true);
         jPanelVeiculosExp.setVisible(false);
@@ -581,6 +592,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jButtonModelos.setBackground(Color.WHITE);
     }//GEN-LAST:event_jButtonModelosMouseReleased
+
+    private void jLabelTituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelTituloMouseClicked
 
     
     /**

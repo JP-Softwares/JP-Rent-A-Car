@@ -90,8 +90,7 @@ public class ModeloDao implements IModeloDao {
         String banco = "";
         while((linha = br.readLine()) != null){
             if(linha.contains(objeto.getId()+"")){
-                banco+= objeto.getId() + ";" + objeto.getDescricao() + ";" + objeto.getUrl() + "\n";
-                // Falta colocar o id da marca aí
+                banco+= objeto.toString();
             }else{
                 banco+= linha + "\n";
             }

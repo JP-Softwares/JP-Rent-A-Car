@@ -39,6 +39,21 @@ public class ModeloControle implements IModeloControle{
             throw erro;
         }
     }
+    private boolean buscarModelo(Modelo objeto) throws Exception{
+        try {
+            ArrayList<Modelo> listagem = modeloPersistencia.listar();
+            Iterator<Modelo> lista = listagem.iterator();
+            while(lista.hasNext()){
+                Modelo aux = lista.next();
+                if(aux.getDescricao().equalsIgnoreCase(objeto.getDescricao()) && aux.getId() != objeto.getId()){
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception erro) {
+            throw erro;
+        }
+    }
 
     public Marca buscar(String descricao) throws Exception{
         return modeloPersistencia.buscar(descricao);
@@ -64,7 +79,9 @@ public class ModeloControle implements IModeloControle{
 
      public void alterar(Modelo objeto) throws Exception{
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
-        
+        if(buscarModelo(objeto)){
+            throw new Exception("Modelo já cadastrado");
+        }
         modeloPersistencia.alterar(objeto);
     }
 

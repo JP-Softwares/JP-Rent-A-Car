@@ -39,6 +39,22 @@ public class MarcaControle implements IMarcaControle {
             throw erro;
         }
     }
+    
+      private boolean buscarMarca(Marca objeto) throws Exception{
+        try {
+            ArrayList<Marca> listagem = marcaPersistencia.listar();
+            Iterator<Marca> lista = listagem.iterator();
+            while(lista.hasNext()){
+                Marca aux = lista.next();
+                if(aux.getDescricao().equalsIgnoreCase(objeto.getDescricao()) && aux.getId() != objeto.getId()){
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception erro) {
+            throw erro;
+        }
+    }
 
     private boolean verificarVazio(Marca objeto){
         if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
@@ -56,14 +72,15 @@ public class MarcaControle implements IMarcaControle {
 
      public void alterar(Marca objeto) throws Exception{
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
-        
+        if(buscarMarca(objeto)){
+            throw new Exception("Marca já cadastrada");
+        }
         marcaPersistencia.alterar(objeto);
      }
      
 
      public ArrayList<Marca> listar() throws Exception{
         return marcaPersistencia.listar();
-      
      }
 
     
