@@ -80,7 +80,7 @@ public class MarcaDao implements IMarcaDao {
                 }else{
                     throw new Exception("A imagem do package logos não foi deletada com sucesso");
                 }
-                }else throw new Exception ("Imagem não existe no package logos");
+                }//else throw new Exception ("Imagem não existe no package logos");
                
 
             }else{ objeto.setUrl(url);

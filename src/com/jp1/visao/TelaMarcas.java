@@ -4,10 +4,11 @@
  */
 package com.jp1.visao;
 
-import com.jp1.TableRenderer.GradeRenderer;
+import com.jp1.Renderer.*;
 import com.jp1.modelos.Marca;
 
 import com.jp1.controle.*;
+import java.awt.Color;
 
 import java.awt.event.KeyEvent;
 
@@ -34,6 +35,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     IMarcaControle marcaControle = new MarcaControle();
     Marca marca = null;
     boolean espaco = false;
+    int linha = 0;
     
     public TelaMarcas() {
         initComponents();
@@ -58,6 +60,15 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
+    }
+    
+    
+    
+    public void limparTabela(){
+        jTextFieldIdentificador.setText("");
+        jTextFieldDescricao.setText("");
+        jTextFieldURL.setText("");
+        jTableMarcas.clearSelection();
     }
     
     public void listar(ArrayList<Marca> listaDeMarcas){
@@ -114,6 +125,9 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(980, 510));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel1MouseEntered(evt);
             }
@@ -190,6 +204,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(952, 244));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
         jTableMarcas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,6 +228,9 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         });
         jTableMarcas.setFocusable(false);
         jTableMarcas.setRowHeight(50);
+        jTableMarcas.setSelectionBackground(new java.awt.Color(52, 135, 231));
+        jTableMarcas.getTableHeader().setResizingAllowed(false);
+        jTableMarcas.getTableHeader().setReorderingAllowed(false);
         jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMarcasMouseClicked(evt);
@@ -224,7 +246,13 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
         jButtonLogoPredefinida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
+        jButtonLogoPredefinida.setBorder(null);
         jButtonLogoPredefinida.setFocusable(false);
+        jButtonLogoPredefinida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonLogoPredefinidaMouseEntered(evt);
+            }
+        });
         jButtonLogoPredefinida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogoPredefinidaActionPerformed(evt);
@@ -275,7 +303,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -332,7 +360,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -386,6 +414,9 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             marca = new Marca(0, jTextFieldDescricao.getText(), jTextFieldURL.getText());
             marcaControle.incluir(marca);
             listar(marcaControle.listar());
+            jTextFieldIdentificador.setText("");
+            jTextFieldDescricao.setText("");
+            jTextFieldURL.setText("");
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
@@ -398,6 +429,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             try {
                 marcaControle.alterar(new Marca(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText()));
                 listar(marcaControle.listar());
+                jTableMarcas.changeSelection(linha, 0, false, false);
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
@@ -408,6 +440,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     private void jTableMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMouseClicked
         // TODO add your handling code here:
         if(jTableMarcas.getSelectedRow() != -1){
+            linha = jTableMarcas.getSelectedRow();
             int larguraLogo = jLabelLogo.getWidth();
             int alturaLogo = jLabelLogo.getHeight();
             int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
@@ -475,6 +508,20 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+        limparTabela();
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        limparTabela();
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jButtonLogoPredefinidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoPredefinidaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLogoPredefinidaMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -23,7 +23,20 @@ public class MarcaControle implements IMarcaControle {
     public MarcaControle(){
         this.marcaPersistencia = new MarcaDao();
     }
-    
+    //private String verificarDescricao(String descricao){
+        //String str = descricao.replaceAll("\\s+", "");
+        //return str;
+    //}
+    private String verificarDescricao(String descricao){
+        String str;
+        while(descricao.endsWith(" ")){
+            descricao = descricao.replaceFirst(".$", "");
+        }
+        while(descricao.startsWith(" ")){
+            descricao = descricao.substring(1);
+        }
+        return descricao;
+    }    
     private boolean buscarMarca(String descricao) throws Exception{
         try {
             ArrayList<Marca> listagem = marcaPersistencia.listar();
@@ -62,6 +75,7 @@ public class MarcaControle implements IMarcaControle {
     }
 
      public void incluir(Marca objeto) throws Exception{
+        objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
         if(buscarMarca(objeto.getDescricao())){
             throw new Exception("Marca já cadastrada");
@@ -71,6 +85,7 @@ public class MarcaControle implements IMarcaControle {
      }
 
      public void alterar(Marca objeto) throws Exception{
+        objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
         if(buscarMarca(objeto)){
             throw new Exception("Marca já cadastrada");

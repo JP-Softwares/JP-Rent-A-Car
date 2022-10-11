@@ -24,6 +24,17 @@ public class ModeloControle implements IModeloControle{
         this.modeloPersistencia = new ModeloDao();
     }
     
+    private String verificarDescricao(String descricao){
+        String str;
+        while(descricao.endsWith(" ")){
+            descricao = descricao.replaceFirst(".$", "");
+        }
+        while(descricao.startsWith(" ")){
+            descricao = descricao.substring(1);
+        }
+        return descricao;
+    }    
+
     private boolean buscarModelo(String descricao) throws Exception{
         try {
             ArrayList<Modelo> listagem = modeloPersistencia.listar();
@@ -69,6 +80,7 @@ public class ModeloControle implements IModeloControle{
     }
 
     public void incluir(Modelo objeto) throws Exception{
+        objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
         if(buscarModelo(objeto.getDescricao())){
             throw new Exception("Modelo já cadastrado");
@@ -78,6 +90,7 @@ public class ModeloControle implements IModeloControle{
     }
 
      public void alterar(Modelo objeto) throws Exception{
+        objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
         if(buscarModelo(objeto)){
             throw new Exception("Modelo já cadastrado");

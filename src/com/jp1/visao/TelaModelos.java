@@ -4,9 +4,9 @@
  */
 package com.jp1.visao;
 
+import com.jp1.Renderer.GradeRenderer;
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
-import com.jp1.TableRenderer.*;
 
 
 import java.io.File;
@@ -33,26 +33,45 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     Modelo modelo = new Modelo();
     IMarcaControle marcaControle = new MarcaControle();
     boolean espaco = false;
+    int linha = 0;
+    
     public TelaModelos() {
         initComponents();
         
         ((DefaultTableCellRenderer) jTableModelos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
         try {
-            Object vetorMarcas[] = marcaControle.listar().toArray();
-            String marcas[] = new String[vetorMarcas.length];
-            
-            for(int i = 0; i < marcas.length; i++){
-                String aux[] = vetorMarcas[i].toString().split(";");
-                marcas[i] = aux[1];
-            }
-            
-            jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
             listar(modeloControle.listar());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
+        
+    }
+    
+    public void listarComboBox(){
+        try {
+            Object vetorMarcas[] = marcaControle.listar().toArray();
+            String marcas[] = new String[vetorMarcas.length];
+
+            for(int i = 0; i < marcas.length; i++){
+                String aux[] = vetorMarcas[i].toString().split(";");
+                marcas[i] = aux[1];
+            }
+
+            jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+    }
+    
+    public void limparTabela(){
+        jTextFieldIdentificador.setText("");
+        jTextFieldDescricao.setText("");
+        jTextFieldURL.setText("");
+        jTableModelos.clearSelection();
+        jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
     }
     
     public void listar(ArrayList<Modelo> listaDeModelos){
@@ -113,6 +132,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setVerifyInputWhenFocusTarget(false);
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel1MouseEntered(evt);
             }
@@ -191,6 +213,11 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(952, 244));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
         jTableModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,8 +236,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
         jTableModelos.setFocusable(false);
-        jTableModelos.setPreferredSize(new java.awt.Dimension(300, 0));
         jTableModelos.setRowHeight(50);
+        jTableModelos.setSelectionBackground(new java.awt.Color(52, 135, 231));
         jTableModelos.getTableHeader().setResizingAllowed(false);
         jTableModelos.getTableHeader().setReorderingAllowed(false);
         jTableModelos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,7 +356,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
         );
 
         pack();
@@ -384,6 +411,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         try {
             modelo = new Modelo(0, jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jComboBoxMarca.getSelectedItem().toString()));
             modeloControle.incluir(modelo);
+            jTextFieldDescricao.setText("");
+            jTextFieldURL.setText("");
+            jTextFieldIdentificador.setText("");
             listar(modeloControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -396,6 +426,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             try {
                 modeloControle.alterar(new Modelo(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText(), modelo.buscar(jComboBoxMarca.getSelectedItem().toString())));
                 listar(modeloControle.listar());
+                jTableModelos.changeSelection(linha, 0, false, false);
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
@@ -406,11 +437,24 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private void jTableModelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModelosMouseClicked
         // TODO add your handling code here:
         if(jTableModelos.getSelectedRow() != -1){
+            listarComboBox();
             int larguraLogo = jLabelLogo.getWidth();
             int alturaLogo = jLabelLogo.getHeight();
             int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
+            linha = jTableModelos.getSelectedRow();
+            
+            
             try {
-                modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), modelo.buscar(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 3).toString()));
+                Object[] lista = modeloControle.listar().toArray();
+                int idMarca = 0;
+                for(int i = 0; i < lista.length; i++){
+                    if(lista[i].toString().contains(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString())){
+
+                        String linha[] = lista[i].toString().split(";");
+                        idMarca = Integer.parseInt(linha[3].replace("\n", ""));
+                    }
+                }
+                modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), modelo.buscar(idMarca));
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
@@ -418,6 +462,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             jTextFieldIdentificador.setText(modelo.getId() + "");
             jTextFieldDescricao.setText(modelo.getDescricao());
             jTextFieldURL.setText(modelo.getUrl());
+            jComboBoxMarca.setSelectedItem((Object) (modelo.getMarca().getDescricao()));
 
             ImageIcon iconLogo = new ImageIcon(modelo.getUrl());
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(
@@ -431,6 +476,16 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+        limparTabela();
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        limparTabela();
+    }//GEN-LAST:event_jPanel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
