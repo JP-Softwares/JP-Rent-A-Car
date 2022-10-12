@@ -72,6 +72,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jTextFieldURL.setText("");
         jTableModelos.clearSelection();
         jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        jLabelLogo.setIcon(null);
     }
     
     public void listar(ArrayList<Modelo> listaDeModelos){

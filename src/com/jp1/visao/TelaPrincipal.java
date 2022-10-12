@@ -4,14 +4,22 @@
  */
 package com.jp1.visao;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author aluno
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form TelaPrincipal
@@ -23,24 +31,66 @@ public class TelaPrincipal extends javax.swing.JFrame {
     int mousey = 0;
     boolean texto = false;
     boolean panel = false;
+    int time = 0;
+    float opacity = 10;
+    int animar = 0;
     
+    
+    javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
+    Timer timer = new Timer(1000/30, this);
+    
+    public void pintar(Graphics g) {
+        if (g != null) {
+            Graphics2D g2d = (Graphics2D) g;
+            System.out.println(opacity/10);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity/10));
+            opacity-= 1;
+            super.paint(g);
+            if(opacity == 2) {
+                g = null;
+                jPanelInicial.setVisible(false);
+            }
+        }
+    }
     
     public TelaPrincipal() {
         lookAndFeel();
-        this.setUndecorated(true);
-        javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
-        jPanelInicial.setSize(980, 540);
-        jPanelInicial.setVisible(true);
-        jPanelInicial.setVisible(false);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        jPanelVeiculosExp.setVisible(false);
-        jPanelVeiculosExp.setLocale(jPanelVeiculos.getLocale());
-        jButtonMarcas.setBackground(Color.WHITE);
-        jButtonModelos.setBackground(Color.WHITE);
         
-        localx = getX();
-        localy = getY();
+        this.setUndecorated(true);
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(980, 540));
+        setResizable(false);
+        pack();
+        this.setLocationRelativeTo(null);
+        jPanelInicial.setBackground(Color.WHITE);
+        jPanelInicial.setSize(980, 540);
+        JLabel logo = new JLabel();
+        logo.setIcon(new ImageIcon(getClass().getResource("/com/jp1/icones/JP_Softwares.png")));
+        jPanelInicial.getGraphics();
+        javax.swing.GroupLayout jPanelInicialLayout = new javax.swing.GroupLayout(jPanelInicial);
+        jPanelInicial.setLayout(jPanelInicialLayout);
+        jPanelInicialLayout.setHorizontalGroup(
+            jPanelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicialLayout.createSequentialGroup()
+                .addGap(250)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                
+        );
+        jPanelInicialLayout.setVerticalGroup(
+            jPanelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicialLayout.createSequentialGroup()
+                .addGap(50)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                )
+                
+        );
+        getContentPane().add(jPanelInicial);
+        
+        timer.start();
+        
+        
     }
     
     public void lookAndFeel(){
@@ -595,6 +645,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jLabelTituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseClicked
         // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(jPanel1);
     }//GEN-LAST:event_jLabelTituloMouseClicked
 
     
@@ -655,4 +707,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
     protected javax.swing.JPanel jPanelVeiculosExp;
     private javax.swing.JPanel jPanelX;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        time++;
+        if(time >= 20 && time <= 30){
+            animar++;
+            System.out.println(animar);
+            pintar(jPanelInicial.getGraphics());
+            
+        }
+        
+        if(time == 30){
+            //jPanelInicial.setVisible(false);
+            System.out.println("parou");
+            timer.stop();
+            
+
+            initComponents();
+
+            jPanelVeiculosExp.setVisible(false);
+            jPanelVeiculosExp.setLocale(jPanelVeiculos.getLocale());
+            jButtonMarcas.setBackground(Color.WHITE);
+            jButtonModelos.setBackground(Color.WHITE);
+
+
+            localx = getX();
+            localy = getY();
+        }
+        
+    }
+
 }

@@ -8,7 +8,6 @@ import com.jp1.Renderer.*;
 import com.jp1.modelos.Marca;
 
 import com.jp1.controle.*;
-import java.awt.Color;
 
 import java.awt.event.KeyEvent;
 
@@ -69,6 +68,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jTextFieldDescricao.setText("");
         jTextFieldURL.setText("");
         jTableMarcas.clearSelection();
+        jLabelLogo.setIcon(null);
     }
     
     public void listar(ArrayList<Marca> listaDeMarcas){
@@ -246,7 +246,6 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
         jButtonLogoPredefinida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
-        jButtonLogoPredefinida.setBorder(null);
         jButtonLogoPredefinida.setFocusable(false);
         jButtonLogoPredefinida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -303,7 +302,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

@@ -52,7 +52,7 @@ public class GradeRenderer extends DefaultTableCellRenderer {
                                 idMarca = Integer.parseInt(linha[3].replace("\n", ""));
                             }
                         }
-                        iconLogo = new ImageIcon(modelo.buscar(idMarca).getUrl());
+                        iconLogo = new ImageIcon(getClass().getResource(modelo.buscar(idMarca).getUrl().replace("./src", "")));
 
                     }
                 } catch (Exception e) {
