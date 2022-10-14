@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -19,7 +20,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  *
  * @author aluno
  */
-public class TelaPrincipal extends javax.swing.JFrame implements ActionListener {
+public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListener*/ {
 
     /**
      * Creates new form TelaPrincipal
@@ -36,28 +37,38 @@ public class TelaPrincipal extends javax.swing.JFrame implements ActionListener 
     int animar = 0;
     
     
-    javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
-    Timer timer = new Timer(1000/30, this);
+//    javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
+//    Timer timer = new Timer(1000/30, this);
     
-    public void pintar(Graphics g) {
+    /*public void pintar(Graphics g) {
         if (g != null) {
             Graphics2D g2d = (Graphics2D) g;
             System.out.println(opacity/10);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity/10));
             opacity-= 1;
             super.paint(g);
-            if(opacity == 2) {
+            if(opacity == 0) {
                 g = null;
                 jPanelInicial.setVisible(false);
             }
         }
-    }
+    }*/
     
     public TelaPrincipal() {
         lookAndFeel();
-        
         this.setUndecorated(true);
-        
+        initComponents();
+        this.setLocationRelativeTo(null);
+
+        jPanelVeiculosExp.setVisible(false);
+        jPanelVeiculosExp.setLocale(jPanelVeiculos.getLocale());
+        jButtonMarcas.setBackground(Color.WHITE);
+        jButtonModelos.setBackground(Color.WHITE);
+
+
+        localx = getX();
+        localy = getY();
+        /*
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(980, 540));
         setResizable(false);
@@ -88,8 +99,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements ActionListener 
         );
         getContentPane().add(jPanelInicial);
         
-        timer.start();
-        
+        timer.start();*/
         
     }
     
@@ -708,6 +718,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JPanel jPanelX;
     // End of variables declaration//GEN-END:variables
 
+    /*
     @Override
     public void actionPerformed(ActionEvent e) {
         time++;
@@ -736,6 +747,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements ActionListener 
             localy = getY();
         }
         
-    }
+    }*/
 
 }
