@@ -36,7 +36,15 @@ public class MarcaControle implements IMarcaControle {
             descricao = descricao.substring(1);
         }
         return descricao;
-    }    
+    }  
+
+    public Marca buscar(String descricao) throws Exception{
+        return marcaPersistencia.buscar(descricao);
+    }
+
+    public Marca buscar(int id) throws Exception{
+        return marcaPersistencia.buscar(id);
+    }  
     private boolean buscarMarca(String descricao) throws Exception{
         try {
             ArrayList<Marca> listagem = marcaPersistencia.listar();

@@ -4,6 +4,10 @@
  */
 package com.jp1.modelos;
 
+import com.jp1.controle.IMarcaControle;
+import com.jp1.controle.MarcaControle;
+
+
 /**
  *
  * @author HP
@@ -14,10 +18,32 @@ public class Marca {
     private String descricao = "";
     private String url = "";
     
+    
     //Métodos
     
     public Marca(){
         
+    }
+    
+    public Marca buscar(String descricao) throws Exception{
+        try {
+            IMarcaControle marcaControle = new MarcaControle();
+            Marca marca = marcaControle.buscar(descricao);
+            return marca;
+        } catch (Exception e) {
+            throw e;
+        }
+        
+    }
+    
+    public Marca buscar(int id) throws Exception{
+        try {
+            IMarcaControle marcaControle = new MarcaControle();
+            Marca marca = marcaControle.buscar(id);
+            return marca;
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
     public Marca(int id, String descricao, String url){

@@ -13,66 +13,42 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author aluno
  */
-public class ModeloDao implements IModeloDao {
+public class  ModeloDao implements IModeloDao {
 
     String nomeDoArquivoNoDisco = "./src/com/jp1/arquivosdedados/modelo.txt";
     
-    public Marca buscar(String descricao) throws IOException, FileNotFoundException {
-
+    
+    
+    private String incluirAutoRetrato(Modelo objeto) throws Exception{
+        BufferedImage imagem = null;
         try {
-            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
-            BufferedReader br = new BufferedReader(fr); 
-
-            String linha =  "";
-
-            Marca objetoMarca = new Marca();
-
-            while(!(linha = br.readLine()).contains(descricao));
-             String vetorString[] = linha.split(";");
-             objetoMarca.setId(Integer.parseInt(vetorString[0]));
-             objetoMarca.setDescricao(vetorString[1]);
-             objetoMarca.setUrl(vetorString[2]);
-            br.close();
-            return objetoMarca;
-            
-        } catch (Exception erro) {
-            throw erro;
+            imagem = ImageIO.read(new File(objeto.getUrl()));
+            File outputfile = new File("./src/com/jp1/autoretrato/"+ objeto.getId()+".png");
+            ImageIO.write(imagem, "png", outputfile);
+            return outputfile.toString();
+        } catch (Exception e) {
+            throw e;
         }
-  }
-
-  public Marca buscar(int id) throws IOException, FileNotFoundException {
-
-        try {
-            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
-            BufferedReader br = new BufferedReader(fr); 
-
-            String linha =  "";
-
-            Marca objetoMarca = new Marca();
-
-            while(!(linha = br.readLine()).contains(id+""));
-            
-             String vetorString[] = linha.split(";");
-             objetoMarca.setId(Integer.parseInt(vetorString[0]));
-             objetoMarca.setDescricao(vetorString[1]);
-             objetoMarca.setUrl(vetorString[2]);
-            br.close();
-            return objetoMarca;
-            
-        } catch (Exception erro) {
-            throw erro;
-        }
-  }
-
+    }
 
    @Override
- public void incluir(Modelo objeto) throws IOException, FileNotFoundException{
-  try {
+    public void incluir(Modelo objeto) throws Exception{
+        try {
+            objeto.setUrl(incluirAutoRetrato(objeto));
             FileWriter fw = new FileWriter(nomeDoArquivoNoDisco, true);
             BufferedWriter bw  = new BufferedWriter(fw);
             bw.write(objeto.toString());
@@ -80,10 +56,15 @@ public class ModeloDao implements IModeloDao {
         } catch (Exception erro) {
             throw erro;
         }
- }
+    }
 
  @Override
-    public void alterar(Modelo objeto) throws IOException, FileNotFoundException {
+    public void alterar(Modelo objeto) throws Exception {
+        try {
+            objeto.setUrl(incluirAutoRetrato(objeto));
+        } catch (Exception e) {
+            throw e;
+        }
         FileReader fr = new FileReader(nomeDoArquivoNoDisco);
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
@@ -114,11 +95,12 @@ public class ModeloDao implements IModeloDao {
 
             while((linha = br.readLine()) != null){
                 Modelo objetoModelo = new Modelo();
+                IMarcaDao marcaDao = new MarcaDao();
                 String vetorString[] = linha.split(";");
                 objetoModelo.setId(Integer.parseInt(vetorString[0]));
                 objetoModelo.setDescricao(vetorString[1]);
                 objetoModelo.setUrl(vetorString[2]);
-                objetoModelo.setMarca(objetoModelo.buscar(vetorString[3]));
+                objetoModelo.setMarca(marcaDao.buscar(vetorString[3]));
                 listaDeModelos.add(objetoModelo);
                 //TelaMarcas.jTableMarcas.add
             }
@@ -128,7 +110,7 @@ public class ModeloDao implements IModeloDao {
             throw erro;
         }
     }
-
+     
 }
 
   

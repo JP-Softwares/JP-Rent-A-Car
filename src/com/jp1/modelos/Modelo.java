@@ -33,28 +33,6 @@ public class Modelo {
     public String toString() {
         return id + ";" + descricao + ";" + url + ";" + marca.getId() +"\n";
     }
-    
-    public Marca buscar(String descricao) throws Exception{
-        try {
-            IModeloControle modeloControle = new ModeloControle();
-            Marca marca = modeloControle.buscar(descricao);
-            return marca;
-        } catch (Exception e) {
-            throw e;
-        }
-        
-    }
-    
-    public Marca buscar(int id) throws Exception{
-        try {
-            IModeloControle modeloControle = new ModeloControle();
-            Marca marca = modeloControle.buscar(id);
-            return marca;
-        } catch (Exception e) {
-            throw e;
-        }
-        
-    }
 
     public int getId() {
         return id;

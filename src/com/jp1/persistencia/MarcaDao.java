@@ -27,13 +27,61 @@ import javax.swing.JOptionPane;
  *
  * @author HP
  */
-public class MarcaDao implements IMarcaDao {
+public class MarcaDao implements IMarcaDao {    
     
     String nomeDoArquivoNoDisco = "/com/jp1/arquivosdedados/marca.txt";
     
     public MarcaDao(){
         
     } 
+
+    public Marca buscar(String descricao) throws IOException, FileNotFoundException {
+
+        try {
+            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
+            BufferedReader br = new BufferedReader(fr); 
+
+            String linha =  "";
+
+            Marca objetoMarca = new Marca();
+
+            while(!(linha = br.readLine()).contains(descricao));
+             String vetorString[] = linha.split(";");
+             objetoMarca.setId(Integer.parseInt(vetorString[0]));
+             objetoMarca.setDescricao(vetorString[1]);
+             objetoMarca.setUrl(vetorString[2]);
+            br.close();
+            return objetoMarca;
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
+  }
+
+  public Marca buscar(int id) throws IOException, FileNotFoundException {
+
+        try {
+            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
+            BufferedReader br = new BufferedReader(fr); 
+
+            String linha =  "";
+
+            Marca objetoMarca = new Marca();
+
+            while(!(linha = br.readLine()).contains(id+""));
+            
+             String vetorString[] = linha.split(";");
+             objetoMarca.setId(Integer.parseInt(vetorString[0]));
+             objetoMarca.setDescricao(vetorString[1]);
+             objetoMarca.setUrl(vetorString[2]);
+            br.close();
+            return objetoMarca;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+  }
+
 
     private String incluirLogo(Marca objeto) throws Exception{
         if(objeto.getUrl().contains("logosdainternet")) return "";

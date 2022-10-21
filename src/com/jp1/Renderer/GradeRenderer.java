@@ -22,9 +22,8 @@ import javax.swing.event.ListSelectionEvent;
 public class GradeRenderer extends DefaultTableCellRenderer {
     
     JLabel icone = new JLabel();
-    Modelo modelo = new Modelo();
     IModeloControle modeloControle = new ModeloControle();
-    
+    IMarcaControle marcaControle = new MarcaControle();
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -52,7 +51,7 @@ public class GradeRenderer extends DefaultTableCellRenderer {
                                 idMarca = Integer.parseInt(linha[3].replace("\n", ""));
                             }
                         }
-                        iconLogo = new ImageIcon(getClass().getResource(modelo.buscar(idMarca).getUrl().replace("./src", "")));
+                        iconLogo = new ImageIcon(getClass().getResource(marcaControle.buscar(idMarca).getUrl().replace("./src", "")));
 
                     }
                 } catch (Exception e) {

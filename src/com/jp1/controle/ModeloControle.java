@@ -17,12 +17,12 @@ import com.jp1.tools.ID;
  * @author aluno
  */
 public class ModeloControle implements IModeloControle{
-
-    IModeloDao modeloPersistencia = null;
+    
 
     public ModeloControle(){
         this.modeloPersistencia = new ModeloDao();
     }
+    IModeloDao modeloPersistencia = null;
     
     private String verificarDescricao(String descricao){
         String str;
@@ -66,19 +66,13 @@ public class ModeloControle implements IModeloControle{
         }
     }
 
-    public Marca buscar(String descricao) throws Exception{
-        return modeloPersistencia.buscar(descricao);
-    }
-
-    public Marca buscar(int id) throws Exception{
-        return modeloPersistencia.buscar(id);
-    }
+    
 
     private boolean verificarVazio(Modelo objeto){
         if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
         return false;
     }
-
+    @Override
     public void incluir(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
@@ -88,7 +82,7 @@ public class ModeloControle implements IModeloControle{
         objeto.setId(ID.getID());
         modeloPersistencia.incluir(objeto);
     }
-
+    @Override
      public void alterar(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
@@ -97,7 +91,7 @@ public class ModeloControle implements IModeloControle{
         }
         modeloPersistencia.alterar(objeto);
     }
-
+    @Override
     public ArrayList<Modelo> listar() throws Exception{
         return modeloPersistencia.listar();
       

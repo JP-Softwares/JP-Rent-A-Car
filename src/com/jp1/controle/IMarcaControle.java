@@ -19,5 +19,9 @@ public interface IMarcaControle {
 
     
     ArrayList<Marca> listar() throws Exception;
+             
+    Marca buscar(String descricao) throws Exception;
+
+    Marca buscar(int id) throws Exception;
     
 }

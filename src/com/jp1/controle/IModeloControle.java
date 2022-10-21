@@ -17,9 +17,6 @@ public interface IModeloControle {
     
     void alterar(Modelo objeto) throws Exception;
 
-    Marca buscar(String descricao) throws Exception;
-
-    Marca buscar(int id) throws Exception;
     
     ArrayList<Modelo> listar() throws Exception;
     

@@ -6,6 +6,8 @@ package com.jp1.persistencia;
 
 import java.util.ArrayList;
 import com.jp1.modelos.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -16,8 +18,5 @@ public interface IModeloDao {
     void incluir(Modelo objeto) throws Exception;
     void alterar(Modelo objeto) throws Exception;
     ArrayList<Modelo> listar() throws Exception;
-    Marca buscar(String descricao) throws Exception;
-    Marca buscar(int id) throws Exception;
-    
-}
+}    
 
