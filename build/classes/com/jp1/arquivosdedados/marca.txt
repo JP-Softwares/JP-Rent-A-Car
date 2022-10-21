@@ -1,2 +1,0 @@
-100001;FIAT;./src/com/jp1/logosdainternet/FIAT.png
-100003;NISSAN;./src/com/jp1/logosdainternet/NISSAN.jpg

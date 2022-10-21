@@ -1,1 +1,0 @@
-100002;PALIO VERDE ABACATE;.\src\com\jp1\autoretrato\100002.png;100001
