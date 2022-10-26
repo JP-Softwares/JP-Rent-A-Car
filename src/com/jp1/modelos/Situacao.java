@@ -9,5 +9,5 @@ package com.jp1.modelos;
  * @author aluno
  */
 public enum Situacao {
-    
+    DISPONIVEL, LOCADO, VENDIDO
 }

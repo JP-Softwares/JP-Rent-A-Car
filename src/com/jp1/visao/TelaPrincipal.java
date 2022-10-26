@@ -20,7 +20,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  *
  * @author aluno
  */
-public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListener*/ {
+public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionListener*/ {
 
     /**
      * Creates new form TelaPrincipal
@@ -30,11 +30,11 @@ public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListene
     int localy = 0;
     int mousex = 0;
     int mousey = 0;
-    boolean texto = false;
-    boolean panel = false;
-    int time = 0;
-    float opacity = 10;
-    int animar = 0;
+//    boolean texto = false;
+//    boolean panel = false;
+//    int time = 0;
+//    float opacity = 10;
+//    int animar = 0;
     
     
 //    javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
@@ -125,10 +125,10 @@ public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListene
         
     }
     
-    public boolean verificarveiculo(){
-        if(texto || panel) return true;
-        return false;
-    }
+//    public boolean verificarveiculo(){
+//        if(texto || panel) return true;
+//        return false;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -302,10 +302,17 @@ public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListene
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/jp1/icones/Home_26x26.png"))); // NOI18N
+        jLabelTitulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelTitulo.setPreferredSize(new java.awt.Dimension(48, 30));
         jLabelTitulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTituloMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelTituloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelTituloMouseExited(evt);
             }
         });
 
@@ -559,18 +566,18 @@ public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListene
     private void jPanelVeiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosMouseEntered
         // TODO add your handling code here:
         jPanelVeiculosExp.setVisible(true);
-        texto = true;
+        //texto = true;
     }//GEN-LAST:event_jPanelVeiculosMouseEntered
 
     private void jPanelVeiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosMouseExited
         // TODO add your handling code here:
-        texto = false;
+        //texto = false;
         
     }//GEN-LAST:event_jPanelVeiculosMouseExited
 
     private void jPanelVeiculosExpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosExpMouseEntered
         // TODO add your handling code here:
-        panel = true;
+        //panel = true;
     }//GEN-LAST:event_jPanelVeiculosExpMouseEntered
 
     private void jPanelVeiculosExpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosExpMouseExited
@@ -658,6 +665,14 @@ public class TelaPrincipal extends javax.swing.JFrame /*implements ActionListene
         jDesktopPane1.removeAll();
         jDesktopPane1.add(jPanel1);
     }//GEN-LAST:event_jLabelTituloMouseClicked
+
+    private void jLabelTituloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelTituloMouseEntered
+
+    private void jLabelTituloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelTituloMouseExited
 
     
     /**

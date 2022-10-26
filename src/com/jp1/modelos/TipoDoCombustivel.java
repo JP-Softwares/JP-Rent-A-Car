@@ -9,5 +9,5 @@ package com.jp1.modelos;
  * @author aluno
  */
 public enum TipoDoCombustivel {
-    
+    GASOLINA, DIESEL, FLEX, ELETRICO, GNV
 }
