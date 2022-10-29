@@ -79,7 +79,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         }
     }
     
-    public void limparTabela(){
+    public void limpar(){
         jTextFieldIdentificador.setText("");
         jTextFieldDescricao.setText("");
         jTextFieldURL.setText("");
@@ -509,12 +509,12 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
-        limparTabela();
+        limpar();
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        limparTabela();
+        limpar();
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jComboBoxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMarcaActionPerformed

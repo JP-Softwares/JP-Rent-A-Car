@@ -72,6 +72,7 @@ public class ModeloControle implements IModeloControle{
         if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
         return false;
     }
+    
     @Override
     public void incluir(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
