@@ -121,6 +121,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
         setBorder(null);
         setPreferredSize(new java.awt.Dimension(980, 510));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(980, 510));
@@ -227,6 +232,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             }
         });
         jTableMarcas.setFocusable(false);
+        jTableMarcas.setName("TabelaMarcas"); // NOI18N
         jTableMarcas.setRowHeight(50);
         jTableMarcas.setSelectionBackground(new java.awt.Color(52, 135, 231));
         jTableMarcas.getTableHeader().setResizingAllowed(false);
@@ -520,7 +526,12 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
     private void jButtonLogoPredefinidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoPredefinidaMouseEntered
         // TODO add your handling code here:
+        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jButtonLogoPredefinidaMouseEntered
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

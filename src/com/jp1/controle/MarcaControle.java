@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import com.jp1.tools.ID;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -19,6 +23,7 @@ import com.jp1.tools.ID;
 public class MarcaControle implements IMarcaControle {
     
     IMarcaDao marcaPersistencia = null;
+    
     
     public MarcaControle(){
         this.marcaPersistencia = new MarcaDao();
@@ -73,6 +78,7 @@ public class MarcaControle implements IMarcaControle {
             }
             return false;
         } catch (Exception erro) {
+           
             throw erro;
         }
     }
@@ -85,8 +91,15 @@ public class MarcaControle implements IMarcaControle {
      public void incluir(Marca objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
-        if(buscarMarca(objeto.getDescricao())){
-            throw new Exception("Marca já cadastrada");
+        try{
+            if(buscarMarca(objeto.getDescricao())){
+                throw new Exception("Marca já cadastrada");
+            }
+        }catch(Exception erro) {
+            if(erro.getMessage().contains("arquivo especificado")){  
+            }else{
+                throw erro;
+            }
         }
         objeto.setId(ID.getID());
         marcaPersistencia.incluir(objeto);
@@ -103,7 +116,11 @@ public class MarcaControle implements IMarcaControle {
      
 
      public ArrayList<Marca> listar() throws Exception{
-        return marcaPersistencia.listar();
+        try{
+            return marcaPersistencia.listar();
+        }catch(Exception erro){
+            return new ArrayList<Marca>();
+        }
      }
 
     

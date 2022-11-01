@@ -100,7 +100,12 @@ public class  ModeloDao implements IModeloDao {
                 objetoModelo.setId(Integer.parseInt(vetorString[0]));
                 objetoModelo.setDescricao(vetorString[1]);
                 objetoModelo.setUrl(vetorString[2]);
-                objetoModelo.setMarca(marcaDao.buscar(vetorString[3]));
+                try {
+                    objetoModelo.setMarca(marcaDao.buscar(vetorString[3]));
+                } catch (Exception e) {
+                    
+                }
+                
                 listaDeModelos.add(objetoModelo);
                 //TelaMarcas.jTableMarcas.add
             }

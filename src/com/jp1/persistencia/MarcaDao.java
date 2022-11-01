@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
  */
 public class MarcaDao implements IMarcaDao {    
     
-    String nomeDoArquivoNoDisco = "/com/jp1/arquivosdedados/marca.txt";
+    String nomeDoArquivoNoDisco = "./src/com/jp1/arquivosdedados/marca.txt";
     
     public MarcaDao(){
         
@@ -38,7 +38,7 @@ public class MarcaDao implements IMarcaDao {
     public Marca buscar(String descricao) throws IOException, FileNotFoundException {
 
         try {
-            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
             BufferedReader br = new BufferedReader(fr); 
 
             String linha =  "";
@@ -61,7 +61,7 @@ public class MarcaDao implements IMarcaDao {
   public Marca buscar(int id) throws IOException, FileNotFoundException {
 
         try {
-            FileReader fr = new FileReader("./src/com/jp1/arquivosdedados/marca.txt");
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
             BufferedReader br = new BufferedReader(fr); 
 
             String linha =  "";
@@ -88,8 +88,9 @@ public class MarcaDao implements IMarcaDao {
         BufferedImage imagem = null;
         try {
             imagem = ImageIO.read(new File(objeto.getUrl()));
-            File outputfile = new File(getClass().getResource("/com/jp1/logos/"+ objeto.getId()+".png").toURI());
+            File outputfile = new File("./src/com/jp1/logos/" + objeto.getId() + ".png");
             ImageIO.write(imagem, "png", outputfile);
+            
             return outputfile.toString();
         } catch (Exception e) {
             throw e;
@@ -104,7 +105,7 @@ public class MarcaDao implements IMarcaDao {
             String url = incluirLogo(objeto);
             if(!url.equals("")) objeto.setUrl(url);
             
-            FileWriter fw = new FileWriter(new File(getClass().getResource("/com/jp1/logos/"+ objeto.getId()+".png").toURI()), true);
+            FileWriter fw = new FileWriter(new File(nomeDoArquivoNoDisco), true);
             BufferedWriter bw  = new BufferedWriter(fw);
             bw.write(objeto.toString());
             bw.close();
@@ -119,9 +120,8 @@ public class MarcaDao implements IMarcaDao {
         try {
             url = incluirLogo(objeto);
            
-            
             if(url.equals("")) {
-                File outputfile = new File(getClass().getResource("/com/jp1/logos/"+ objeto.getId()+".png").toURI());
+                File outputfile = new File(nomeDoArquivoNoDisco);
                 if(outputfile.exists()){
                      if(outputfile.delete()){
 
@@ -139,7 +139,7 @@ public class MarcaDao implements IMarcaDao {
             throw e;
         }
         
-        FileReader fr = new FileReader(new File(getClass().getResource(nomeDoArquivoNoDisco).toURI()));
+        FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
         String banco = "";
@@ -151,16 +151,17 @@ public class MarcaDao implements IMarcaDao {
             }
         }
         br.close();
-        FileWriter fw = new FileWriter(new File(getClass().getResource(nomeDoArquivoNoDisco).toURI()));
+        FileWriter fw = new FileWriter(new File(nomeDoArquivoNoDisco));
         BufferedWriter bw  = new BufferedWriter(fw);
         bw.write(banco);
         bw.close();
     }
+    
              @Override
     public ArrayList<Marca> listar() throws IOException, FileNotFoundException, Exception {
         try {
             ArrayList<Marca> listaDeMarcas = new ArrayList<Marca>();
-            FileReader fr = new FileReader(new File(getClass().getResource(nomeDoArquivoNoDisco).toURI()));
+            FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
             BufferedReader br = new BufferedReader(fr);
 
             String linha = "";

@@ -10,10 +10,16 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import com.jp1.modelos.Modelo;
 import com.jp1.controle.*;
+import com.jp1.modelos.Marca;
 import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -42,30 +48,30 @@ public class GradeRenderer extends DefaultTableCellRenderer {
                 try {
                     if(column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
                     else if(column == 4){
-                        Object[] lista = modeloControle.listar().toArray();
+                        ArrayList<Modelo> lista = modeloControle.listar();
+                        Iterator modelos = lista.iterator();
                         int idMarca = 0;
-                        for(int i = 0; i < lista.length; i++){
-                            if(lista[i].toString().contains(table.getValueAt(row, 0).toString())){
-                                
-                                String linha[] = lista[i].toString().split(";");
+                        while(modelos.hasNext()){
+                            if(modelos.next().toString().contains(table.getValueAt(row, 0).toString())){
+                                String linha[] = modelos.toString().split(";");
                                 idMarca = Integer.parseInt(linha[3].replace("\n", ""));
                             }
                         }
                         iconLogo = new ImageIcon(getClass().getResource(marcaControle.buscar(idMarca).getUrl().replace("./src", "")));
+                        
 
                     }
                 } catch (Exception e) {
-
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
 
 
                 int tamanho = table.getRowHeight();
                 int recuo = 20 * tamanho/ 100;
-                this.setText((String) value);
                 iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                    tamanho - recuo,tamanho - recuo,1));
+                tamanho - recuo,tamanho - recuo,1));
                 this.setIcon(iconLogo);
+                
             }else this.setText(value.toString());
             
         }

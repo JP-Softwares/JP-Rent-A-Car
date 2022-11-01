@@ -19,7 +19,6 @@ public class TelaLogo {
     
     JWindow jWindow = new JWindow();
     public TelaLogo() {
-        
         jWindow.setBackground(new Color(0, 0, 0, 0));
         jWindow.setContentPane(new Pane());
         jWindow.pack();
@@ -36,7 +35,7 @@ public class TelaLogo {
         private BufferedImage leaf;
 
         public Pane() {
-            setBorder(new EmptyBorder(0, 0, 250, 0));
+            setBorder(new EmptyBorder(0, 0, 0, 0));
 
             try {
                 leaf = ImageIO.read(getClass().getResource("/com/jp1/icones/JP_Softwares.png"));

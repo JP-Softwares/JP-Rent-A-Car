@@ -77,8 +77,15 @@ public class ModeloControle implements IModeloControle{
     public void incluir(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
         if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
-        if(buscarModelo(objeto.getDescricao())){
-            throw new Exception("Modelo já cadastrado");
+        try{
+            if(buscarModelo(objeto.getDescricao())){
+                throw new Exception("Modelo já cadastrado");
+            }
+        }catch(Exception erro){
+            if(erro.getMessage().contains("arquivo especificado")){  
+            }else{
+                  throw erro;
+            }
         }
         objeto.setId(ID.getID());
         modeloPersistencia.incluir(objeto);
@@ -94,7 +101,11 @@ public class ModeloControle implements IModeloControle{
     }
     @Override
     public ArrayList<Modelo> listar() throws Exception{
+        try{
         return modeloPersistencia.listar();
+        }catch(Exception erro){
+            return new ArrayList<Modelo>();
+        }
       
      }
 
