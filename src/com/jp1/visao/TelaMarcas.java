@@ -8,6 +8,7 @@ import com.jp1.Renderer.*;
 import com.jp1.modelos.Marca;
 
 import com.jp1.controle.*;
+import java.awt.Color;
 
 import java.awt.event.KeyEvent;
 
@@ -15,6 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -35,9 +37,13 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     Marca marca = null;
     boolean espaco = false;
     int linha = 0;
+    enum listeners {
+        MOUSEENTERED, MOUSEEXITED, MOUSEPRESSED, MOUSERELEASED
+    }
     
     public TelaMarcas() {
         initComponents();
+        adicionarListeners();
         
         ((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         /*
@@ -61,7 +67,88 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         }
     }
     
+    public void adicionarListeners(){
+        
+        jButtonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEENTERED, jButtonBuscar);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEEXITED, jButtonBuscar);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEPRESSED, jButtonBuscar);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSERELEASED, jButtonBuscar);
+            }
+        });
+        
+        jButtonAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEENTERED, jButtonAlterar);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEEXITED, jButtonAlterar);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEPRESSED, jButtonAlterar);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSERELEASED, jButtonAlterar);
+            }
+        });
+        
+        jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEENTERED, jButtonIncluir);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEEXITED, jButtonIncluir);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEPRESSED, jButtonIncluir);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSERELEASED, jButtonIncluir);
+            }
+        });
+        
+        jButtonLogoPredefinida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEENTERED, jButtonLogoPredefinida);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEEXITED, jButtonLogoPredefinida);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSEPRESSED, jButtonLogoPredefinida);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(listeners.MOUSERELEASED, jButtonLogoPredefinida);
+            }
+        });
+    }
     
+    public void botao(listeners evento, JButton botao){
+        Color botaoFundo = new Color(245, 245, 245);
+        Color botaoEntered = new Color(230,230,230);
+        Color botaoPressed = new Color(210,210,210);
+        switch(evento){
+            case MOUSEENTERED:
+                botao.setBackground(botaoEntered);
+                break;
+            case MOUSEEXITED:
+                botao.setBackground(botaoFundo);
+                break;
+            case MOUSEPRESSED:
+                botao.setBackground(botaoPressed);
+                break;
+            case MOUSERELEASED:
+                botao.setBackground(botaoFundo);
+                break;
+        }
+    }
     
     public void limparTabela(){
         jTextFieldIdentificador.setText("");
@@ -175,17 +262,24 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabelLogo.setPreferredSize(new java.awt.Dimension(152, 152));
 
+        jButtonBuscar.setBackground(new java.awt.Color(245, 245, 245));
         jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonBuscar.setText("BUSCAR IMAGEM");
+        jButtonBuscar.setBorder(null);
+        jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonBuscar.setFocusable(false);
+        jButtonBuscar.setPreferredSize(new java.awt.Dimension(138, 30));
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
 
+        jButtonIncluir.setBackground(new java.awt.Color(245, 245, 245));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonIncluir.setText("INCLUIR MARCA");
+        jButtonIncluir.setBorder(null);
+        jButtonIncluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIncluir.setFocusable(false);
         jButtonIncluir.setMaximumSize(new java.awt.Dimension(150, 28));
         jButtonIncluir.setMinimumSize(new java.awt.Dimension(150, 28));
@@ -196,8 +290,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonAlterar.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonAlterar.setText("ALTERAR MARCA");
+        jButtonAlterar.setBorder(null);
+        jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonAlterar.setFocusable(false);
         jButtonAlterar.setMaximumSize(new java.awt.Dimension(150, 28));
         jButtonAlterar.setMinimumSize(new java.awt.Dimension(150, 28));
@@ -250,9 +347,13 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
         }
 
+        jButtonLogoPredefinida.setBackground(new java.awt.Color(245, 245, 245));
         jButtonLogoPredefinida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
+        jButtonLogoPredefinida.setBorder(null);
+        jButtonLogoPredefinida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonLogoPredefinida.setFocusable(false);
+        jButtonLogoPredefinida.setPreferredSize(new java.awt.Dimension(138, 30));
         jButtonLogoPredefinida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButtonLogoPredefinidaMouseEntered(evt);
@@ -294,13 +395,10 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonLogoPredefinida))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(17, 17, 17)
-                                        .addComponent(jButtonBuscar)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                    .addComponent(jButtonLogoPredefinida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(12, 12, 12))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,13 +440,13 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonLogoPredefinida))
-                        .addGap(16, 16, 16)
+                            .addComponent(jButtonLogoPredefinida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBuscar))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                            .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -536,7 +634,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlterar;
-    private javax.swing.JButton jButtonBuscar;
+    javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLogoPredefinida;
     private javax.swing.JLabel jLabel2;

@@ -7,12 +7,14 @@ package com.jp1.visao;
 import com.jp1.Renderer.GradeRenderer;
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
+import java.awt.Color;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -37,6 +39,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     
     public TelaModelos() {
         initComponents();
+        adicionarListeners();
         
         ((DefaultTableCellRenderer) jTableModelos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -47,7 +50,74 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
         
+    }
+    
+    public void adicionarListeners(){
         
+        jButtonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonBuscar);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonBuscar);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonBuscar);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonBuscar);
+            }
+        });
+        
+        jButtonAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonAlterar);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonAlterar);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonAlterar);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonAlterar);
+            }
+        });
+        
+        jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonIncluir);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonIncluir);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonIncluir);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonIncluir);
+            }
+        });
+    }
+    
+    public void botao(TelaMarcas.listeners evento, JButton botao){
+        Color botaoFundo = new Color(245, 245, 245);
+        Color botaoEntered = new Color(230,230,230);
+        Color botaoPressed = new Color(210,210,210);
+        switch(evento){
+            case MOUSEENTERED:
+                botao.setBackground(botaoEntered);
+                break;
+            case MOUSEEXITED:
+                botao.setBackground(botaoFundo);
+                break;
+            case MOUSEPRESSED:
+                botao.setBackground(botaoPressed);
+                break;
+            case MOUSERELEASED:
+                botao.setBackground(botaoFundo);
+                break;
+        }
     }
     
     public void listarComboBox(){
@@ -201,17 +271,24 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabelLogo.setPreferredSize(new java.awt.Dimension(152, 152));
 
+        jButtonBuscar.setBackground(new java.awt.Color(245, 245, 245));
         jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonBuscar.setText("BUSCAR IMAGEM");
+        jButtonBuscar.setBorder(null);
+        jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonBuscar.setFocusable(false);
+        jButtonBuscar.setPreferredSize(new java.awt.Dimension(138, 30));
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
 
+        jButtonIncluir.setBackground(new java.awt.Color(245, 245, 245));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonIncluir.setText("INCLUIR MODELO");
+        jButtonIncluir.setBorder(null);
+        jButtonIncluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIncluir.setFocusable(false);
         jButtonIncluir.setMaximumSize(new java.awt.Dimension(148, 28));
         jButtonIncluir.setMinimumSize(new java.awt.Dimension(148, 28));
@@ -222,8 +299,11 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonAlterar.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonAlterar.setText("ALTERAR MODELO");
+        jButtonAlterar.setBorder(null);
+        jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonAlterar.setFocusable(false);
         jButtonAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAlterar.setInheritsPopupMenu(true);
@@ -323,7 +403,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(17, 17, 17)
-                                .addComponent(jButtonBuscar))
+                                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
@@ -356,7 +436,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                             .addGap(100, 100, 100)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(44, 44, 44)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -373,7 +453,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel4)
                                 .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonBuscar))
+                                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
