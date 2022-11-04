@@ -49,20 +49,20 @@ public class GradeRenderer extends DefaultTableCellRenderer {
                     if(column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
                     else if(column == 4){
                         ArrayList<Modelo> lista = modeloControle.listar();
-                        Iterator modelos = lista.iterator();
+                        Iterator<Modelo> modelos = lista.iterator();
+                        Modelo modelo = null;
                         int idMarca = 0;
                         while(modelos.hasNext()){
-                            if(modelos.next().toString().contains(table.getValueAt(row, 0).toString())){
-                                String linha[] = modelos.toString().split(";");
-                                idMarca = Integer.parseInt(linha[3].replace("\n", ""));
+                            if((modelo = modelos.next()).toString().contains(table.getValueAt(row, 0).toString())){
+                                idMarca = modelo.getMarca().getId();
                             }
                         }
                         iconLogo = new ImageIcon(getClass().getResource(marcaControle.buscar(idMarca).getUrl().replace("./src", "")));
                         
 
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
+                } catch (Exception erro) {
+                    JOptionPane.showMessageDialog(null, erro);
                 }
 
 

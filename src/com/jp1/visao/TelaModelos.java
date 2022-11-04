@@ -43,8 +43,8 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         listarComboBox();
         try {
             if(!marcaControle.listar().isEmpty()) listar(modeloControle.listar());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
         }
         
         

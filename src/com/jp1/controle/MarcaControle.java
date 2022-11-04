@@ -9,12 +9,7 @@ import com.jp1.persistencia.IMarcaDao;
 import com.jp1.persistencia.MarcaDao;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 import com.jp1.tools.ID;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,10 +38,12 @@ public class MarcaControle implements IMarcaControle {
         return descricao;
     }  
 
+    @Override
     public Marca buscar(String descricao) throws Exception{
         return marcaPersistencia.buscar(descricao);
     }
 
+    @Override
     public Marca buscar(int id) throws Exception{
         return marcaPersistencia.buscar(id);
     }  
@@ -83,20 +80,39 @@ public class MarcaControle implements IMarcaControle {
         }
     }
 
-    private boolean verificarVazio(Marca objeto){
-        if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
-        return false;
+    private String verificarVazio(Marca objeto){
+        String erro = "";
+        boolean descricaovazia = false;
+        if(objeto.getDescricao().equals("")){
+            erro = "Preencha o campo de descrição";
+            descricaovazia = true;
+        }
+        
+        if(objeto.getUrl().equals("")){
+            if(descricaovazia){
+                erro += " e insira uma imagem";
+            }else{
+                erro = "Insira uma imagem";
+            }
+        }
+        
+//        if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")){
+//            if(objeto.getDescricao().equals(""))erro = "Preencha a descrição corretamente";
+//            else if(objeto.getUrl().equals(""))erro = "Insira uma imagem";
+//        }
+        return erro;
     }
 
      public void incluir(Marca objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
-        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
+        if(!verificarVazio(objeto).equals("")) throw new Exception(verificarVazio(objeto));
         try{
             if(buscarMarca(objeto.getDescricao())){
                 throw new Exception("Marca já cadastrada");
             }
         }catch(Exception erro) {
             if(erro.getMessage().contains("arquivo especificado")){  
+                
             }else{
                 throw erro;
             }
@@ -107,7 +123,7 @@ public class MarcaControle implements IMarcaControle {
 
      public void alterar(Marca objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
-        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
+        if(!verificarVazio(objeto).equals("")) throw new Exception(verificarVazio(objeto));
         if(buscarMarca(objeto)){
             throw new Exception("Marca já cadastrada");
         }
