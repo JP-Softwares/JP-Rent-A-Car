@@ -1,2 +1,2 @@
 # LocaGyn
-Download: [LocaGyn.jar](https://github.com/Geydson-Santos/LocaGyn/tree/main/dist/LocaGyn.jar)
+Download: [LocaGyn.jar](https://github.com/JP-Softwares/LocaGyn/tree/main/dist/LocaGyn.jar)
