@@ -7,7 +7,7 @@ package com.jp1.visao;
 import com.jp1.Renderer.GradeRenderer;
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
-import java.awt.Color;
+import com.jp1.tools.AdicionarListeners;
 
 
 import java.io.File;
@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +41,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     
     public TelaModelos() {
         initComponents();
-        adicionarListeners();
+        AdicionarListeners.adicionar(new JComponent[] {jButtonAlterar, jButtonBuscar, jButtonIncluir});
         
         ((DefaultTableCellRenderer) jTableModelos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -52,83 +54,16 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         
     }
     
-    public void adicionarListeners(){
-        
-        jButtonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonBuscar);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonBuscar);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonBuscar);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonBuscar);
-            }
-        });
-        
-        jButtonAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonAlterar);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonAlterar);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonAlterar);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonAlterar);
-            }
-        });
-        
-        jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEENTERED, jButtonIncluir);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEEXITED, jButtonIncluir);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSEPRESSED, jButtonIncluir);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(TelaMarcas.listeners.MOUSERELEASED, jButtonIncluir);
-            }
-        });
-    }
-    
-    public void botao(TelaMarcas.listeners evento, JButton botao){
-        Color botaoFundo = new Color(245, 245, 245);
-        Color botaoEntered = new Color(230,230,230);
-        Color botaoPressed = new Color(210,210,210);
-        switch(evento){
-            case MOUSEENTERED:
-                botao.setBackground(botaoEntered);
-                break;
-            case MOUSEEXITED:
-                botao.setBackground(botaoFundo);
-                break;
-            case MOUSEPRESSED:
-                botao.setBackground(botaoPressed);
-                break;
-            case MOUSERELEASED:
-                botao.setBackground(botaoFundo);
-                break;
-        }
-    }
-    
     public void listarComboBox(){
         try {
             Object vetorMarcas[] = marcaControle.listar().toArray();
+            
             String marcas[] = new String[vetorMarcas.length];
-
+            
             for(int i = 0; i < marcas.length; i++){
-                String aux[] = vetorMarcas[i].toString().split(";");
-                marcas[i] = aux[1];
+                marcas[i] = vetorMarcas[i].toString().split(";")[1];
             }
+            
             if(marcas.length != 0){
                 jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(marcas));
                 setarImagemMarca();
@@ -271,7 +206,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabelLogo.setPreferredSize(new java.awt.Dimension(152, 152));
 
-        jButtonBuscar.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonBuscar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonBuscar.setText("BUSCAR IMAGEM");
         jButtonBuscar.setBorder(null);
@@ -284,7 +219,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonIncluir.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonIncluir.setBackground(new java.awt.Color(250, 250, 250));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonIncluir.setText("INCLUIR MODELO");
         jButtonIncluir.setBorder(null);
@@ -299,7 +234,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonAlterar.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonAlterar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonAlterar.setText("ALTERAR MODELO");
         jButtonAlterar.setBorder(null);
@@ -359,7 +294,10 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             jTableModelos.getColumnModel().getColumn(4).setCellRenderer(new GradeRenderer());
         }
 
+        jComboBoxMarca.setBackground(new java.awt.Color(250, 250, 250));
+        jComboBoxMarca.setBorder(null);
         jComboBoxMarca.setFocusable(false);
+        jComboBoxMarca.setPreferredSize(new java.awt.Dimension(208, 22));
         jComboBoxMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxMarcaActionPerformed(evt);
@@ -407,7 +345,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(61, 61, 61)
                                 .addComponent(jLabelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -623,7 +561,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JComboBox<String> jComboBoxMarca;
+    private javax.swing.JComboBox<Object> jComboBoxMarca;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

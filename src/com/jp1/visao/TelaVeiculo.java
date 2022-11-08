@@ -56,6 +56,11 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
 
         jLabelgay.setText("flamengo");
 
@@ -96,6 +101,11 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
+    }//GEN-LAST:event_jPanel1MouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

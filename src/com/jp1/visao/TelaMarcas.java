@@ -8,7 +8,7 @@ import com.jp1.Renderer.*;
 import com.jp1.modelos.Marca;
 
 import com.jp1.controle.*;
-import java.awt.Color;
+import com.jp1.tools.AdicionarListeners;
 
 import java.awt.event.KeyEvent;
 
@@ -37,13 +37,15 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     Marca marca = null;
     boolean espaco = false;
     int linha = 0;
-    enum listeners {
-        MOUSEENTERED, MOUSEEXITED, MOUSEPRESSED, MOUSERELEASED
-    }
+    String oi[];
+    JButton botoes[] = null;
+    
+    
+    
     
     public TelaMarcas() {
         initComponents();
-        adicionarListeners();
+        AdicionarListeners.adicionar(new JButton[] {jButtonAlterar, jButtonBuscar, jButtonIncluir, jButtonLogoPredefinida});
         
         ((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         /*
@@ -67,88 +69,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         }
     }
     
-    public void adicionarListeners(){
-        
-        jButtonBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEENTERED, jButtonBuscar);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEEXITED, jButtonBuscar);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEPRESSED, jButtonBuscar);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSERELEASED, jButtonBuscar);
-            }
-        });
-        
-        jButtonAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEENTERED, jButtonAlterar);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEEXITED, jButtonAlterar);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEPRESSED, jButtonAlterar);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSERELEASED, jButtonAlterar);
-            }
-        });
-        
-        jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEENTERED, jButtonIncluir);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEEXITED, jButtonIncluir);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEPRESSED, jButtonIncluir);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSERELEASED, jButtonIncluir);
-            }
-        });
-        
-        jButtonLogoPredefinida.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEENTERED, jButtonLogoPredefinida);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEEXITED, jButtonLogoPredefinida);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSEPRESSED, jButtonLogoPredefinida);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botao(listeners.MOUSERELEASED, jButtonLogoPredefinida);
-            }
-        });
-    }
     
-    public void botao(listeners evento, JButton botao){
-        Color botaoFundo = new Color(245, 245, 245);
-        Color botaoEntered = new Color(230,230,230);
-        Color botaoPressed = new Color(210,210,210);
-        switch(evento){
-            case MOUSEENTERED:
-                botao.setBackground(botaoEntered);
-                break;
-            case MOUSEEXITED:
-                botao.setBackground(botaoFundo);
-                break;
-            case MOUSEPRESSED:
-                botao.setBackground(botaoPressed);
-                break;
-            case MOUSERELEASED:
-                botao.setBackground(botaoFundo);
-                break;
-        }
-    }
     
     public void limparTabela(){
         jTextFieldIdentificador.setText("");
@@ -262,7 +183,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jLabelLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabelLogo.setPreferredSize(new java.awt.Dimension(152, 152));
 
-        jButtonBuscar.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonBuscar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonBuscar.setText("BUSCAR IMAGEM");
         jButtonBuscar.setBorder(null);
@@ -275,7 +196,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonIncluir.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonIncluir.setBackground(new java.awt.Color(250, 250, 250));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonIncluir.setText("INCLUIR MARCA");
         jButtonIncluir.setBorder(null);
@@ -290,7 +211,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonAlterar.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonAlterar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonAlterar.setText("ALTERAR MARCA");
         jButtonAlterar.setBorder(null);
@@ -347,7 +268,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
         }
 
-        jButtonLogoPredefinida.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonLogoPredefinida.setBackground(new java.awt.Color(250, 250, 250));
         jButtonLogoPredefinida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonLogoPredefinida.setText("LOGO PREDEFINIDA");
         jButtonLogoPredefinida.setBorder(null);

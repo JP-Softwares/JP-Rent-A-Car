@@ -4,7 +4,10 @@
  */
 package com.jp1.visao;
 
+import com.jp1.tools.AdicionarListeners;
+
 import java.awt.Color;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 //import java.awt.AlphaComposite;
@@ -64,9 +67,10 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 
         jPanelVeiculosExp.setVisible(false);
         jPanelVeiculosExp.setLocale(jPanelVeiculos.getLocale());
-        jButtonMarcas.setBackground(botaofundo);
-        jButtonModelos.setBackground(botaofundo);
-        jButtonVeiculo.setBackground(botaofundo);
+        jButtonMarcas.setBackground(AdicionarListeners.botaoFundo);
+        jButtonModelos.setBackground(AdicionarListeners.botaoFundo);
+        jButtonVeiculo.setBackground(AdicionarListeners.botaoFundo);
+        AdicionarListeners.adicionar(new JButton[] {jButtonMarcas, jButtonModelos, jButtonVeiculo});
         
         adicionarTela(new TelaWelcome());
         
@@ -196,20 +200,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonMarcas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonMarcas.setFocusable(false);
         jButtonMarcas.setPreferredSize(new java.awt.Dimension(38, 31));
-        jButtonMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButtonMarcasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonMarcasMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButtonMarcasMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButtonMarcasMouseReleased(evt);
-            }
-        });
         jButtonMarcas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMarcasActionPerformed(evt);
@@ -221,20 +211,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonModelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonModelos.setFocusable(false);
         jButtonModelos.setPreferredSize(new java.awt.Dimension(133, 31));
-        jButtonModelos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButtonModelosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonModelosMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButtonModelosMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButtonModelosMouseReleased(evt);
-            }
-        });
         jButtonModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModelosActionPerformed(evt);
@@ -246,20 +222,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonVeiculo.setFocusable(false);
         jButtonVeiculo.setPreferredSize(new java.awt.Dimension(92, 31));
-        jButtonVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButtonVeiculoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonVeiculoMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButtonVeiculoMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButtonVeiculoMouseReleased(evt);
-            }
-        });
         jButtonVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVeiculoActionPerformed(evt);
@@ -320,9 +282,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelXMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jPanelXMouseReleased(evt);
-            }
         });
 
         jLabelX.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -352,12 +311,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTituloMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabelTituloMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabelTituloMouseExited(evt);
-            }
         });
 
         jPanelMinimizar.setBackground(jPanelBarra.getBackground());
@@ -375,9 +328,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelMinimizarMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jPanelMinimizarMouseReleased(evt);
             }
         });
 
@@ -567,10 +517,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jPanelX.setBackground(new Color(200,100,100));
     }//GEN-LAST:event_jPanelXMousePressed
 
-    private void jPanelXMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanelXMouseReleased
-
     private void jPanelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMouseDragged
         // TODO add your handling code here:
         mouse(evt);
@@ -602,10 +548,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         // TODO add your handling code here:
         jPanelMinimizar.setBackground(new Color(220,220,220));
     }//GEN-LAST:event_jPanelMinimizarMousePressed
-
-    private void jPanelMinimizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelMinimizarMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanelMinimizarMouseReleased
 
     private void jPanelVeiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelVeiculosMouseEntered
         // TODO add your handling code here:
@@ -649,83 +591,15 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         adicionarTela(new TelaMarcas());
     }//GEN-LAST:event_jButtonMarcasActionPerformed
 
-    private void jButtonMarcasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseEntered
-        // TODO add your handling code here:
-        jButtonMarcas.setBackground(new Color(242,242,242));
-    }//GEN-LAST:event_jButtonMarcasMouseEntered
-
-    private void jButtonMarcasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseExited
-        // TODO add your handling code here:
-        jButtonMarcas.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonMarcasMouseExited
-
-    private void jButtonMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMousePressed
-        // TODO add your handling code here:
-        jButtonMarcas.setBackground(new Color(220,220,220));
-    }//GEN-LAST:event_jButtonMarcasMousePressed
-
-    private void jButtonMarcasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMarcasMouseReleased
-        // TODO add your handling code here:
-        jButtonMarcas.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonMarcasMouseReleased
-
     private void jButtonModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModelosActionPerformed
         // TODO add your handling code here:
         adicionarTela(new TelaModelos());
     }//GEN-LAST:event_jButtonModelosActionPerformed
 
-    private void jButtonModelosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseEntered
-        // TODO add your handling code here:
-        jButtonModelos.setBackground(new Color(242,242,242));
-    }//GEN-LAST:event_jButtonModelosMouseEntered
-
-    private void jButtonModelosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseExited
-        // TODO add your handling code here:
-        jButtonModelos.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonModelosMouseExited
-
-    private void jButtonModelosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMousePressed
-        // TODO add your handling code here:
-        jButtonModelos.setBackground(new Color(220,220,220));
-    }//GEN-LAST:event_jButtonModelosMousePressed
-
-    private void jButtonModelosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModelosMouseReleased
-        // TODO add your handling code here:
-        jButtonModelos.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonModelosMouseReleased
-
     private void jLabelTituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseClicked
         // TODO add your handling code here:
         adicionarTela(new TelaWelcome());
     }//GEN-LAST:event_jLabelTituloMouseClicked
-
-    private void jLabelTituloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelTituloMouseEntered
-
-    private void jLabelTituloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelTituloMouseExited
-
-    private void jButtonVeiculoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVeiculoMouseEntered
-        // TODO add your handling code here:
-        jButtonVeiculo.setBackground(new Color(242,242,242));
-    }//GEN-LAST:event_jButtonVeiculoMouseEntered
-
-    private void jButtonVeiculoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVeiculoMouseExited
-        // TODO add your handling code here:
-        jButtonVeiculo.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonVeiculoMouseExited
-
-    private void jButtonVeiculoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVeiculoMousePressed
-        // TODO add your handling code here:
-        jButtonVeiculo.setBackground(new Color(220,220,220));
-    }//GEN-LAST:event_jButtonVeiculoMousePressed
-
-    private void jButtonVeiculoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVeiculoMouseReleased
-        // TODO add your handling code here:
-        jButtonVeiculo.setBackground(botaofundo);
-    }//GEN-LAST:event_jButtonVeiculoMouseReleased
 
     private void jButtonVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVeiculoActionPerformed
         // TODO add your handling code here:
