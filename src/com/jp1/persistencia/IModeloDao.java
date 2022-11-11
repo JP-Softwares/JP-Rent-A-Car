@@ -18,5 +18,6 @@ public interface IModeloDao {
     void incluir(Modelo objeto) throws Exception;
     void alterar(Modelo objeto) throws Exception;
     ArrayList<Modelo> listar() throws Exception;
+    void apagar()throws Exception;
 }    
 

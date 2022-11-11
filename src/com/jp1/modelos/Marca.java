@@ -26,6 +26,7 @@ public class Marca {
     }
     
     public Marca buscar(String descricao) throws Exception{
+
         try {
             IMarcaControle marcaControle = new MarcaControle();
             Marca marca = marcaControle.buscar(descricao);

@@ -103,7 +103,7 @@ public class  ModeloDao implements IModeloDao {
                 try {
                     objetoModelo.setMarca(marcaDao.buscar(vetorString[3]));
                 } catch (Exception e) {
-                    
+                    throw e;
                 }
                 
                 listaDeModelos.add(objetoModelo);
@@ -114,6 +114,14 @@ public class  ModeloDao implements IModeloDao {
         } catch (Exception erro) {
             throw erro;
         }
+    }
+
+    @Override
+    public void apagar() throws Exception {
+        File arquivo = new File(nomeDoArquivoNoDisco);
+        FileWriter fw = new FileWriter(arquivo);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("");
     }
      
 }

@@ -67,9 +67,7 @@ public class MarcaDao implements IMarcaDao {
             String linha =  "";
 
             Marca objetoMarca = new Marca();
-
             while(!(linha = br.readLine()).contains(id+""));
-            
              String vetorString[] = linha.split(";");
              objetoMarca.setId(Integer.parseInt(vetorString[0]));
              objetoMarca.setDescricao(vetorString[1]);
@@ -121,7 +119,7 @@ public class MarcaDao implements IMarcaDao {
             url = incluirLogo(objeto);
            
             if(url.equals("")) {
-                File outputfile = new File(nomeDoArquivoNoDisco);
+                File outputfile = new File("./src/com/jp1/logos/" + objeto.getId() + ".png");
                 if(outputfile.exists()){
                      if(outputfile.delete()){
 
