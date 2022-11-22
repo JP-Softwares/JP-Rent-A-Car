@@ -60,8 +60,25 @@ public class  ModeloDao implements IModeloDao {
 
  @Override
     public void alterar(Modelo objeto) throws Exception {
+        String url = "";
         try {
-            objeto.setUrl(incluirAutoRetrato(objeto));
+            url = incluirAutoRetrato(objeto);
+           
+            if(url.equals("")) {
+                File outputfile = new File("./src/com/jp1/autoretrato/" + objeto.getId() + ".png");
+                if(outputfile.exists()){
+                     if(outputfile.delete()){
+
+                }else{
+                    throw new Exception("A imagem do package autoretrato não foi deletada com sucesso");
+                }
+                }//else throw new Exception ("Imagem não existe no package autoretrato");
+               
+
+            }else{ objeto.setUrl(url);
+
+            }
+            
         } catch (Exception e) {
             throw e;
         }
@@ -101,7 +118,7 @@ public class  ModeloDao implements IModeloDao {
                 objetoModelo.setDescricao(vetorString[1]);
                 objetoModelo.setUrl(vetorString[2]);
                 try {
-                    objetoModelo.setMarca(marcaDao.buscar(vetorString[3]));
+                    objetoModelo.setMarca(marcaDao.buscar(Integer.parseInt(vetorString[3])));
                 } catch (Exception e) {
                     throw e;
                 }

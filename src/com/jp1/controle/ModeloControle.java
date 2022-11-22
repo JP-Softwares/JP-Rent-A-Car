@@ -68,15 +68,33 @@ public class ModeloControle implements IModeloControle{
 
     
 
-    private boolean verificarVazio(Modelo objeto){
-        if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")) return true;
-        return false;
+    private String verificarVazio(Modelo objeto){
+        String erro = "";
+        boolean descricaovazia = false;
+        if(objeto.getDescricao().equals("")){
+            erro = "Preencha o campo de descrição";
+            descricaovazia = true;
+        }
+        
+        if(objeto.getUrl().equals("")){
+            if(descricaovazia){
+                erro += " e insira uma imagem";
+            }else{
+                erro = "Insira uma imagem";
+            }
+        }
+        
+//        if(objeto.getDescricao().equals("") || objeto.getUrl().equals("")){
+//            if(objeto.getDescricao().equals(""))erro = "Preencha a descrição corretamente";
+//            else if(objeto.getUrl().equals(""))erro = "Insira uma imagem";
+//        }
+        return erro;
     }
     
     @Override
     public void incluir(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
-        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
+        if(!verificarVazio(objeto).equals("")) throw new Exception(verificarVazio(objeto));
         try{
             if(buscarModelo(objeto.getDescricao())){
                 throw new Exception("Modelo já cadastrado");
@@ -93,7 +111,7 @@ public class ModeloControle implements IModeloControle{
     @Override
      public void alterar(Modelo objeto) throws Exception{
         objeto.setDescricao(verificarDescricao(objeto.getDescricao()));
-        if(verificarVazio(objeto)) throw new Exception("Preencha os campos corretamente");
+        if(!verificarVazio(objeto).equals("")) throw new Exception(verificarVazio(objeto));
         if(buscarModelo(objeto)){
             throw new Exception("Modelo já cadastrado");
         }

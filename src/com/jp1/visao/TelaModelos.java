@@ -431,7 +431,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         char c=evt.getKeyChar();
 
-        if(Character.isDigit(c) || (!Character.isLetterOrDigit(c) && !espaco)){
+        if(!Character.isLetterOrDigit(c) && !espaco){
             evt.consume();
         }
 
@@ -470,6 +470,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             jTextFieldDescricao.setText("");
             jTextFieldURL.setText("");
             jTextFieldIdentificador.setText("");
+            jLabelLogo.setIcon(null);
             listar(modeloControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());

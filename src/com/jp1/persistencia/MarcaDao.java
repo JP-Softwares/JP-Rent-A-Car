@@ -41,15 +41,16 @@ public class MarcaDao implements IMarcaDao {
             FileReader fr = new FileReader(nomeDoArquivoNoDisco);
             BufferedReader br = new BufferedReader(fr); 
 
-            String linha =  "";
+            
+            String vetorString[] = null;
+            
 
             Marca objetoMarca = new Marca();
-
-            while(!(linha = br.readLine()).contains(descricao));
-             String vetorString[] = linha.split(";");
-             objetoMarca.setId(Integer.parseInt(vetorString[0]));
-             objetoMarca.setDescricao(vetorString[1]);
-             objetoMarca.setUrl(vetorString[2]);
+            while(!(vetorString = br.readLine().split(";"))[1].equals(descricao));
+            //vetorString = linha.split(";");
+            objetoMarca.setId(Integer.parseInt(vetorString[0]));
+            objetoMarca.setDescricao(vetorString[1]);
+            objetoMarca.setUrl(vetorString[2]);
             br.close();
             return objetoMarca;
             
@@ -64,11 +65,10 @@ public class MarcaDao implements IMarcaDao {
             FileReader fr = new FileReader(nomeDoArquivoNoDisco);
             BufferedReader br = new BufferedReader(fr); 
 
-            String linha =  "";
+            String vetorString[] = null;
 
             Marca objetoMarca = new Marca();
-            while(!(linha = br.readLine()).contains(id+""));
-             String vetorString[] = linha.split(";");
+            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
              objetoMarca.setId(Integer.parseInt(vetorString[0]));
              objetoMarca.setDescricao(vetorString[1]);
              objetoMarca.setUrl(vetorString[2]);
@@ -89,7 +89,7 @@ public class MarcaDao implements IMarcaDao {
             File outputfile = new File("./src/com/jp1/logos/" + objeto.getId() + ".png");
             ImageIO.write(imagem, "png", outputfile);
             
-            return outputfile.toString();
+            return outputfile.getPath().replace("\\" , "/");
         } catch (Exception e) {
             throw e;
         }

@@ -441,6 +441,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             jTextFieldIdentificador.setText("");
             jTextFieldDescricao.setText("");
             jTextFieldURL.setText("");
+            jLabelLogo.setIcon(null);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
