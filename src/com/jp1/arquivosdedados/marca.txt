@@ -1,0 +1,1 @@
+100069;CHRYSLER;./src/com/jp1/logosdainternet/CHRYSLER.png
