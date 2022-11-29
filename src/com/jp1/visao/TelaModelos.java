@@ -4,22 +4,22 @@
  */
 package com.jp1.visao;
 
-import com.jp1.Renderer.GradeRenderer;
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
 import com.jp1.tools.AdicionarListeners;
+import java.awt.Color;
+import java.awt.EventQueue;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.ComboBoxEditor;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +41,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     
     public TelaModelos() {
         initComponents();
-        AdicionarListeners.adicionar(new JComponent[] {jButtonAlterar, jButtonBuscar, jButtonIncluir});
+        AdicionarListeners.adicionar(jButtonAlterar, jButtonBuscar, jButtonIncluir);
         
         ((DefaultTableCellRenderer) jTableModelos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -278,6 +278,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jTableModelos.setName("TabelaModelos"); // NOI18N
         jTableModelos.setRowHeight(50);
         jTableModelos.setSelectionBackground(new java.awt.Color(52, 135, 231));
+        jTableModelos.setShowHorizontalLines(true);
         jTableModelos.getTableHeader().setResizingAllowed(false);
         jTableModelos.getTableHeader().setReorderingAllowed(false);
         jTableModelos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -287,15 +288,13 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableModelos);
         if (jTableModelos.getColumnModel().getColumnCount() > 0) {
-            jTableModelos.getColumnModel().getColumn(0).setCellRenderer(new GradeRenderer());
-            jTableModelos.getColumnModel().getColumn(1).setCellRenderer(new GradeRenderer());
-            jTableModelos.getColumnModel().getColumn(2).setCellRenderer(new GradeRenderer());
-            jTableModelos.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
-            jTableModelos.getColumnModel().getColumn(4).setCellRenderer(new GradeRenderer());
+            jTableModelos.getColumnModel().getColumn(0).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableModelos.getColumnModel().getColumn(1).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableModelos.getColumnModel().getColumn(2).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableModelos.getColumnModel().getColumn(3).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableModelos.getColumnModel().getColumn(4).setCellRenderer(new com.jp1.Renderer.TableRenderer());
         }
 
-        jComboBoxMarca.setBackground(new java.awt.Color(250, 250, 250));
-        jComboBoxMarca.setBorder(null);
         jComboBoxMarca.setFocusable(false);
         jComboBoxMarca.setPreferredSize(new java.awt.Dimension(208, 22));
         jComboBoxMarca.addActionListener(new java.awt.event.ActionListener() {

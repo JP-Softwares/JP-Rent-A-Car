@@ -4,12 +4,16 @@
  */
 package com.jp1.visao;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.myapp.themes.Tema;
 import com.jp1.tools.AdicionarListeners;
 
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.LookAndFeel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 //import java.awt.AlphaComposite;
 //import java.awt.Graphics;
 //import java.awt.Graphics2D;
@@ -70,7 +74,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonMarcas.setBackground(AdicionarListeners.botaoFundo);
         jButtonModelos.setBackground(AdicionarListeners.botaoFundo);
         jButtonVeiculo.setBackground(AdicionarListeners.botaoFundo);
-        AdicionarListeners.adicionar(new JButton[] {jButtonMarcas, jButtonModelos, jButtonVeiculo});
+        AdicionarListeners.adicionar(jButtonMarcas, jButtonModelos, jButtonVeiculo);
         
         adicionarTela(new TelaWelcome());
         
@@ -114,13 +118,8 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     
     public void lookAndFeel(){
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            javax.swing.UIManager.setLookAndFeel(new Tema());
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }

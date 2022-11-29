@@ -45,7 +45,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     
     public TelaMarcas() {
         initComponents();
-        AdicionarListeners.adicionar(new JButton[] {jButtonAlterar, jButtonBuscar, jButtonIncluir, jButtonLogoPredefinida});
+        AdicionarListeners.adicionar(jButtonAlterar, jButtonBuscar, jButtonIncluir, jButtonLogoPredefinida);
         
         ((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         /*
@@ -60,7 +60,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         
         
         //MyModel m = new MyModel();
-        //jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
+        //jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new TableRenderer());
         
         try {
             listar(marcaControle.listar());
@@ -253,6 +253,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jTableMarcas.setName("TabelaMarcas"); // NOI18N
         jTableMarcas.setRowHeight(50);
         jTableMarcas.setSelectionBackground(new java.awt.Color(52, 135, 231));
+        jTableMarcas.setShowHorizontalLines(true);
         jTableMarcas.getTableHeader().setResizingAllowed(false);
         jTableMarcas.getTableHeader().setReorderingAllowed(false);
         jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,10 +263,10 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableMarcas);
         if (jTableMarcas.getColumnModel().getColumnCount() > 0) {
-            jTableMarcas.getColumnModel().getColumn(0).setCellRenderer(new GradeRenderer());
-            jTableMarcas.getColumnModel().getColumn(1).setCellRenderer(new GradeRenderer());
-            jTableMarcas.getColumnModel().getColumn(2).setCellRenderer(new GradeRenderer());
-            jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new GradeRenderer());
+            jTableMarcas.getColumnModel().getColumn(0).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableMarcas.getColumnModel().getColumn(1).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableMarcas.getColumnModel().getColumn(2).setCellRenderer(new com.jp1.Renderer.TableRenderer());
+            jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new com.jp1.Renderer.TableRenderer());
         }
 
         jButtonLogoPredefinida.setBackground(new java.awt.Color(250, 250, 250));

@@ -23,27 +23,25 @@ public class AdicionarListeners {
         
     }
     
-    public static void adicionar(JComponent botoes[]) {
-        for(int i = 0; i < botoes.length; i++){
-            adicionarEvento(botoes[i]);
+    public static void adicionar(JComponent... componentes) {
+        
+        for(int i = 0; i < componentes.length; i++){
+            JComponent componente = componentes[i];
+            componente.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    colorir(listeners.MOUSEENTERED, componente);
+                }
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    colorir(listeners.MOUSEEXITED, componente);
+                }
+                public void mousePressed(java.awt.event.MouseEvent evt) {
+                    colorir(listeners.MOUSEPRESSED, componente);
+                }
+                public void mouseReleased(java.awt.event.MouseEvent evt) {
+                    colorir(listeners.MOUSERELEASED, componente);
+                }
+            });
         }
-    }
-    
-    private static void adicionarEvento(JComponent botao){
-        botao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                colorir(listeners.MOUSEENTERED, botao);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                colorir(listeners.MOUSEEXITED, botao);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                colorir(listeners.MOUSEPRESSED, botao);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                colorir(listeners.MOUSERELEASED, botao);
-            }
-        });
     }
     
     private static void colorir(listeners evento, JComponent botao){
