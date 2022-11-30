@@ -4,13 +4,10 @@
  */
 package com.jp1.visao;
 
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
 import javax.swing.Timer;
 import com.jp1.modelos.TipoDoVeiculo;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ListCellRenderer;
 
 /**
  *

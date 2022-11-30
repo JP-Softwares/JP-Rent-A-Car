@@ -140,6 +140,54 @@ public class  ModeloDao implements IModeloDao {
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write("");
     }
+
+  public Modelo buscar(String descricao) throws IOException, FileNotFoundException {
+
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            
+            String vetorString[] = null;
+            
+
+            Modelo objetoModelo = new Modelo();
+            while(!(vetorString = br.readLine().split(";"))[1].equals(descricao));
+            //vetorString = linha.split(";");
+            objetoModelo.setId(Integer.parseInt(vetorString[0]));
+            objetoModelo.setDescricao(vetorString[1]);
+            objetoModelo.setUrl(vetorString[2]);
+            //objetoModelo.setMarca(vetorString[3]);
+            br.close();
+            return objetoModelo;
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
+  }
+
+  public Modelo buscar(int id) throws IOException, FileNotFoundException {
+
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+
+            Modelo objetoModelo = new Modelo();
+            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
+             objetoModelo.setId(Integer.parseInt(vetorString[0]));
+             objetoModelo.setDescricao(vetorString[1]);
+             objetoModelo.setUrl(vetorString[2]);
+             //objetoModelo.setMarca(vetorString[3]);
+            br.close();
+            return objetoModelo;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+  }
+
      
 }
 

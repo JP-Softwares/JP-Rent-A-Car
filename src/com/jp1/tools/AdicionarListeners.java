@@ -24,7 +24,6 @@ public class AdicionarListeners {
     }
     
     public static void adicionar(JComponent... componentes) {
-        
         for(int i = 0; i < componentes.length; i++){
             JComponent componente = componentes[i];
             componente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -44,20 +43,20 @@ public class AdicionarListeners {
         }
     }
     
-    private static void colorir(listeners evento, JComponent botao){
+    private static void colorir(listeners evento, JComponent componente){
         
         switch(evento){
             case MOUSEENTERED:
-                botao.setBackground(botaoEntered);
+                componente.setBackground(botaoEntered);
                 break;
             case MOUSEEXITED:
-                botao.setBackground(botaoFundo);
+                componente.setBackground(botaoFundo);
                 break;
             case MOUSEPRESSED:
-                botao.setBackground(botaoPressed);
+                componente.setBackground(botaoPressed);
                 break;
             case MOUSERELEASED:
-                botao.setBackground(botaoFundo);
+                componente.setBackground(botaoFundo);
                 break;
         }
     }
