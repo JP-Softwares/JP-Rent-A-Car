@@ -1,0 +1,2 @@
+100071;PALIO;.\src\com\jp1\autoretrato\100071.png;100069
+100072;NOVA;.\src\com\jp1\autoretrato\100072.png;100069
