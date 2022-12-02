@@ -64,7 +64,7 @@ public class MarcaControle implements IMarcaControle {
         }
     }
     
-      private boolean buscarMarca(Marca objeto) throws Exception{
+    private boolean buscarMarca(Marca objeto) throws Exception{
         try {
             ArrayList<Marca> listagem = marcaPersistencia.listar();
             Iterator<Marca> lista = listagem.iterator();

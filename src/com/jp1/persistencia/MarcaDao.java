@@ -142,7 +142,7 @@ public class MarcaDao implements IMarcaDao {
         String linha = "";
         String banco = "";
         while((linha = br.readLine()) != null){
-            if(linha.contains(objeto.getId()+"")){
+            if(linha.split(";")[0].equals(objeto.getId()+"")){
                 banco+= objeto.toString();
             }else{
                 banco+= linha + "\n";

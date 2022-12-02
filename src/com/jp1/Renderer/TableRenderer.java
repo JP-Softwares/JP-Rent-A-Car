@@ -46,8 +46,8 @@ public class TableRenderer extends DefaultTableCellRenderer {
             if(value.toString().equals("")){
                 ImageIcon iconLogo = null;
                 try {
-                    if(column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
-                    else if(column == 4){
+                    if((table.getName().equals("TabelaMarcas") || table.getName().equals("TabelaModelos")) && column == 3) iconLogo = new ImageIcon(table.getValueAt(row, 2).toString());
+                    if(table.getName().equals("TabelaModelos") && column == 4){
                         ArrayList<Modelo> lista = modeloControle.listar();
                         Iterator<Modelo> modelos = lista.iterator();
                         Modelo modelo = null;
@@ -61,6 +61,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
                         
 
                     }
+                    
                 } catch (Exception erro) {
                     JOptionPane.showMessageDialog(null, erro);
                 }

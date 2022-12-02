@@ -15,7 +15,6 @@ public class Veiculo {
     private int id = 0;
     private String placa = "";
     private int renavam = 0;
-    private String categoria = "";
     private float precoDeCompra = 0;
     private float precoDeVenda = 0;
     private Date anoFabricacao = null;
@@ -24,12 +23,14 @@ public class Veiculo {
     private TipoDoCombustivel combustivel = null;
     private TipoDoVeiculo carro = null;
     private SituacaoDoVeiculo situacao = null;
+    private Categoria categoria = null;
+    private Modelo modelo = null;
 
     public Veiculo(){
 
     }
 
-    public Veiculo(int id, String placa, int renavam, String categoria, float precoDeCompra, float precoDeVenda, Date anoFabricacao, Date anoModelo, int quilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao) {
+    public Veiculo(int id, String placa, int renavam, Categoria categoria, float precoDeCompra, float precoDeVenda, Date anoFabricacao, Date anoModelo, int quilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao, Modelo modelo) {
         this.id = id;
         this.placa = placa;
         this.renavam = renavam;
@@ -42,11 +43,12 @@ public class Veiculo {
         this.combustivel = combustivel;
         this.carro = carro;
         this.situacao = situacao;
+        this.modelo = modelo;
     }
 
     @Override
     public String toString() {
-        return id + ";" + placa + ";" + renavam + ";" + categoria + ";" + precoDeCompra + ";" + precoDeVenda + ";" + anoFabricacao + ";" + anoModelo + ";" + quilometragem + ";" + combustivel + ";" + carro + ";" + situacao + "\n";
+        return id + ";" + placa + ";" + renavam + ";" + categoria + ";" + precoDeCompra + ";" + precoDeVenda + ";" + anoFabricacao + ";" + anoModelo + ";" + quilometragem + ";" + combustivel + ";" + carro + ";" + situacao + ";" + modelo.getId() + "\n";
     }
 
     public int getId() {
@@ -73,11 +75,11 @@ public class Veiculo {
         this.renavam = renavam;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
