@@ -4,9 +4,16 @@
  */
 package com.jp1.visao;
 
+import com.jp1.modelos.Categoria;
 import java.awt.event.KeyEvent;
-import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import com.jp1.controle.ICategoriaControle;
+import com.jp1.controle.CategoriaControle;
+import com.jp1.tools.Numero;
 
 /**
  *
@@ -19,11 +26,50 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
      */
     boolean espaco = false;
     boolean apagar = false;
+    int linha = 0;
+    ICategoriaControle categoriaControle = new CategoriaControle();
+    
+    private final String JTEXTFIELDVALOR_DEFAULT = "R$ 0,00";
     
     Locale local = new Locale("pt", "br");
     
     public TelaCategoria() {
         initComponents();
+        
+        try {
+            //listar(categoriaControle.listar());
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void listar(ArrayList<Categoria> listaDeCategorias){
+        try {
+            DefaultTableModel modelo =  (DefaultTableModel) jTableCategoria.getModel();
+            //Limpa a tabela 
+            modelo.setNumRows(0);
+            Iterator<Categoria> lista = listaDeCategorias.iterator();
+            while(lista.hasNext()){
+                Object[] saida= new Object[4];
+                Categoria categoria = lista.next();
+                saida[0] = categoria.getId();
+                saida[1]= categoria.getDescricao();
+                saida[2] = categoria.getValorDaLocacao();
+                //Incluir nova linha na Tabela
+                modelo.addRow(saida);
+            }
+            jTableCategoria.setModel(modelo);
+        } catch(Exception erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+      }
+    }
+    
+    public void limparTabela(){
+        jTextFieldIdentificador.setText("");
+        jTextFieldDescricao.setText("");
+        jTextFieldValor.setText(JTEXTFIELDVALOR_DEFAULT);
+        jTableCategoria.clearSelection();
     }
 
     /**
@@ -44,7 +90,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         jButtonIncluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableMarcas = new javax.swing.JTable();
+        jTableCategoria = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
 
@@ -91,7 +137,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
 
         jButtonIncluir.setBackground(new java.awt.Color(250, 250, 250));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonIncluir.setText("INCLUIR MARCA");
+        jButtonIncluir.setText("INCLUIR CATEGORIA");
         jButtonIncluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIncluir.setFocusable(false);
         jButtonIncluir.setMaximumSize(new java.awt.Dimension(150, 28));
@@ -105,7 +151,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
 
         jButtonAlterar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAlterar.setText("ALTERAR MARCA");
+        jButtonAlterar.setText("ALTERAR CATEGORIA");
         jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonAlterar.setFocusable(false);
         jButtonAlterar.setMaximumSize(new java.awt.Dimension(150, 28));
@@ -124,7 +170,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jTableMarcas.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -140,20 +186,20 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableMarcas.setFocusable(false);
-        jTableMarcas.setName("TabelaMarcas"); // NOI18N
-        jTableMarcas.setRowHeight(50);
-        jTableMarcas.setSelectionBackground(new java.awt.Color(52, 135, 231));
-        jTableMarcas.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jTableMarcas.setShowHorizontalLines(true);
-        jTableMarcas.getTableHeader().setResizingAllowed(false);
-        jTableMarcas.getTableHeader().setReorderingAllowed(false);
-        jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableCategoria.setFocusable(false);
+        jTableCategoria.setName("TabelaCategoria"); // NOI18N
+        jTableCategoria.setRowHeight(50);
+        jTableCategoria.setSelectionBackground(new java.awt.Color(52, 135, 231));
+        jTableCategoria.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTableCategoria.setShowHorizontalLines(true);
+        jTableCategoria.getTableHeader().setResizingAllowed(false);
+        jTableCategoria.getTableHeader().setReorderingAllowed(false);
+        jTableCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMarcasMouseClicked(evt);
+                jTableCategoriaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableMarcas);
+        jScrollPane1.setViewportView(jTableCategoria);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -197,36 +243,35 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
                                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(85, 85, 85))))
+                            .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83))))
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -274,60 +319,52 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-//        try {
-//            marca = new Marca(0, jTextFieldDescricao.getText(), jTextFieldURL.getText());
-//            marcaControle.incluir(marca);
-//            listar(marcaControle.listar());
-//            jTextFieldIdentificador.setText("");
-//            jTextFieldDescricao.setText("");
-//            jTextFieldURL.setText("");
-//            jLabelLogo.setIcon(null);
-//        } catch (Exception erro) {
-//            JOptionPane.showMessageDialog(null, erro.getMessage());
-//        }
+        try {
+            Categoria categoria = new Categoria(0, jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
+            categoriaControle.incluir(categoria);
+            listar(categoriaControle.listar());
+            jTextFieldIdentificador.setText("");
+            jTextFieldDescricao.setText("");
+            jTextFieldValor.setText(JTEXTFIELDVALOR_DEFAULT);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
+        }
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         // TODO add your handling code here:
-//        if(jTableMarcas.getSelectedRow() != -1){
-//            try {
-//                marcaControle.alterar(new Marca(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), jTextFieldURL.getText()));
-//                listar(marcaControle.listar());
-//                jTableMarcas.changeSelection(linha, 0, false, false);
-//            } catch (Exception erro) {
-//                JOptionPane.showMessageDialog(null, erro.getMessage());
-//            }
-//        }else JOptionPane.showMessageDialog(null, "Selecione uma Marca primeiro para alterá-la.");
+        if(jTableCategoria.getSelectedRow() != -1){
+            try {
+                Categoria categoria = new Categoria(0, jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
+                categoriaControle.alterar(categoria);
+                listar(categoriaControle.listar());
+                jTableCategoria.changeSelection(linha, 0, false, false);
+            } catch (Exception erro) {
+                JOptionPane.showMessageDialog(null, erro.getMessage());
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione uma Marca primeiro para alterá-la.");
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
-    private void jTableMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMouseClicked
+    private void jTableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriaMouseClicked
         // TODO add your handling code here:
-//        if(jTableMarcas.getSelectedRow() != -1){
-//            linha = jTableMarcas.getSelectedRow();
-//            int larguraLogo = jLabelLogo.getWidth();
-//            int alturaLogo = jLabelLogo.getHeight();
-//            int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
-//            marca = new Marca(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString());
-//            jTextFieldIdentificador.setText(marca.getId() + "");
-//            jTextFieldDescricao.setText(marca.getDescricao());
-//            jTextFieldURL.setText(marca.getUrl());
-//
-//            ImageIcon iconLogo = new ImageIcon(marca.getUrl());
-//            iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-//                larguraLogo - borda,alturaLogo - borda,1));
-//        jLabelLogo.setIcon(iconLogo);
-//        }
+        if(jTableCategoria.getSelectedRow() != -1){
+            linha = jTableCategoria.getSelectedRow();
+            Categoria categoria = new Categoria(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()), jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString(), Float.parseFloat(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 2).toString()));
+            jTextFieldIdentificador.setText(categoria.getId() + "");
+            jTextFieldDescricao.setText(categoria.getDescricao());
+            jTextFieldValor.setText(categoria.getValorDaLocacao() + "");
+        }
 
-    }//GEN-LAST:event_jTableMarcasMouseClicked
+    }//GEN-LAST:event_jTableCategoriaMouseClicked
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
-        //limparTabela();
+        limparTabela();
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        //limparTabela();
+        limparTabela();
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
@@ -338,44 +375,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
         // TODO add your handling code here:
         
-        String texto = jTextFieldValor.getText();
-        char letras[] = texto.toCharArray();
-        texto = "";
-        
-        for(int i = 0; i < letras.length; i++){
-            if(Character.isDigit(letras[i])){
-                texto += letras[i];
-            }
-            //if(letras[i] == ',') break;
-        }
-        char novasletras[] = texto.toCharArray();
-        texto = "";
-        
-        int menos = 0;
-        if(apagar) menos = 1;
-        
-        for(int i = 0; i < novasletras.length - menos; i++){
-            texto += novasletras[i];
-        }
-        
-        char c = evt.getKeyChar();
-        if(!apagar && Character.isDigit(c) && texto.toCharArray().length < 10) {
-            texto += evt.getKeyChar();
-        }
-        apagar = false;
-        evt.consume();
-        
-        double numero = Integer.parseInt(texto)/100.0;
-        
-        if(!texto.equals("")){
-            String real = NumberFormat.getCurrencyInstance(local).format(numero);
-
-            jTextFieldValor.setText(real);
-            
-        }else jTextFieldValor.setText("");
-        
-        
-        
+        jTextFieldValor.setText(Numero.validarCampo(jTextFieldValor.getText(), apagar, evt));
     }//GEN-LAST:event_jTextFieldValorKeyTyped
 
     private void jTextFieldValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyPressed
@@ -383,7 +383,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             apagar = true;
             evt.consume();
-        }
+        }else apagar = false;
     }//GEN-LAST:event_jTextFieldValorKeyPressed
 
 
@@ -396,7 +396,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableMarcas;
+    private javax.swing.JTable jTableCategoria;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldIdentificador;
     private javax.swing.JTextField jTextFieldValor;

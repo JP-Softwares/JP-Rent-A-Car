@@ -18,9 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,20 +31,17 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
      * Creates new form TelaMarcas
      */
     IMarcaControle marcaControle = new MarcaControle();
-    Marca marca = null;
     boolean espaco = false;
     int linha = 0;
     String oi[];
     JButton botoes[] = null;
     
     
-    
-    
     public TelaMarcas() {
         initComponents();
         //AdicionarListeners.adicionar(jButtonAlterar, jButtonBuscar, jButtonIncluir, jButtonLogoPredefinida);
         
-        ((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        //((DefaultTableCellRenderer) jTableMarcas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         /*
         try {
             ImageIcon logo = Logo.pegarLogo();
@@ -56,19 +51,12 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }*/
         
-        
-        
-        //MyModel m = new MyModel();
-        //jTableMarcas.getColumnModel().getColumn(3).setCellRenderer(new TableRenderer());
-        
         try {
             listar(marcaControle.listar());
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
     }
-    
-    
     
     public void limparTabela(){
         jTextFieldIdentificador.setText("");
@@ -409,12 +397,14 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
         try {
-            JFileChooser fc = new JFileChooser();
+            ExploradorDeArquivos fc = new ExploradorDeArquivos();
+            fc.setDialogTitle("Selecionar Imagem");
+            
             fc.setAcceptAllFileFilterUsed(false);
             fc.addChoosableFileFilter(new FileNameExtensionFilter("Imagens (*.jpg, *.jpeg, *.png)", "jpg", "jpeg", "png"));
             
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            fc.showOpenDialog(this);
+            fc.abrir(this);
             File arquivo = fc.getSelectedFile();
             if(arquivo != null){
                 String nomeDoArquivo = arquivo.getPath();
@@ -432,7 +422,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         try {
-            marca = new Marca(0, jTextFieldDescricao.getText(), jTextFieldURL.getText());
+            Marca marca = new Marca(0, jTextFieldDescricao.getText(), jTextFieldURL.getText());
             marcaControle.incluir(marca);
             listar(marcaControle.listar());
             jTextFieldIdentificador.setText("");
@@ -466,7 +456,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             int larguraLogo = jLabelLogo.getWidth();
             int alturaLogo = jLabelLogo.getHeight();
             int borda = jLabelLogo.getBorder().getBorderInsets(this).left*2;
-            marca = new Marca(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString());
+            Marca marca = new Marca(Integer.parseInt(jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 0).toString()), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 1).toString(), jTableMarcas.getValueAt(jTableMarcas.getSelectedRow(), 2).toString());
             jTextFieldIdentificador.setText(marca.getId() + "");
             jTextFieldDescricao.setText(marca.getDescricao());
             jTextFieldURL.setText(marca.getUrl());
