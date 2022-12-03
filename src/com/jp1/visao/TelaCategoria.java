@@ -374,7 +374,6 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
 
     private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
         // TODO add your handling code here:
-        
         jTextFieldValor.setText(Numero.validarCampo(jTextFieldValor.getText(), apagar, evt));
     }//GEN-LAST:event_jTextFieldValorKeyTyped
 

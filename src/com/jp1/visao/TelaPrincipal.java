@@ -9,6 +9,7 @@ import com.myapp.themes.Tema;
 import com.jp1.tools.AdicionarListeners;
 
 import java.awt.Color;
+import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.LookAndFeel;
