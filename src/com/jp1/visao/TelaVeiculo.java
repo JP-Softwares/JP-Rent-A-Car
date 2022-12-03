@@ -25,7 +25,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     boolean espaco = false;
     boolean apagar = false;
     Timer progresso = null;
-    private final String JTEXTFIELDVALOR_DEFAULT = "R$ 0,00";
+    private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
+    private final String CAMPODATA_DEFAULT = "  /  /    ";
     
     
     public TelaVeiculo() {
@@ -158,6 +159,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabel10.setText("Ano do Modelo");
 
         jTextFieldAnoDeFabricacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldAnoDeFabricacao.setText("  /  /    ");
         jTextFieldAnoDeFabricacao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDeFabricacaoKeyPressed(evt);
@@ -168,6 +170,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         });
 
         jTextFieldAnoDoModelo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldAnoDoModelo.setText("  /  /    ");
         jTextFieldAnoDoModelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDoModeloKeyPressed(evt);

@@ -32,9 +32,12 @@ public class Data {
                                 if(!apagar){
                                     primeiraVez = false;
                                     char c = evt.getKeyChar();
-                                    if(Character.isDigit(c)) data[i] = c;
-                                    campo.setText(Texto.toString(data));
-                                    setarCareta(campo, apagar, i);
+                                    if(Character.isDigit(c)){
+                                        data[i] = c;
+                                        campo.setText(Texto.toString(data));
+                                        setarCareta(campo, apagar, i);
+                                    }
+                                    
                                 }
                             }
                             break;
@@ -71,9 +74,12 @@ public class Data {
                         }else {
                             if(!apagar){
                                 char c = evt.getKeyChar();
-                                if(Character.isDigit(c)) data[i] = c;
-                                campo.setText(Texto.toString(data));
-                                setarCareta(campo, apagar, i);
+                                if(Character.isDigit(c)){
+                                    data[i] = c;
+                                    campo.setText(Texto.toString(data));
+                                    setarCareta(campo, apagar, i);
+                                }
+                                
                             }
                             break;
                         }
@@ -97,9 +103,11 @@ public class Data {
             }else {
                 if(!apagar) {
                     char c = evt.getKeyChar();
-                    if(Character.isDigit(c)) data[0] = c;
-                    campo.setText(Texto.toString(data));
-                    setarCareta(campo, apagar, 0);
+                    if(Character.isDigit(c)){
+                        data[0] = c;
+                        campo.setText(Texto.toString(data));
+                        setarCareta(campo, apagar, 0);
+                    }
                 }
             }
             evt.consume();

@@ -29,7 +29,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     int linha = 0;
     ICategoriaControle categoriaControle = new CategoriaControle();
     
-    private final String JTEXTFIELDVALOR_DEFAULT = "R$ 0,00";
+    private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
     
     Locale local = new Locale("pt", "br");
     
@@ -68,7 +68,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     public void limparTabela(){
         jTextFieldIdentificador.setText("");
         jTextFieldDescricao.setText("");
-        jTextFieldValor.setText(JTEXTFIELDVALOR_DEFAULT);
+        jTextFieldValor.setText(CAMPODINHEIRO_DEFAULT);
         jTableCategoria.clearSelection();
     }
 
@@ -325,7 +325,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
             listar(categoriaControle.listar());
             jTextFieldIdentificador.setText("");
             jTextFieldDescricao.setText("");
-            jTextFieldValor.setText(JTEXTFIELDVALOR_DEFAULT);
+            jTextFieldValor.setText(CAMPODINHEIRO_DEFAULT);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
