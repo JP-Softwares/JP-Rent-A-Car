@@ -10,12 +10,69 @@ package com.jp1.tools;
  */
 public class Data {
     
+    int dia = 0, mes = 0, ano = 0;
+    
+    public Data(int dia, int mes, int ano){
+        
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
+    }
+    
+    public Data(String data){
+        String texto[] = data.split("/");
+        
+        try {
+            this.dia = Integer.parseInt(texto[0]);
+        } catch (Exception e) {
+            this.dia = 0;
+        }
+        
+        try {
+            this.mes = Integer.parseInt(texto[1]);
+        } catch (Exception e) {
+            this.mes = 0;
+        }
+        
+        try {
+            this.ano = Integer.parseInt(texto[2]);
+        } catch (Exception e) {
+            this.ano = 0;
+        }
+    }
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+    
+    
+    
     public static void validarCampo(javax.swing.JTextField campo, boolean apagar, java.awt.event.KeyEvent evt) throws Exception{
         String texto = campo.getText();
-        
         char data[] = {
             ' ', ' ', '/', ' ', ' ', '/', ' ', ' ', ' ', ' '
         };
+        
         if(texto.length() == 10){
             if(texto.charAt(2) == '/' && texto.charAt(5) == '/'){
                 char letras[] = texto.toCharArray();
