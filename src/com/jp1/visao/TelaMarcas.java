@@ -7,6 +7,7 @@ package com.jp1.visao;
 import com.jp1.modelos.Marca;
 
 import com.jp1.controle.*;
+import com.jp1.tools.Texto;
 //import com.jp1.tools.AdicionarListeners;
 
 import java.awt.event.KeyEvent;
@@ -35,6 +36,10 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     int linha = 0;
     String oi[];
     JButton botoes[] = null;
+    
+    boolean ctrl = false;
+    boolean v = false;
+    boolean colou = false;
     
     
     public TelaMarcas() {
@@ -152,6 +157,9 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDescricaoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyTyped(evt);
@@ -326,8 +334,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                         .addContainerGap(33, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -352,7 +359,8 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jTextFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -369,7 +377,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -382,6 +390,11 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
 
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
+        if(colou){
+            jTextFieldDescricao.setText(Texto.validadorLetraEspaco(jTextFieldDescricao.getText()));
+            colou = false;
+        }
+        
         char c=evt.getKeyChar();
         
         if(Character.isDigit(c) || (!Character.isLetterOrDigit(c) && !espaco)){
@@ -513,7 +526,18 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_SPACE) espaco = true;
-        else espaco = false;
+        else {
+            espaco = false;
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_CONTROL:
+                    ctrl = true;
+                    break;
+                case KeyEvent.VK_V:
+                    v = true;
+                    break;
+            }
+            if(ctrl && v) colou = true;
+        }
     }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
@@ -539,6 +563,18 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseEntered
+
+    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
+        // TODO add your handling code here:
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_CONTROL:
+                ctrl = false;
+                break;
+            case KeyEvent.VK_V:
+                v = false;
+                break;
+        }
+    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

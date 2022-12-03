@@ -8,9 +8,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 import com.jp1.modelos.TipoDoVeiculo;
 import com.jp1.tools.Numero;
-import com.jp1.tools.Data;
+import com.jp1.tools.Texto;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,15 +23,18 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     
     boolean espaco = false;
     boolean apagar = false;
+    
+    boolean ctrl = false;
+    boolean v = false;
+    boolean colou = false;
+    
     Timer progresso = null;
     private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
     private final String CAMPODATA_DEFAULT = "  /  /    ";
     
-    
     public TelaVeiculo() {
         initComponents();
         setarComboBox();
-        jComboBoxTipoDoVeiculo.getRenderer();
     }
     
     public void setarComboBox(){
@@ -66,6 +68,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextFieldAnoDeFabricacao = new javax.swing.JTextField();
         jTextFieldAnoDoModelo = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setBorder(null);
 
@@ -159,10 +162,12 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabel10.setText("Ano do Modelo");
 
         jTextFieldAnoDeFabricacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldAnoDeFabricacao.setText("  /  /    ");
         jTextFieldAnoDeFabricacao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDeFabricacaoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldAnoDeFabricacaoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDeFabricacaoKeyTyped(evt);
@@ -170,10 +175,12 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         });
 
         jTextFieldAnoDoModelo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldAnoDoModelo.setText("  /  /    ");
         jTextFieldAnoDoModelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDoModeloKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldAnoDoModeloKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldAnoDoModeloKeyTyped(evt);
@@ -229,6 +236,10 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(153, 153, 153)))
                 .addGap(258, 258, 258))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +281,9 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -369,17 +382,37 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             apagar = true;
-            evt.consume();
-        }else apagar = false;
+        }else{
+            apagar = false;
+            
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_CONTROL:
+                    ctrl = true;
+                    break;
+                case KeyEvent.VK_V:
+                    v = true;
+                    break;
+            }
+            if(ctrl && v) colou = true;
+        }
     }//GEN-LAST:event_jTextFieldAnoDeFabricacaoKeyPressed
 
     private void jTextFieldAnoDeFabricacaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDeFabricacaoKeyTyped
         // TODO add your handling code here:
-        try {
-            Data.validarCampo(jTextFieldAnoDeFabricacao, apagar, evt);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        if(colou){
+            jTextFieldAnoDeFabricacao.setText(Texto.validador4Numeros(jTextFieldAnoDeFabricacao.getText()));
+            colou = false;
+        }
+        char c=evt.getKeyChar();
+        
+        if((!Character.isDigit(c) || jTextFieldAnoDeFabricacao.getText().length() == 4) && !apagar){
+            evt.consume();
+        }
+        
+        apagar = false;
+
+        if(Character.isLowerCase(c)){
+            evt.setKeyChar(Character.toUpperCase(c));
         }
     }//GEN-LAST:event_jTextFieldAnoDeFabricacaoKeyTyped
 
@@ -387,23 +420,68 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             apagar = true;
-            evt.consume();
-        }else apagar = false;
+        }else{
+            apagar = false;
+            
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_CONTROL:
+                    ctrl = true;
+                    break;
+                case KeyEvent.VK_V:
+                    v = true;
+                    break;
+            }
+            if(ctrl && v) colou = true;
+        }
     }//GEN-LAST:event_jTextFieldAnoDoModeloKeyPressed
 
     private void jTextFieldAnoDoModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDoModeloKeyTyped
         // TODO add your handling code here:
-        try {
-            Data.validarCampo(jTextFieldAnoDoModelo, apagar, evt);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        if(colou){
+            jTextFieldAnoDoModelo.setText(Texto.validador4Numeros(jTextFieldAnoDoModelo.getText()));
+            colou = false;
+        }
+        char c=evt.getKeyChar();
+        
+        if((!Character.isDigit(c) || jTextFieldAnoDoModelo.getText().length() == 4) && !apagar){
+            evt.consume();
+        }
+        
+        apagar = false;
+
+        if(Character.isLowerCase(c)){
+            evt.setKeyChar(Character.toUpperCase(c));
         }
     }//GEN-LAST:event_jTextFieldAnoDoModeloKeyTyped
+
+    private void jTextFieldAnoDeFabricacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDeFabricacaoKeyReleased
+        // TODO add your handling code here:
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_CONTROL:
+                ctrl = false;
+                break;
+            case KeyEvent.VK_V:
+                v = false;
+                break;
+        }
+    }//GEN-LAST:event_jTextFieldAnoDeFabricacaoKeyReleased
+
+    private void jTextFieldAnoDoModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDoModeloKeyReleased
+        // TODO add your handling code here:
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_CONTROL:
+                ctrl = false;
+                break;
+            case KeyEvent.VK_V:
+                v = false;
+                break;
+        }
+    }//GEN-LAST:event_jTextFieldAnoDoModeloKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<TipoDoVeiculo> jComboBoxTipoDoVeiculo;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

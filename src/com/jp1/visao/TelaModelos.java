@@ -6,22 +6,17 @@ package com.jp1.visao;
 
 import com.jp1.controle.*;
 import com.jp1.modelos.*;
-import com.jp1.tools.AdicionarListeners;
-import java.awt.Color;
-import java.awt.EventQueue;
+import com.jp1.tools.Texto;
+import java.awt.event.KeyEvent;
 
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.ComboBoxEditor;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,6 +33,10 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     IMarcaControle marcaControle = new MarcaControle();
     boolean espaco = false;
     int linha = 0;
+    
+    boolean ctrl = false;
+    boolean v = false;
+    boolean colou = false;
     
     public TelaModelos() {
         initComponents();
@@ -188,6 +187,9 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDescricaoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyTyped(evt);
@@ -407,7 +409,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -420,11 +422,28 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
     private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
         // TODO add your handling code here:
-        espaco = evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE;
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) espaco = true;
+        else{
+            espaco = false;
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_CONTROL:
+                    ctrl = true;
+                    break;
+                case KeyEvent.VK_V:
+                    v = true;
+                    break;
+            }
+            if(ctrl && v) colou = true;
+        }
     }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
 
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
+        if(colou){
+            jTextFieldDescricao.setText(Texto.validadorLetraEspaco(jTextFieldDescricao.getText()));
+            colou = false;
+        }
+        
         char c=evt.getKeyChar();
 
         if(!Character.isLetterOrDigit(c) && !espaco){
@@ -553,6 +572,18 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseEntered
+
+    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
+        // TODO add your handling code here:
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_CONTROL:
+                ctrl = false;
+                break;
+            case KeyEvent.VK_V:
+                v = false;
+                break;
+        }
+    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
