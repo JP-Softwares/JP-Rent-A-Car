@@ -391,7 +391,7 @@ public class TelaMarcas extends javax.swing.JInternalFrame {
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
         if(colou){
-            jTextFieldDescricao.setText(Texto.validadorLetraEspaco(jTextFieldDescricao.getText()));
+            jTextFieldDescricao.setText(Texto.validadorX(jTextFieldDescricao.getText(), 0, Texto.tipoDoTexto.STRING_SPACE));
             colou = false;
         }
         

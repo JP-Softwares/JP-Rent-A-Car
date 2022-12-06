@@ -21,7 +21,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
      * Creates new form TelaVeiculo
      */
     
-    boolean espaco = false;
     boolean apagar = false;
     
     boolean ctrl = false;
@@ -39,6 +38,44 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     
     public void setarComboBox(){
         jComboBoxTipoDoVeiculo.setModel(new DefaultComboBoxModel<>(TipoDoVeiculo.values()));
+    }
+    
+    public void ctrlV(java.awt.event.KeyEvent evt){
+        boolean ativar_desativar = false;
+        if(evt.getID() == java.awt.event.KeyEvent.KEY_PRESSED) ativar_desativar = true;
+        //if(evt.getID() == java.awt.event.KeyEvent.KEY_RELEASED) ativar_desativar = false;
+            
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_CONTROL:
+                 ctrl = true;
+                break;
+            case KeyEvent.VK_V:
+                v = true;
+                break;
+        }
+        
+        if(ctrl && v) colou = true;
+    }
+    
+    public void colouString(javax.swing.JTextField jTextField, int qtd){
+        if(colou){
+            jTextField.setText(Texto.validadorX(jTextField.getText(), qtd, Texto.tipoDoTexto.STRING));
+            colou = false;
+        }
+    }
+    
+    public void colouNumero(javax.swing.JTextField jTextField, int qtd){
+        if(colou){
+            jTextField.setText(Texto.validadorX(jTextField.getText(), qtd, Texto.tipoDoTexto.INT));
+            colou = false;
+        }
+    }
+    
+    public void colouLetrasENumeros(javax.swing.JTextField jTextField, int qtd){
+        if(colou){
+            jTextField.setText(Texto.validadorX(jTextField.getText(), qtd, Texto.tipoDoTexto.INT_STRING));
+            colou = false;
+        }
     }
 
     /**
@@ -68,7 +105,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextFieldAnoDeFabricacao = new javax.swing.JTextField();
         jTextFieldAnoDoModelo = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldKilometragem = new javax.swing.JTextField();
 
         setBorder(null);
 
@@ -99,6 +137,9 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldPlacaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPlacaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPlacaKeyTyped(evt);
             }
@@ -111,6 +152,9 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jTextFieldRenavam.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldRenavamKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldRenavamKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldRenavamKeyTyped(evt);
@@ -187,6 +231,23 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Kilometragem");
+
+        jTextFieldKilometragem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldKilometragem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldKilometragemKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldKilometragemKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldKilometragemKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,52 +255,51 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBoxTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldAnoDeFabricacao))
+                                    .addComponent(jTextFieldAnoDoModelo)
+                                    .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(39, 39, 39))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldPrecoDeVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldPrecoDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(153, 153, 153)))
-                .addGap(258, 258, 258))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(305, 305, 305)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,35 +315,38 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                         .addGap(13, 13, 13)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextFieldPrecoDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(jTextFieldPrecoDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel11)
+                                .addComponent(jTextFieldKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldPrecoDeVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBoxTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(75, 75, 75)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -307,21 +370,19 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jTextFieldPlacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPlacaKeyPressed
         // TODO add your handling code here:
-        
-        if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)apagar = true;
-        else apagar = false;
-        
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE) espaco = true;
-        else espaco = false;
+        if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) apagar = true;
+        else {
+            apagar = false;
+            ctrlV(evt);
+        }
     }//GEN-LAST:event_jTextFieldPlacaKeyPressed
 
     private void jTextFieldPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPlacaKeyTyped
         // TODO add your handling code here:
-        String texto = jTextFieldPlaca.getText();
-        char letras[] = texto.toCharArray();
+        colouLetrasENumeros(jTextFieldPlaca, 7);
         char c=evt.getKeyChar();
 
-        if((!Character.isLetterOrDigit(c) && !espaco) || (letras.length == 7 && !apagar)){
+        if(!Character.isLetterOrDigit(c) || (jTextFieldPlaca.getText().length() == 7 && !apagar)){
             evt.consume();
         }
 
@@ -332,16 +393,19 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jTextFieldRenavamKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRenavamKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE) espaco = true;
-        else espaco = false;
+        if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) apagar = true;
+        else {
+            apagar = false;
+            ctrlV(evt);
+        }
     }//GEN-LAST:event_jTextFieldRenavamKeyPressed
 
     private void jTextFieldRenavamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRenavamKeyTyped
         // TODO add your handling code here:
-        
+        colouNumero(jTextFieldRenavam, 9);
         char c=evt.getKeyChar();
         
-        if((!Character.isDigit(c) && !espaco)){
+        if(!Character.isDigit(c) || (jTextFieldRenavam.getText().length() == 9 && !apagar)){
             evt.consume();
         }
         
@@ -399,10 +463,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jTextFieldAnoDeFabricacaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDeFabricacaoKeyTyped
         // TODO add your handling code here:
-        if(colou){
-            jTextFieldAnoDeFabricacao.setText(Texto.validador4Numeros(jTextFieldAnoDeFabricacao.getText()));
-            colou = false;
-        }
+        colouNumero(jTextFieldAnoDeFabricacao, 4);
+        
         char c=evt.getKeyChar();
         
         if((!Character.isDigit(c) || jTextFieldAnoDeFabricacao.getText().length() == 4) && !apagar){
@@ -410,10 +472,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         }
         
         apagar = false;
-
-        if(Character.isLowerCase(c)){
-            evt.setKeyChar(Character.toUpperCase(c));
-        }
     }//GEN-LAST:event_jTextFieldAnoDeFabricacaoKeyTyped
 
     private void jTextFieldAnoDoModeloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDoModeloKeyPressed
@@ -437,10 +495,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jTextFieldAnoDoModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDoModeloKeyTyped
         // TODO add your handling code here:
-        if(colou){
-            jTextFieldAnoDoModelo.setText(Texto.validador4Numeros(jTextFieldAnoDoModelo.getText()));
-            colou = false;
-        }
+        colouNumero(jTextFieldAnoDoModelo, 4);
         char c=evt.getKeyChar();
         
         if((!Character.isDigit(c) || jTextFieldAnoDoModelo.getText().length() == 4) && !apagar){
@@ -448,10 +503,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         }
         
         apagar = false;
-
-        if(Character.isLowerCase(c)){
-            evt.setKeyChar(Character.toUpperCase(c));
-        }
     }//GEN-LAST:event_jTextFieldAnoDoModeloKeyTyped
 
     private void jTextFieldAnoDeFabricacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAnoDeFabricacaoKeyReleased
@@ -478,11 +529,41 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTextFieldAnoDoModeloKeyReleased
 
+    private void jTextFieldKilometragemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) apagar = true;
+        else{
+            apagar = false;
+            ctrlV(evt);
+        }
+    }//GEN-LAST:event_jTextFieldKilometragemKeyPressed
+
+    private void jTextFieldKilometragemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemKeyReleased
+        // TODO add your handling code here:
+        ctrlV(evt);
+    }//GEN-LAST:event_jTextFieldKilometragemKeyReleased
+
+    private void jTextFieldKilometragemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemKeyTyped
+        // TODO add your handling code here:
+        colouNumero(jTextFieldPlaca, 6);
+        // colocar aqui KM depois
+    }//GEN-LAST:event_jTextFieldKilometragemKeyTyped
+
+    private void jTextFieldPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPlacaKeyReleased
+        // TODO add your handling code here:
+        ctrlV(evt);
+    }//GEN-LAST:event_jTextFieldPlacaKeyReleased
+
+    private void jTextFieldRenavamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRenavamKeyReleased
+        // TODO add your handling code here:
+        ctrlV(evt);
+    }//GEN-LAST:event_jTextFieldRenavamKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<TipoDoVeiculo> jComboBoxTipoDoVeiculo;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -495,6 +576,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldAnoDeFabricacao;
     private javax.swing.JTextField jTextFieldAnoDoModelo;
     private javax.swing.JTextField jTextFieldIdentificador;
+    private javax.swing.JTextField jTextFieldKilometragem;
     private javax.swing.JTextField jTextFieldPlaca;
     private javax.swing.JTextField jTextFieldPrecoDeCompra;
     private javax.swing.JTextField jTextFieldPrecoDeVenda;

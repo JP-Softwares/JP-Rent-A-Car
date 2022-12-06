@@ -88,6 +88,7 @@ public class CategoriaControle implements ICategoriaControle{
             Iterator<Categoria> lista = listagem.iterator();
             while(lista.hasNext()){
                 Categoria aux = lista.next();
+                System.out.println(aux.getDescricao());
                 if(aux.getDescricao().equalsIgnoreCase(objeto.getDescricao()) && aux.getId() != objeto.getId()){
                     return true;
                 }

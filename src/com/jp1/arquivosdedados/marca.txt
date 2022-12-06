@@ -1,2 +1,2 @@
-100069;CHRYSLER;./src/com/jp1/logosdainternet/CHRYSLER.png
+100069;CHRYSLER;./src/com/jp1/logos/100069.png
 100073;FIAT;./src/com/jp1/logosdainternet/FIAT.png

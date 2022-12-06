@@ -79,11 +79,11 @@ public class CategoriaDao implements ICategoriaDao {
              String linha = "";
 
               while((linha = br.readLine()) != null){
-                Categoria objetoCategoria = new Marca();
+                Categoria objetoCategoria = new Categoria();
                 String vetorString[] = linha.split(";");
                 objetoCategoria.setId(Integer.parseInt(vetorString[0]));
                 objetoCategoria.setDescricao(vetorString[1]);
-                objetoCategoria.setUrl(vetorString[2]);
+                objetoCategoria.setValorDaLocacao(Float.parseFloat(vetorString[2]));
                 listaDeCategorias.add(objetoCategoria);
 
              
@@ -96,33 +96,53 @@ public class CategoriaDao implements ICategoriaDao {
         
     }
 
-        } catch (Exception erro) {
-            // TODO: handle exception
-        }
-
-    }
-
-
-
     @Override
     public Categoria buscar(String descricao) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            
+            String vetorString[] = null;
+            
+
+            Categoria objetoCategoria = new Categoria();
+            while(!(vetorString = br.readLine().split(";"))[1].equals(descricao));
+            objetoCategoria.setId(Integer.parseInt(vetorString[0]));
+            objetoCategoria.setDescricao(vetorString[1]);
+            objetoCategoria.setValorDaLocacao(Float.parseFloat(vetorString[2]));
+            br.close();
+            return objetoCategoria;
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
     }
+
+    
 
     @Override
     public Categoria buscar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+             try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+
+            Categoria objetoCategoria = new Categoria();
+            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
+             objetoCategoria.setId(Integer.parseInt(vetorString[0]));
+             objetoCategoria.setDescricao(vetorString[1]);
+             objetoCategoria.setValorDaLocacao(Float.parseFloat(vetorString[2]));
+            br.close();
+            return objetoCategoria;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
     
+
 }

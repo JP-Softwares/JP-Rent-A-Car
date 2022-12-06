@@ -265,17 +265,23 @@
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
-                      <Renderer/>
+                      <Renderer editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                        <Connection code="new TableRenderer()" type="code"/>
+                      </Renderer>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
-                      <Renderer/>
+                      <Renderer editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                        <Connection code="new TableRenderer()" type="code"/>
+                      </Renderer>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
-                      <Renderer/>
+                      <Renderer editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                        <Connection code="new TableRenderer()" type="code"/>
+                      </Renderer>
                     </Column>
                   </TableColumnModel>
                 </Property>

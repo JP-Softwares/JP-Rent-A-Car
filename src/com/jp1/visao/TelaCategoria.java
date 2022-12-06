@@ -5,6 +5,9 @@
 package com.jp1.visao;
 
 import com.jp1.modelos.Categoria;
+import com.jp1.Renderer.TableRenderer;
+
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,12 +45,12 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     public TelaCategoria() {
         initComponents();
         
-//        try {
-//            //listar(categoriaControle.listar());
-//        } catch (Exception e) {
-//            JOptionPane.showConfirmDialog(null, e.getMessage());
-//            e.printStackTrace();
-//        }
+        try {
+            listar(categoriaControle.listar());
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     public void listar(ArrayList<Categoria> listaDeCategorias){
@@ -61,7 +64,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
                 Categoria categoria = lista.next();
                 saida[0] = categoria.getId();
                 saida[1]= categoria.getDescricao();
-                saida[2] = categoria.getValorDaLocacao();
+                saida[2] = Numero.real(categoria.getValorDaLocacao());
                 //Incluir nova linha na Tabela
                 modelo.addRow(saida);
             }
@@ -209,6 +212,11 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableCategoria);
+        if (jTableCategoria.getColumnModel().getColumnCount() > 0) {
+            jTableCategoria.getColumnModel().getColumn(0).setCellRenderer(new TableRenderer());
+            jTableCategoria.getColumnModel().getColumn(1).setCellRenderer(new TableRenderer());
+            jTableCategoria.getColumnModel().getColumn(2).setCellRenderer(new TableRenderer());
+        }
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -329,7 +337,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
         if(colou){
-            jTextFieldDescricao.setText(Texto.validadorLetraEspaco(jTextFieldDescricao.getText()));
+            jTextFieldDescricao.setText(Texto.validadorX(jTextFieldDescricao.getText(), 0, Texto.tipoDoTexto.STRING_SPACE));
             colou = false;
         }
         
@@ -361,7 +369,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
             try {
-                Categoria categoria = new Categoria(0, jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
+                Categoria categoria = new Categoria(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
                 categoriaControle.alterar(categoria);
                 listar(categoriaControle.listar());
                 jTableCategoria.changeSelection(linha, 0, false, false);
@@ -375,10 +383,10 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
             linha = jTableCategoria.getSelectedRow();
-            Categoria categoria = new Categoria(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()), jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString(), Float.parseFloat(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 2).toString()));
+            Categoria categoria = new Categoria(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()), jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString(), Numero.numeros(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 2).toString()));
             jTextFieldIdentificador.setText(categoria.getId() + "");
             jTextFieldDescricao.setText(categoria.getDescricao());
-            jTextFieldValor.setText(categoria.getValorDaLocacao() + "");
+            jTextFieldValor.setText(Numero.real(categoria.getValorDaLocacao()) + "");
         }
 
     }//GEN-LAST:event_jTableCategoriaMouseClicked

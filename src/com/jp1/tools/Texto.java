@@ -10,6 +10,10 @@ package com.jp1.tools;
  */
 public class Texto {
     
+    public static enum tipoDoTexto{
+        STRING, INT, INT_STRING, STRING_SPACE
+    }
+    
     public static String toString(char vetor[]) throws Exception{
         if(vetor.length > 0){
             String texto = "";
@@ -21,34 +25,33 @@ public class Texto {
         }else throw new Exception("Vetor vazio");
     }
     
-    public static String validadorLetraEspaco(String texto){
-        char vetor[] = texto.toCharArray();
+    public static String validadorX(String texto, int qtd, tipoDoTexto tipo){
+        char letras[] = texto.toCharArray();
+        int cont = 0;
+        boolean qtdIlimitada = qtd == 0;
         texto = "";
-        boolean espaco = false;
 
-        for(int i = 0; i < vetor.length; i++){
-            if(vetor[i] == ' ') espaco = true;
-            if(Character.isLetter(vetor[i]) || espaco){
-                texto += Character.toUpperCase(vetor[i]);
+        for(int i = 0; i < letras.length; i++){
+            boolean positivo = false;
+            switch (tipo) {
+                case INT:
+                    positivo = Character.isDigit(letras[i]);
+                    break;
+                case STRING:
+                    positivo = Character.isLetter(letras[i]);
+                    break;
+                case INT_STRING:
+                    positivo = Character.isLetterOrDigit(letras[i]);
+                    break;
+                case STRING_SPACE:
+                    positivo = Character.isLetter(letras[i]) || letras[i] == ' ';
+                    Character.toUpperCase(letras[i]);
+                    break;
             }
-            espaco = false;
-        }
-        
-        return texto;
-    }
-    
-    public static String validador4Numeros(String texto){
-        if(texto.length() > 4){
-            char letras[] = texto.toCharArray();
-            int cont = 0;
-            texto = "";
-
-            for(int i = 0; i < letras.length; i++){
-                if(Character.isDigit(letras[i])){
-                    texto += letras[i];
-                    cont++;
-                    if(cont == 4) break;
-                }
+            if(positivo){
+                texto += letras[i];
+                cont++;
+                if(cont == qtd && !qtdIlimitada) break;
             }
         }
         return texto;
