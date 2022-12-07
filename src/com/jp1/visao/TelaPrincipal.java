@@ -118,11 +118,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     }
     
     public void lookAndFeel(){
-        try {
-            javax.swing.UIManager.setLookAndFeel(new Tema());
-        } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        Tema.setup();
     }
     
     public void mouse(java.awt.event.MouseEvent evt){

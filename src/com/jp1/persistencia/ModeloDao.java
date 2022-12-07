@@ -13,14 +13,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import java.io.File;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageTypeSpecifier;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -157,6 +153,7 @@ public class  ModeloDao implements IModeloDao {
             objetoModelo.setId(Integer.parseInt(vetorString[0]));
             objetoModelo.setDescricao(vetorString[1]);
             objetoModelo.setUrl(vetorString[2]);
+            objetoModelo.setMarca(null);
             //objetoModelo.setMarca(vetorString[3]);
             br.close();
             return objetoModelo;
@@ -179,6 +176,7 @@ public class  ModeloDao implements IModeloDao {
              objetoModelo.setId(Integer.parseInt(vetorString[0]));
              objetoModelo.setDescricao(vetorString[1]);
              objetoModelo.setUrl(vetorString[2]);
+             objetoModelo.setMarca(null);
              //objetoModelo.setMarca(vetorString[3]);
             br.close();
             return objetoModelo;

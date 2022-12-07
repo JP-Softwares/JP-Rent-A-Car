@@ -16,8 +16,9 @@ public interface IVeiculoDao {
     void incluir(Veiculo objeto) throws Exception;
     void alterar(Veiculo objeto) throws Exception;
     ArrayList<Veiculo> listar() throws Exception;
-    Veiculo buscar(String descricao) throws Exception;
     Veiculo buscar(int id) throws Exception; 
+    Veiculo buscar(String placa) throws Exception;
+   
 
     
 }

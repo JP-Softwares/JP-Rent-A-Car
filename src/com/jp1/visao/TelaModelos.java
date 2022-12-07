@@ -31,12 +31,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
     IModeloControle modeloControle = new ModeloControle();
     Modelo modelo = new Modelo();
     IMarcaControle marcaControle = new MarcaControle();
-    boolean espaco = false;
     int linha = 0;
-    
-    boolean ctrl = false;
-    boolean v = false;
-    boolean colou = false;
     
     public TelaModelos() {
         initComponents();
@@ -89,7 +84,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jTextFieldDescricao.setText("");
         jTextFieldURL.setText("");
         jTableModelos.clearSelection();
-        //jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        jComboBoxMarca.setSelectedIndex(0);
         jLabelLogo.setIcon(null);
     }
     
@@ -100,7 +95,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             model.setNumRows(0);
             Iterator<Modelo> lista = listaDeModelos.iterator();
             while(lista.hasNext()){
-                Object[] saida= new Object[5];
+                String[] saida= new String[5];
                 Modelo aux = lista.next();
                 saida[0]= aux.getId()+"";
                 saida[1]= aux.getDescricao();
@@ -146,14 +141,6 @@ public class TelaModelos extends javax.swing.JInternalFrame {
 
         setBorder(null);
         setPreferredSize(new java.awt.Dimension(980, 510));
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                formMouseEntered(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(980, 510));
@@ -179,18 +166,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         jLabel3.setText("Descrição");
 
         jTextFieldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDescricaoActionPerformed(evt);
-            }
-        });
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldDescricaoKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldDescricaoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyTyped(evt);
             }
@@ -409,50 +385,16 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
-
-    private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_SPACE) espaco = true;
-        else{
-            espaco = false;
-            switch (evt.getKeyCode()) {
-                case KeyEvent.VK_CONTROL:
-                    ctrl = true;
-                    break;
-                case KeyEvent.VK_V:
-                    v = true;
-                    break;
-            }
-            if(ctrl && v) colou = true;
-        }
-    }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
-
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
-        if(colou){
-            jTextFieldDescricao.setText(Texto.validadorX(jTextFieldDescricao.getText(), 0, Texto.tipoDoTexto.STRING_SPACE));
-            colou = false;
-        }
-        
-        char c=evt.getKeyChar();
-
-        if(!Character.isLetterOrDigit(c) && !espaco){
-            evt.consume();
-        }
-
-        if(Character.isLowerCase(c)){
-            evt.setKeyChar(Character.toUpperCase(c));
-        }
+        Texto.validarLetrasEspacoENumero(jTextFieldDescricao, 0, evt, true);
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -564,26 +506,6 @@ public class TelaModelos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         setarImagemMarca();
     }//GEN-LAST:event_jComboBoxMarcaActionPerformed
-
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseClicked
-
-    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseEntered
-
-    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
-        // TODO add your handling code here:
-        switch (evt.getKeyCode()) {
-            case KeyEvent.VK_CONTROL:
-                ctrl = false;
-                break;
-            case KeyEvent.VK_V:
-                v = false;
-                break;
-        }
-    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

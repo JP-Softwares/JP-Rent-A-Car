@@ -4,8 +4,6 @@
  */
 package com.jp1.modelos;
 
-import java.util.Date;
-
 /**
  *
  * @author aluno
@@ -19,7 +17,7 @@ public class Veiculo {
     private float precoDeVenda = 0;
     private int anoFabricacao = 0;
     private int anoModelo = 0;
-    private int quilometragem = 0;
+    private int kilometragem = 0;
     private TipoDoCombustivel combustivel = null;
     private TipoDoVeiculo carro = null;
     private SituacaoDoVeiculo situacao = null;
@@ -30,7 +28,7 @@ public class Veiculo {
 
     }
 
-    public Veiculo(int id, String placa, int renavam, Categoria categoria, float precoDeCompra, float precoDeVenda, int anoFabricacao, int anoModelo, int quilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao, Modelo modelo) {
+    public Veiculo(int id, String placa, int renavam, Categoria categoria, float precoDeCompra, float precoDeVenda, int anoFabricacao, int anoModelo, int kilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao, Modelo modelo) {
         this.id = id;
         this.placa = placa;
         this.renavam = renavam;
@@ -39,7 +37,7 @@ public class Veiculo {
         this.precoDeVenda = precoDeVenda;
         this.anoFabricacao = anoFabricacao;
         this.anoModelo = anoModelo;
-        this.quilometragem = quilometragem;
+        this.kilometragem = kilometragem;
         this.combustivel = combustivel;
         this.carro = carro;
         this.situacao = situacao;
@@ -48,7 +46,7 @@ public class Veiculo {
 
     @Override
     public String toString() {
-        return id + ";" + placa + ";" + renavam + ";" + categoria + ";" + precoDeCompra + ";" + precoDeVenda + ";" + anoFabricacao + ";" + anoModelo + ";" + quilometragem + ";" + combustivel + ";" + carro + ";" + situacao + ";" + modelo.getId() + "\n";
+        return id + ";" + placa + ";" + renavam + ";" + categoria.getId() + ";" + precoDeCompra + ";" + precoDeVenda + ";" + anoFabricacao + ";" + anoModelo + ";" + kilometragem + ";" + combustivel + ";" + carro + ";" + situacao + ";" + modelo.getId() + "\n";
     }
 
     public int getId() {
@@ -115,12 +113,12 @@ public class Veiculo {
         this.anoModelo = anoModelo;
     }
 
-    public int getQuilometragem() {
-        return quilometragem;
+    public int getKilometragem() {
+        return kilometragem;
     }
 
-    public void setQuilometragem(int quilometragem) {
-        this.quilometragem = quilometragem;
+    public void setKilometragem(int kilometragem) {
+        this.kilometragem = kilometragem;
     }
 
     public TipoDoCombustivel getCombustivel() {
@@ -145,6 +143,14 @@ public class Veiculo {
 
     public void setSituacao(SituacaoDoVeiculo situacao) {
         this.situacao = situacao;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
     }
 
 }

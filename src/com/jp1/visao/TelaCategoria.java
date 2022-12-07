@@ -28,12 +28,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaCategoria
      */
-    boolean espaco = false;
     boolean apagar = false;
-    
-    boolean ctrl = false;
-    boolean v = false;
-    boolean colou = false;
     
     int linha = 0;
     ICategoriaControle categoriaControle = new CategoriaControle();
@@ -127,18 +122,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         jLabel3.setText("Descrição");
 
         jTextFieldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDescricaoActionPerformed(evt);
-            }
-        });
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldDescricaoKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldDescricaoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyTyped(evt);
             }
@@ -312,44 +296,9 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
-
-    private void jTextFieldDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_SPACE) espaco = true;
-        else {
-            espaco = false;
-            
-            switch (evt.getKeyCode()) {
-                case KeyEvent.VK_CONTROL:
-                    ctrl = true;
-                    break;
-                case KeyEvent.VK_V:
-                    v = true;
-                    break;
-            }
-            if(ctrl && v) colou = true;
-        }
-    }//GEN-LAST:event_jTextFieldDescricaoKeyPressed
-
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
         // TODO add your handling code here:
-        if(colou){
-            jTextFieldDescricao.setText(Texto.validadorX(jTextFieldDescricao.getText(), 0, Texto.tipoDoTexto.STRING_SPACE));
-            colou = false;
-        }
-        
-        char c=evt.getKeyChar();
-
-        if(Character.isDigit(c) || (!Character.isLetterOrDigit(c) && !espaco)){
-            evt.consume();
-        }
-
-        if(Character.isLowerCase(c)){
-            evt.setKeyChar(Character.toUpperCase(c));
-        }
+        Texto.validarLetrasEEspaco(jTextFieldDescricao, 0, evt, true);
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
@@ -418,18 +367,6 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
             evt.consume();
         }else apagar = false;
     }//GEN-LAST:event_jTextFieldValorKeyPressed
-
-    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
-        // TODO add your handling code here:
-        switch (evt.getKeyCode()) {
-            case KeyEvent.VK_CONTROL:
-                ctrl = false;
-                break;
-            case KeyEvent.VK_V:
-                v = false;
-                break;
-        }
-    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

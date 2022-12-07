@@ -12,7 +12,7 @@ import com.formdev.flatlaf.FlatLightLaf;
  */
 public class Tema extends FlatLightLaf {
     
-     public static boolean setup() {
+    public static boolean setup() {
         return setup( new Tema() );
     }
 

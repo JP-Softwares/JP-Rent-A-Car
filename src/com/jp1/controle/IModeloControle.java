@@ -17,6 +17,5 @@ public interface IModeloControle {
     
     void alterar(Modelo objeto) throws Exception;
 
-    
     ArrayList<Modelo> listar() throws Exception;
 }
