@@ -84,7 +84,7 @@ public class CategoriaControle implements ICategoriaControle{
 
     private boolean buscarCategoria(Categoria objeto) throws Exception{
         try {
-            ArrayList<Categoria> listagem = categoriaPersistencia.listar();
+            ArrayList<Categoria> listagem = listar();
             Iterator<Categoria> lista = listagem.iterator();
             while(lista.hasNext()){
                 Categoria aux = lista.next();
@@ -101,7 +101,7 @@ public class CategoriaControle implements ICategoriaControle{
     }
     private boolean buscarCategoria(String descricao) throws Exception{
         try {
-            ArrayList<Categoria> listagem = categoriaPersistencia.listar();
+            ArrayList<Categoria> listagem = listar();
             Iterator<Categoria> lista = listagem.iterator();
             while(lista.hasNext()){
                 Categoria aux = lista.next();

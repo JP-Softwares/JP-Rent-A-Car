@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import com.jp1.modelos.Modelo;
 import com.jp1.controle.*;
-import com.jp1.modelos.Marca;
+import com.jp1.modelos.Veiculo;
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
     JLabel icone = new JLabel();
     IModeloControle modeloControle = new ModeloControle();
     IMarcaControle marcaControle = new MarcaControle();
+    IVeiculoControle veiculoControle = new VeiculoControle();
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -51,15 +52,32 @@ public class TableRenderer extends DefaultTableCellRenderer {
                         ArrayList<Modelo> lista = modeloControle.listar();
                         Iterator<Modelo> modelos = lista.iterator();
                         Modelo modelo = null;
-                        int idMarca = 0;
+                        String urlMarca = "";
                         while(modelos.hasNext()){
-                            if((modelo = modelos.next()).toString().contains(table.getValueAt(row, 0).toString())){
-                                idMarca = modelo.getMarca().getId();
+                            if((modelo = modelos.next()).getId() == Integer.parseInt(table.getValueAt(row, 0).toString())){
+                                urlMarca = modelo.getMarca().getUrl();
+                                break;
                             }
                         }
-                        iconLogo = new ImageIcon(getClass().getResource(marcaControle.buscar(idMarca).getUrl().replace("./src", "")));
+                        iconLogo = new ImageIcon(urlMarca);
                         
 
+                    }
+                    
+                    if(table.getName().equals("TabelaVeículo") && column == 12){
+                        ArrayList<Veiculo> lista = veiculoControle.listar();
+                        Iterator<Veiculo> veiculos = lista.iterator();
+                        Veiculo veiculo = null;
+                        
+                        String urlModelo = "";
+                        while(veiculos.hasNext()){
+                            if((veiculo = veiculos.next()).getId() == Integer.parseInt(table.getValueAt(row, 0).toString())){
+                                urlModelo = veiculo.getModelo().getUrl();
+                                break;
+                            }
+                        }
+                        iconLogo = new ImageIcon(urlModelo);
+                        
                     }
                     
                 } catch (Exception erro) {

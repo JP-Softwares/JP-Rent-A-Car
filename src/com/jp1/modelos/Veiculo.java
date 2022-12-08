@@ -12,7 +12,7 @@ public class Veiculo {
 
     private int id = 0;
     private String placa = "";
-    private int renavam = 0;
+    private String renavam = "";
     private float precoDeCompra = 0;
     private float precoDeVenda = 0;
     private int anoFabricacao = 0;
@@ -28,7 +28,7 @@ public class Veiculo {
 
     }
 
-    public Veiculo(int id, String placa, int renavam, Categoria categoria, float precoDeCompra, float precoDeVenda, int anoFabricacao, int anoModelo, int kilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao, Modelo modelo) {
+    public Veiculo(int id, String placa, String renavam, Categoria categoria, float precoDeCompra, float precoDeVenda, int anoFabricacao, int anoModelo, int kilometragem, TipoDoCombustivel combustivel, TipoDoVeiculo carro, SituacaoDoVeiculo situacao, Modelo modelo) {
         this.id = id;
         this.placa = placa;
         this.renavam = renavam;
@@ -65,11 +65,11 @@ public class Veiculo {
         this.placa = placa;
     }
 
-    public int getRenavam() {
+    public String getRenavam() {
         return renavam;
     }
 
-    public void setRenavam(int renavam) {
+    public void setRenavam(String renavam) {
         this.renavam = renavam;
     }
 

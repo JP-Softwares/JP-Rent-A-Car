@@ -29,7 +29,7 @@ public class Numero {
         return Float.parseFloat(texto);
     }
     
-    public static String numerosSemPonto(String texto){
+    public static int numerosSemPonto(String texto){
         char letras[] = texto.toCharArray();
         texto = "";
         
@@ -39,7 +39,16 @@ public class Numero {
             }
             //if(letras[i] == ',') texto += '.';
         }
-        return texto;
+        if(texto.equals("")) return 0;
+        return Integer.parseInt(texto);
+    }
+    
+    public static String numeral(int numero){
+        return NumberFormat.getInstance(local).format(numero);
+    }
+    
+    public static String numeral(String numero){
+        return NumberFormat.getInstance(local).format(Integer.parseInt(numero));
     }
     
     public static String real(double numero){
@@ -66,7 +75,7 @@ public class Numero {
     }
     
     public static String validarCampo(String texto, boolean apagar, java.awt.event.KeyEvent evt){
-        texto = Numero.numerosSemPonto(texto);
+        texto = Numero.numerosSemPonto(texto) + "";
         
         char novasletras[] = texto.toCharArray();
         texto = "";

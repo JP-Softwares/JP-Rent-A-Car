@@ -19,6 +19,10 @@ public class Data {
         this.ano = ano;
     }
     
+    public int toInt(){
+        return Integer.parseInt(ano + "" + mes + "" + dia);
+    }
+    
     public Data(String data){
         String texto[] = data.split("/");
         
@@ -64,8 +68,6 @@ public class Data {
     public void setAno(int ano) {
         this.ano = ano;
     }
-    
-    
     
     public static void validarCampo(javax.swing.JTextField campo, boolean apagar, java.awt.event.KeyEvent evt) throws Exception{
         String texto = campo.getText();
@@ -119,7 +121,7 @@ public class Data {
                 evt.consume();
             }
         }else{
-            char numeros[] = Numero.numerosSemPonto(texto).toCharArray();
+            char numeros[] = (Numero.numerosSemPonto(texto) + "").toCharArray();
             texto = "";
             if(numeros.length != 0){
                 int posLetras = 0;

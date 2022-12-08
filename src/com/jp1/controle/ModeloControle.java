@@ -37,7 +37,7 @@ public class ModeloControle implements IModeloControle{
 
     private boolean buscarModelo(String descricao) throws Exception{
         try {
-            ArrayList<Modelo> listagem = modeloPersistencia.listar();
+            ArrayList<Modelo> listagem = listar();
             Iterator<Modelo> lista = listagem.iterator();
             while(lista.hasNext()){
                 Modelo aux = lista.next();
@@ -52,7 +52,7 @@ public class ModeloControle implements IModeloControle{
     }
     private boolean buscarModelo(Modelo objeto) throws Exception{
         try {
-            ArrayList<Modelo> listagem = modeloPersistencia.listar();
+            ArrayList<Modelo> listagem = listar();
             Iterator<Modelo> lista = listagem.iterator();
             while(lista.hasNext()){
                 Modelo aux = lista.next();
@@ -135,6 +135,15 @@ public class ModeloControle implements IModeloControle{
         }
       
      }
+     @Override
+    public Modelo buscar(String descricao) throws Exception {
+        return modeloPersistencia.buscar(descricao);
+    }
+
+    @Override
+    public Modelo buscar(int id) throws Exception {
+        return modeloPersistencia.buscar(id);
+    }
 
 
 

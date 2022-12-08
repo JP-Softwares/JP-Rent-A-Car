@@ -18,4 +18,8 @@ public interface IModeloControle {
     void alterar(Modelo objeto) throws Exception;
 
     ArrayList<Modelo> listar() throws Exception;
+
+    Modelo buscar(String descricao) throws Exception;
+
+    Modelo buscar(int id) throws Exception;
 }

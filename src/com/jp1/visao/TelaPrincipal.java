@@ -4,17 +4,12 @@
  */
 package com.jp1.visao;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.myapp.themes.Tema;
 import com.jp1.tools.AdicionarListeners;
 
 import java.awt.Color;
-import java.text.NumberFormat;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.LookAndFeel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 //import java.awt.AlphaComposite;
 //import java.awt.Graphics;
 //import java.awt.Graphics2D;
@@ -365,12 +360,24 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jLabeliconeCliente.setForeground(new java.awt.Color(255, 255, 255));
         jLabeliconeCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabeliconeCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/jp1/icones/Cliente_26x26.png"))); // NOI18N
+        jLabeliconeCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabeliconeCliente.setPreferredSize(new java.awt.Dimension(38, 30));
+        jLabeliconeCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabeliconeClienteMouseClicked(evt);
+            }
+        });
 
         jLabelClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelClientes.setForeground(new java.awt.Color(61, 47, 47));
         jLabelClientes.setText("Clientes");
+        jLabelClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelClientes.setPreferredSize(new java.awt.Dimension(48, 30));
+        jLabelClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelClientesMouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(52, 135, 231));
         jPanel2.setMinimumSize(new java.awt.Dimension(1, 1));
@@ -625,6 +632,18 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         TelaCategoria tela = new TelaCategoria();
         adicionarTela(tela);
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
+
+    private void jLabelClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelClientesMouseClicked
+        // TODO add your handling code here:
+        TelaCliente tela = new TelaCliente();
+        adicionarTela(tela);
+    }//GEN-LAST:event_jLabelClientesMouseClicked
+
+    private void jLabeliconeClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabeliconeClienteMouseClicked
+        // TODO add your handling code here:
+        TelaCliente tela = new TelaCliente();
+        adicionarTela(tela);
+    }//GEN-LAST:event_jLabeliconeClienteMouseClicked
 
     
     /**

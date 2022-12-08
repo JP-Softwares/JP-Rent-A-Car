@@ -25,6 +25,32 @@ public class Texto {
         }else throw new Exception("Vetor vazio");
     }
     
+    public static String Maiuscula(String texto){
+        char letras[] = texto.toCharArray();
+        texto = "";
+        texto = Character.toUpperCase(letras[0]) + "";
+        
+        for(int i = 1; i < letras.length; i++){
+            if(letras[i] == ' '){
+                texto += letras[i];
+                texto += Character.toUpperCase(letras[i+1]);
+                i = i+1;
+            }else texto += Character.toLowerCase(letras[i]);
+            
+        }
+        return texto;
+    }
+    
+    public static String[] MaiusculaEnum(Enum[] enumeros){
+        
+        String valores[] = new String[enumeros.length];
+        for(int i = 0; i < enumeros.length; i++){
+            valores[i] = Maiuscula(enumeros[i].name());
+        }
+        
+        return valores;
+    }
+    
     public static void validarString(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase){
         char c = evt.getKeyChar();
         if(c != ''){

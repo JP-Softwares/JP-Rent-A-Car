@@ -50,7 +50,7 @@ public class MarcaControle implements IMarcaControle {
     
     private boolean buscarMarca(String descricao) throws Exception{
         try {
-            ArrayList<Marca> listagem = marcaPersistencia.listar();
+            ArrayList<Marca> listagem = listar();
             Iterator<Marca> lista = listagem.iterator();
             while(lista.hasNext()){
                 Marca aux = lista.next();
@@ -66,7 +66,7 @@ public class MarcaControle implements IMarcaControle {
     
     private boolean buscarMarca(Marca objeto) throws Exception{
         try {
-            ArrayList<Marca> listagem = marcaPersistencia.listar();
+            ArrayList<Marca> listagem = listar();
             Iterator<Marca> lista = listagem.iterator();
             while(lista.hasNext()){
                 Marca aux = lista.next();

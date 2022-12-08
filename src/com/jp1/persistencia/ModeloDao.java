@@ -4,6 +4,8 @@
  */
 package com.jp1.persistencia;
 
+import com.jp1.controle.IMarcaControle;
+import com.jp1.controle.MarcaControle;
 import com.jp1.modelos.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +28,6 @@ import javax.imageio.ImageIO;
 public class  ModeloDao implements IModeloDao {
 
     String nomeDoArquivoNoDisco = "./src/com/jp1/arquivosdedados/modelo.txt";
-    
     
     
     private String incluirAutoRetrato(Modelo objeto) throws Exception{
@@ -108,13 +109,13 @@ public class  ModeloDao implements IModeloDao {
 
             while((linha = br.readLine()) != null){
                 Modelo objetoModelo = new Modelo();
-                IMarcaDao marcaDao = new MarcaDao();
+                IMarcaControle marcaControle = new MarcaControle();
                 String vetorString[] = linha.split(";");
                 objetoModelo.setId(Integer.parseInt(vetorString[0]));
                 objetoModelo.setDescricao(vetorString[1]);
                 objetoModelo.setUrl(vetorString[2]);
                 try {
-                    objetoModelo.setMarca(marcaDao.buscar(Integer.parseInt(vetorString[3])));
+                    objetoModelo.setMarca(marcaControle.buscar(Integer.parseInt(vetorString[3])));
                 } catch (Exception e) {
                     throw e;
                 }
