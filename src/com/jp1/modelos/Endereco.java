@@ -13,7 +13,7 @@ public class Endereco {
     private String logradouro = "";
     private String complemento = "";
     private String CEP = "";
-    private String estado = "";
+    private Estado estado = null;
     private String cidade = "";
     private String bairro = "";
 
@@ -21,7 +21,7 @@ public class Endereco {
         
     }
     
-    public Endereco(String logradouro, String complemento, String CEP, String estado, String cidade, String bairro){
+    public Endereco(String logradouro, String complemento, String CEP, Estado estado, String cidade, String bairro){
         this.logradouro = logradouro;
         this.complemento = complemento;
         this.CEP = CEP;
@@ -59,11 +59,11 @@ public class Endereco {
         this.CEP = CEP;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 

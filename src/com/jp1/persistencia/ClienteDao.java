@@ -7,12 +7,14 @@ package com.jp1.persistencia;
 import com.jp1.modelos.Cliente;
 import com.jp1.modelos.Endereco;
 import com.jp1.modelos.TipoDoCliente;
+import com.jp1.modelos.Telefone;
+import com.jp1.modelos.Estado;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.io.File;
@@ -30,7 +32,7 @@ public class ClienteDao implements IClienteDao {
     }
 
     @Override
-    public void incluir(Cliente objeto) throws Exception {
+    public void incluir(Cliente objeto) throws Exception,FileNotFoundException,Exception {
 
         try {
             
@@ -46,7 +48,7 @@ public class ClienteDao implements IClienteDao {
     }
 
     @Override
-    public void alterar(Cliente objeto) throws Exception {
+    public void alterar(Cliente objeto) throws Exception,FileNotFoundException,Exception {
         FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
@@ -67,8 +69,8 @@ public class ClienteDao implements IClienteDao {
   }
 
     @Override
-    public ArrayList<Cliente> listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public ArrayList<Cliente> listar() throws Exception,FileNotFoundException,Exception {
+        
         try {
             ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
             FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
@@ -77,23 +79,29 @@ public class ClienteDao implements IClienteDao {
              String linha = "";
 
               while((linha = br.readLine()) != null){
-                Cliente objetoCliente = new Cliente();
-                String vetorString[] = linha.split(";");
-                objetoCliente.setId(Integer.parseInt(vetorString[0]));
-                objetoCliente.setCpf_cnpj(vetorString[1]);
-                objetoCliente.setNome(vetorString[2]);
-                objetoCliente.setRazaoSocial(vetorString[3]);
-                objetoCliente.setIdentidade(vetorString[4]);
-                //objetoCliente.setTelefone(null);
-                objetoCliente.setEmail(vetorString[6]);
-                objetoCliente.setEndereco(Endereco.valueOf(vetorString[7]));
-                objetoCliente.setTipo(TipoDoCliente.valueOf(vetorString[8]));
-
-
-
-                
-                
-                listaDeClientes.add(objetoCliente);
+                    Cliente objetoCliente = new Cliente();
+                    String vetorString[] = linha.split(";");
+                    objetoCliente.setId(Integer.parseInt(vetorString[0]));
+                    objetoCliente.setCpf_cnpj(vetorString[1]);
+                    objetoCliente.setNome(vetorString[2]);
+                    objetoCliente.setRazaoSocial(vetorString[3]);
+                    objetoCliente.setIdentidade(vetorString[4]);
+                    Telefone telefone = new Telefone();
+                    telefone.setDDD(Integer.parseInt(vetorString[5]));
+                    telefone.setDDI(Integer.parseInt(vetorString[6]));
+                    telefone.setNumero(Integer.parseInt(vetorString[7]));
+                    objetoCliente.setTelefone(telefone);
+                    objetoCliente.setEmail(vetorString[8]);
+                    Endereco endereco = new Endereco();
+                    endereco.setLogradouro(vetorString[9]);
+                    endereco.setComplemento(vetorString[10]);
+                    endereco.setCEP(vetorString[11]);
+                    endereco.setEstado(Estado.valueOf(vetorString[12]));
+                    endereco.setCidade(vetorString[13]);
+                    endereco.setBairro(vetorString[14]);
+                    objetoCliente.setEndereco(endereco);
+                    objetoCliente.setTipo(TipoDoCliente.valueOf(vetorString[15]));
+                    listaDeClientes.add(objetoCliente);
 
 
 
@@ -105,12 +113,53 @@ public class ClienteDao implements IClienteDao {
         }
        
     }
-    }
+    
 
     @Override
-    public Cliente buscar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Cliente buscar(int id) throws Exception,FileNotFoundException,Exception {
+       
+        
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+
+            Cliente objetoCliente = new Cliente();
+            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
+                objetoCliente.setId(Integer.parseInt(vetorString[0]));
+                objetoCliente.setCpf_cnpj(vetorString[1]);
+                objetoCliente.setNome(vetorString[2]);
+                objetoCliente.setRazaoSocial(vetorString[3]);
+                objetoCliente.setIdentidade(vetorString[4]);
+                Telefone telefone = new Telefone();
+                    telefone.setDDD(Integer.parseInt(vetorString[5]));
+                    telefone.setDDI(Integer.parseInt(vetorString[6]));
+                    telefone.setNumero(Integer.parseInt(vetorString[7]));
+                objetoCliente.setTelefone(telefone);
+                objetoCliente.setEmail(vetorString[8]);
+                Endereco endereco = new Endereco();
+                endereco.setLogradouro(vetorString[9]);
+                endereco.setComplemento(vetorString[10]);
+                endereco.setCEP(vetorString[11]);
+                endereco.setEstado(Estado.valueOf(vetorString[12]));
+                endereco.setCidade(vetorString[13]);
+                endereco.setBairro(vetorString[14]);
+                objetoCliente.setEndereco(endereco);
+                objetoCliente.setTipo(TipoDoCliente.valueOf(vetorString[15]));
+
+
+            br.close();  
+            return objetoCliente;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+       
+    }
+
+
     }
     
     
-}
+

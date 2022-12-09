@@ -35,6 +35,14 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     int mousex = 0;
     int mousey = 0;
     Color botaofundo = new Color(250, 250, 250);
+    
+    public TelaWelcome telaWelcome = null;
+    public TelaMarcas telaMarcas = null;
+    public TelaModelos telaModelos = null;
+    public TelaVeiculo telaVeiculo = null;
+    public TelaCategoria telaCategoria = null;
+    public TelaCliente telaCliente = null;
+    
 //    boolean texto = false;
 //    boolean panel = false;
 //    int time = 0;
@@ -444,7 +452,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(291, 291, 291)
                 .addComponent(jLabeliconeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jLabelClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -608,41 +616,44 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 
     private void jButtonMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMarcasActionPerformed
         // TODO add your handling code here:
-        adicionarTela(new TelaMarcas());
+        telaMarcas = new TelaMarcas();
+        adicionarTela(telaMarcas);
     }//GEN-LAST:event_jButtonMarcasActionPerformed
 
     private void jButtonModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModelosActionPerformed
         // TODO add your handling code here:
-        adicionarTela(new TelaModelos());
+        telaModelos = new TelaModelos();
+        adicionarTela(telaModelos);
     }//GEN-LAST:event_jButtonModelosActionPerformed
 
     private void jLabelTituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTituloMouseClicked
         // TODO add your handling code here:
-        adicionarTela(new TelaWelcome());
+        telaWelcome = new TelaWelcome();
+        adicionarTela(telaWelcome);
     }//GEN-LAST:event_jLabelTituloMouseClicked
 
     private void jButtonVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVeiculoActionPerformed
         // TODO add your handling code here:
-        TelaVeiculo tela = new TelaVeiculo();
-        adicionarTela(tela);
+        telaVeiculo = new TelaVeiculo();
+        adicionarTela(telaVeiculo);
     }//GEN-LAST:event_jButtonVeiculoActionPerformed
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
         // TODO add your handling code here:
-        TelaCategoria tela = new TelaCategoria();
-        adicionarTela(tela);
+        telaCategoria = new TelaCategoria();
+        adicionarTela(telaCategoria);
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
     private void jLabelClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelClientesMouseClicked
         // TODO add your handling code here:
-        TelaCliente tela = new TelaCliente();
-        adicionarTela(tela);
+        telaCliente = new TelaCliente();
+        adicionarTela(telaCliente);
     }//GEN-LAST:event_jLabelClientesMouseClicked
 
     private void jLabeliconeClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabeliconeClienteMouseClicked
         // TODO add your handling code here:
-        TelaCliente tela = new TelaCliente();
-        adicionarTela(tela);
+        telaCliente = new TelaCliente();
+        adicionarTela(telaCliente);
     }//GEN-LAST:event_jLabeliconeClienteMouseClicked
 
     

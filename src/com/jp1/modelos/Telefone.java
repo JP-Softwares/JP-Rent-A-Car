@@ -8,7 +8,7 @@ package com.jp1.modelos;
  *
  * @author aluno
  */
-class Telefone {
+public class Telefone {
 
     private int DDD = 0;
     private int DDI = 0;

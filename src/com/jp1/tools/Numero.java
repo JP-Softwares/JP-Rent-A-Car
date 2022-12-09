@@ -74,7 +74,7 @@ public class Numero {
         return NumberFormat.getCurrencyInstance(local).format(numero);
     }
     
-    public static String validarCampo(String texto, boolean apagar, java.awt.event.KeyEvent evt){
+    public static String validarCampo(String texto, int qtd, boolean apagar, java.awt.event.KeyEvent evt){
         texto = Numero.numerosSemPonto(texto) + "";
         
         char novasletras[] = texto.toCharArray();
@@ -87,7 +87,7 @@ public class Numero {
             texto += novasletras[i];
         }
         char c = evt.getKeyChar();
-        if(!apagar && Character.isDigit(c) && texto.toCharArray().length < 10) {
+        if(!apagar && Character.isDigit(c) && texto.toCharArray().length < qtd) {
             texto += evt.getKeyChar();
         }
         evt.consume();
@@ -96,6 +96,6 @@ public class Numero {
 
             return Numero.real(numero);
         }
-        return "";
+        return Numero.real(0) + "";
     }
 }
