@@ -15,6 +15,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
      */
     public TelaLocacao() {
         initComponents();
+        
     }
 
     /**
