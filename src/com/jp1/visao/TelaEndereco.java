@@ -23,6 +23,7 @@ public class TelaEndereco extends javax.swing.JFrame {
     public TelaEndereco() {
         initComponents();
         listarComboBox();
+        
     }
     
     public void listarComboBox(){
