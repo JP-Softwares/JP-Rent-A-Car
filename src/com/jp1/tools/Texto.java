@@ -51,47 +51,47 @@ public class Texto {
         return valores;
     }
     
-    public static void validarString(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase){
+    public static void validarString(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();
-            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.STRING, toUpperCase));
+            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.STRING, toUpperCase, charAceitos));
         }
     }
     
-    public static void validarNumero(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt){
+    public static void validarNumero(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();
-            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT, false));
+            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT, false, charAceitos));
         }
     }
     
-    public static void validarLetrasENumeros(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase){
+    public static void validarLetrasENumeros(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();
-            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT_STRING, toUpperCase));
+            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT_STRING, toUpperCase, charAceitos));
         }
     }
     
-    public static void validarLetrasEEspaco(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase){
+    public static void validarLetrasEEspaco(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();
-            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.STRING_SPACE, toUpperCase));
+            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.STRING_SPACE, toUpperCase, charAceitos));
         }
     }
     
-    public static void validarLetrasEspacoENumero(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase){
+    public static void validarLetrasEspacoENumero(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();
-            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT_STRING_SPACE, toUpperCase));
+            jTextField.setText(Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT_STRING_SPACE, toUpperCase, charAceitos));
         }
     }
     
-    private static String validadorX(String texto, int qtd, tipoDoTexto tipo, boolean toUpperCase){
+    private static String validadorX(String texto, int qtd, tipoDoTexto tipo, boolean toUpperCase, char... charAceitos){
         char letras[] = texto.toCharArray();
         
         int cont = 0;
@@ -100,6 +100,17 @@ public class Texto {
 
         for(int i = 0; i < letras.length; i++){
             boolean positivo = false;
+            if(charAceitos != null){
+                for(int j = 0; j < charAceitos.length; j++){
+                    int num = Character.valueOf(letras[i]).compareTo(charAceitos[j]);
+                    if(num == 0 || num == -8166){
+                        texto += charAceitos[j];
+                        break;
+                    }
+                }
+            }
+            
+            
             if(toUpperCase) letras[i] = Character.toUpperCase(letras[i]);
             switch (tipo) {
                 case INT:

@@ -84,12 +84,14 @@ public class TableRenderer extends DefaultTableCellRenderer {
                     JOptionPane.showMessageDialog(null, erro);
                 }
 
-
-                int tamanho = table.getRowHeight();
-                int recuo = 20 * tamanho/ 100;
-                iconLogo.setImage(iconLogo.getImage().getScaledInstance(
-                tamanho - recuo,tamanho - recuo,1));
-                this.setIcon(iconLogo);
+                if(iconLogo != null){
+                    int tamanho = table.getRowHeight();
+                    int recuo = 20 * tamanho/ 100;
+                    iconLogo.setImage(iconLogo.getImage().getScaledInstance(
+                    tamanho - recuo,tamanho - recuo,1));
+                    this.setIcon(iconLogo);
+                }
+                
                 
             }else this.setText(value.toString());
             

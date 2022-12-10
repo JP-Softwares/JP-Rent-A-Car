@@ -60,6 +60,7 @@ public class TelaTelefone extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setUndecorated(true);
         setType(java.awt.Window.Type.POPUP);
 

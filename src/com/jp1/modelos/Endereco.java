@@ -32,7 +32,7 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return logradouro + ";" + complemento + ";" + CEP + ";" + estado + ";" + cidade + ";" + bairro + "\n";
+        return logradouro + ";" + complemento + ";" + CEP + ";" + estado + ";" + cidade + ";" + bairro;
     }
 
     public String getLogradouro() {

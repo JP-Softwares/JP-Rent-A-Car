@@ -26,7 +26,7 @@ public class TelaEndereco extends javax.swing.JFrame {
     }
     
     public void listarComboBox(){
-        jComboBox1.setModel(new DefaultComboBoxModel<>(Estado.values()));
+        jComboBoxEstado.setModel(new DefaultComboBoxModel<>(Estado.values()));
     }
 
     /**
@@ -61,9 +61,10 @@ public class TelaEndereco extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextFieldComplemento = new javax.swing.JTextField();
         jTextFieldBairro = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setUndecorated(true);
         setType(java.awt.Window.Type.POPUP);
 
@@ -154,7 +155,7 @@ public class TelaEndereco extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -181,7 +182,7 @@ public class TelaEndereco extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -235,17 +236,17 @@ public class TelaEndereco extends javax.swing.JFrame {
 
     private void jTextFieldLogradouroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLogradouroKeyTyped
         // TODO add your handling code here:
-        Texto.validarLetrasEEspaco(jTextFieldLogradouro, 0, evt, false);
+        Texto.validarLetrasEspacoENumero(jTextFieldLogradouro, 0, evt, false, '.');
     }//GEN-LAST:event_jTextFieldLogradouroKeyTyped
 
     private void jTextFieldComplementoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldComplementoKeyTyped
         // TODO add your handling code here:
-        Texto.validarLetrasEEspaco(jTextFieldComplemento, 0, evt, false);
+        Texto.validarLetrasEspacoENumero(jTextFieldComplemento, 0, evt, false, ',', '.');
     }//GEN-LAST:event_jTextFieldComplementoKeyTyped
 
     private void jTextFieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBairroKeyTyped
         // TODO add your handling code here:
-        Texto.validarLetrasEEspaco(jTextFieldBairro, 0, evt, false);
+        Texto.validarLetrasEspacoENumero(jTextFieldBairro, 0, evt, false, ',', '.');
     }//GEN-LAST:event_jTextFieldBairroKeyTyped
 
     /**
@@ -285,7 +286,7 @@ public class TelaEndereco extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    public javax.swing.JComboBox<Estado> jComboBox1;
+    public javax.swing.JComboBox<Estado> jComboBoxEstado;
     public javax.swing.JFormattedTextField jFormattedTextFieldCEP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

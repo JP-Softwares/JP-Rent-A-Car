@@ -460,16 +460,12 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             
             
             try {
-                Object[] lista = modeloControle.listar().toArray();
-                int idMarca = 0;
-                for(int i = 0; i < lista.length; i++){
-                    if(lista[i].toString().contains(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString())){
-
-                        String linha[] = lista[i].toString().split(";");
-                        idMarca = Integer.parseInt(linha[3].replace("\n", ""));
-                    }
+                ArrayList<Modelo> lista = modeloControle.listar();
+                Iterator<Modelo> modelos = lista.iterator();
+                
+                while(modelos.hasNext() && modelo.getId() != Integer.parseInt(jTableModelos.getValueAt(linha, 0).toString())){
+                    modelo = modelos.next();
                 }
-                modelo = new Modelo(Integer.parseInt(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0).toString()), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 1).toString(), jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 2).toString(), marcaControle.buscar(idMarca));
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
@@ -477,7 +473,7 @@ public class TelaModelos extends javax.swing.JInternalFrame {
             jTextFieldIdentificador.setText(modelo.getId() + "");
             jTextFieldDescricao.setText(modelo.getDescricao());
             jTextFieldURL.setText(modelo.getUrl());
-            jComboBoxMarca.setSelectedItem((Object) (modelo.getMarca().getDescricao()));
+            jComboBoxMarca.setSelectedItem(modelo.getMarca().getDescricao());
 
             ImageIcon iconLogo = new ImageIcon(modelo.getUrl());
             iconLogo.setImage(iconLogo.getImage().getScaledInstance(

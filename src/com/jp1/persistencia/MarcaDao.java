@@ -63,6 +63,7 @@ public class MarcaDao implements IMarcaDao {
             BufferedReader br = new BufferedReader(fr); 
 
             String vetorString[] = null;
+            String texto = "";
 
             Marca objetoMarca = new Marca();
             while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));

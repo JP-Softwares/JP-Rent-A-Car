@@ -26,7 +26,7 @@ public class Telefone {
 
     @Override
     public String toString() {
-        return DDD + ";" + DDI + ";" + numero + "\n";
+        return DDD + ";" + DDI + ";" + numero;
     }
 
     public int getDDD() {

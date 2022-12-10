@@ -12,11 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/persistencia/ClienteDao.java</file>
+            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/controle/ClienteControle.java</file>
             <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/visao/TelaCliente.java</file>
-            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/modelos/Cliente.java</file>
-            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/modelos/Telefone.java</file>
+            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/visao/TelaPrincipal.java</file>
             <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/modelos/Endereco.java</file>
             <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/visao/TelaTelefone.java</file>
+            <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/arquivosdedados/cliente.txt</file>
             <file>file:/C:/Users/aluno/Desktop/JP-Rent-A-Car/src/com/jp1/visao/TelaEndereco.java</file>
         </group>
     </open-files>

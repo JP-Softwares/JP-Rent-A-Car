@@ -49,7 +49,7 @@ public class ClienteControle implements IClienteControle {
 
     @Override
     public Cliente buscar(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return clientePersistencia.buscar(id);
     }
     
 }

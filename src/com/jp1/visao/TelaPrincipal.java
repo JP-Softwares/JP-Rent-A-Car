@@ -39,9 +39,9 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     public TelaWelcome telaWelcome = null;
     public TelaMarcas telaMarcas = null;
     public TelaModelos telaModelos = null;
-    public TelaVeiculo telaVeiculo = null;
+    public TelaVeiculos telaVeiculo = null;
     public TelaCategoria telaCategoria = null;
-    public TelaCliente telaCliente = null;
+    public TelaClientes telaCliente = null;
     
 //    boolean texto = false;
 //    boolean panel = false;
@@ -458,7 +458,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jPanelVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(215, 215, 215)
+                .addGap(221, 221, 221)
                 .addComponent(jPanelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanelX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -634,7 +634,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 
     private void jButtonVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVeiculoActionPerformed
         // TODO add your handling code here:
-        telaVeiculo = new TelaVeiculo();
+        telaVeiculo = new TelaVeiculos();
         adicionarTela(telaVeiculo);
     }//GEN-LAST:event_jButtonVeiculoActionPerformed
 
@@ -646,13 +646,13 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 
     private void jLabelClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelClientesMouseClicked
         // TODO add your handling code here:
-        telaCliente = new TelaCliente();
+        telaCliente = new TelaClientes();
         adicionarTela(telaCliente);
     }//GEN-LAST:event_jLabelClientesMouseClicked
 
     private void jLabeliconeClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabeliconeClienteMouseClicked
         // TODO add your handling code here:
-        telaCliente = new TelaCliente();
+        telaCliente = new TelaClientes();
         adicionarTela(telaCliente);
     }//GEN-LAST:event_jLabeliconeClienteMouseClicked
 

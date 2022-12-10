@@ -31,10 +31,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aluno
  */
-public class TelaVeiculo extends javax.swing.JInternalFrame {
+public class TelaVeiculos extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaVeiculo
+     * Creates new form TelaVeiculos
      */
     boolean apagar = false;
     int linha = 0;
@@ -46,12 +46,12 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
     //private final String CAMPODATA_DEFAULT = "  /  /    ";
     
-    public TelaVeiculo() {
+    public TelaVeiculos() {
         initComponents();
         setarComboBox();
         
         try {
-            listar(veiculoControle.listar());
+            if(!modeloControle.listar().isEmpty() && !categoriaControle.listar().isEmpty()) listar(veiculoControle.listar());
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -733,6 +733,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                     modeloControle.buscar(jComboBoxModelo.getSelectedItem().toString()));
             veiculoControle.alterar(veiculo);
             listar(veiculoControle.listar());
+            jTableVeiculo.changeSelection(linha, 0, false, false);
             
         } catch (Exception e) {
             e.printStackTrace();
