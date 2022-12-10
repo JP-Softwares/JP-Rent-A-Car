@@ -30,6 +30,8 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         setBorder(null);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
