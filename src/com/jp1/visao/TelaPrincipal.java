@@ -117,7 +117,6 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         getContentPane().add(jPanelInicial);
         
         timer.start();*/
-        
     }
     
     public void lookAndFeel(){
