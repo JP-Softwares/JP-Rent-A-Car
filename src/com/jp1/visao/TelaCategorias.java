@@ -23,7 +23,7 @@ import com.jp1.tools.Texto;
  *
  * @author aluno
  */
-public class TelaCategoria extends javax.swing.JInternalFrame {
+public class TelaCategorias extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaCategoria
@@ -37,7 +37,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame {
     
     Locale local = new Locale("pt", "br");
     
-    public TelaCategoria() {
+    public TelaCategorias() {
         initComponents();
         
         try {

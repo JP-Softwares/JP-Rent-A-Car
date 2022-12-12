@@ -40,7 +40,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     public TelaMarcas telaMarcas = null;
     public TelaModelos telaModelos = null;
     public TelaVeiculos telaVeiculo = null;
-    public TelaCategoria telaCategoria = null;
+    public TelaCategorias telaCategoria = null;
     public TelaClientes telaCliente = null;
     
 //    boolean texto = false;
@@ -639,7 +639,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 
     private void jButtonCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaActionPerformed
         // TODO add your handling code here:
-        telaCategoria = new TelaCategoria();
+        telaCategoria = new TelaCategorias();
         adicionarTela(telaCategoria);
     }//GEN-LAST:event_jButtonCategoriaActionPerformed
 
