@@ -38,7 +38,7 @@ public class TelaTelefone extends javax.swing.JFrame {
         jFormattedTextFieldDDI = new javax.swing.JFormattedTextField();
         try{
             MaskFormatter mascara = new MaskFormatter();
-            mascara.setMask("+##");
+            mascara.setMask("+###");
             mascara.setPlaceholderCharacter(' ');
             jFormattedTextFieldDDI = new JFormattedTextField(mascara);
         }catch(Exception e){
@@ -111,8 +111,8 @@ public class TelaTelefone extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jFormattedTextFieldDDI, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jFormattedTextFieldDDI, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jFormattedTextFieldDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)

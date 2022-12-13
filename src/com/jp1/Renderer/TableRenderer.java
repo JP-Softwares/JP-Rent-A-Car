@@ -27,7 +27,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class TableRenderer extends DefaultTableCellRenderer {
     
-    JLabel icone = new JLabel();
     IModeloControle modeloControle = new ModeloControle();
     IMarcaControle marcaControle = new MarcaControle();
     IVeiculoControle veiculoControle = new VeiculoControle();
@@ -35,6 +34,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
         boolean hasFocus, int row, int column){
+        this.setText("");
         if(isSelected){
             this.setBackground(table.getSelectionBackground());
             this.setForeground(table.getSelectionForeground());
@@ -42,6 +42,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
             this.setBackground(table.getBackground());
             this.setForeground(table.getForeground());
         }
+        
         
         if(value != null){
             if(value.toString().equals("")){
@@ -64,7 +65,7 @@ public class TableRenderer extends DefaultTableCellRenderer {
 
                     }
                     
-                    if(table.getName().equals("TabelaVeículo") && column == 12){
+                    if(table.getName().equals("TabelaVeículos") && column == 12){
                         ArrayList<Veiculo> lista = veiculoControle.listar();
                         Iterator<Veiculo> veiculos = lista.iterator();
                         Veiculo veiculo = null;

@@ -1,1 +1,2 @@
 100081;707.869.381-70;Geydson Conceição dos Santos;;6733033;62;55;992261573;geydson87@gmail.com;Rua Benedito Pereira de Castro;Quadra 12, Lote 16, Casa 02;74494-815;GO;Goiânia;Jardim São José;PESSOAFISICA
+100082;33.499.918/0001-86;;Étrica Medições Instalações e Projetos Elétricos;;62;55;40028922;comercial@newsolenergia.com.br;Rua T6;Nº 1125;74944-902;GO;Goiânia;Setor Bueno;PESSOAJURIDICA

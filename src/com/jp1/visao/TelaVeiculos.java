@@ -327,7 +327,7 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
         });
         jTableVeiculo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTableVeiculo.setFocusable(false);
-        jTableVeiculo.setName("TabelaVeículo"); // NOI18N
+        jTableVeiculo.setName("TabelaVeículos"); // NOI18N
         jTableVeiculo.setRowHeight(50);
         jTableVeiculo.setSelectionBackground(new java.awt.Color(52, 135, 231));
         jTableVeiculo.setSelectionForeground(new java.awt.Color(255, 255, 255));
@@ -661,7 +661,7 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
                         Numero.numeros(jTableVeiculo.getValueAt(linha, 5).toString()), 
                         Integer.parseInt(jTableVeiculo.getValueAt(linha, 6).toString()), 
                         Integer.parseInt(jTableVeiculo.getValueAt(linha, 7).toString()), 
-                        Numero.numerosSemPonto(jTableVeiculo.getValueAt(linha, 8).toString()), 
+                        Integer.parseInt(Numero.numerosSemPonto(jTableVeiculo.getValueAt(linha, 8).toString())), 
                         TipoDoCombustivel.valueOf(jTableVeiculo.getValueAt(linha, 9).toString()), 
                         TipoDoVeiculo.valueOf(jTableVeiculo.getValueAt(linha, 10).toString()), 
                         SituacaoDoVeiculo.valueOf(jTableVeiculo.getValueAt(linha, 11).toString()), 
@@ -699,9 +699,9 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
                     categoriaControle.buscar(jComboBoxCategoria.getSelectedItem().toString()), 
                     Numero.numeros(jTextFieldPrecoDeCompra.getText()), 
                     Numero.numeros(jTextFieldPrecoDeVenda.getText()), 
-                    Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText()), 
-                    Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText()), 
-                    Numero.numerosSemPonto(jTextFieldKilometragem.getText()), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldKilometragem.getText())), 
                     TipoDoCombustivel.valueOf(jComboBoxTipoDoCombustivel.getSelectedItem().toString()), 
                     TipoDoVeiculo.valueOf(jComboBoxTipoDoVeiculo.getSelectedItem().toString()), 
                     SituacaoDoVeiculo.valueOf(jComboBoxSituacaoDoVeiculo.getSelectedItem().toString()), 
@@ -724,9 +724,9 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
                     categoriaControle.buscar(jComboBoxCategoria.getSelectedItem().toString()), 
                     Numero.numeros(jTextFieldPrecoDeCompra.getText()), 
                     Numero.numeros(jTextFieldPrecoDeVenda.getText()), 
-                    Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText()), 
-                    Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText()), 
-                    Numero.numerosSemPonto(jTextFieldKilometragem.getText()), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldKilometragem.getText())), 
                     TipoDoCombustivel.valueOf(jComboBoxTipoDoCombustivel.getSelectedItem().toString()), 
                     TipoDoVeiculo.valueOf(jComboBoxTipoDoVeiculo.getSelectedItem().toString()), 
                     SituacaoDoVeiculo.valueOf(jComboBoxSituacaoDoVeiculo.getSelectedItem().toString()), 

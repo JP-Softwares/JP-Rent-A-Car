@@ -42,6 +42,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     public TelaVeiculos telaVeiculo = null;
     public TelaCategorias telaCategoria = null;
     public TelaClientes telaCliente = null;
+    public TelaAcessorios telaAcessorios = null;
     
 //    boolean texto = false;
 //    boolean panel = false;
@@ -78,6 +79,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonModelos.setBackground(AdicionarListeners.botaoFundo);
         jButtonVeiculo.setBackground(AdicionarListeners.botaoFundo);
         jButtonCategoria.setBackground(AdicionarListeners.botaoFundo);
+        jButtonAcessorios.setBackground(AdicionarListeners.botaoFundo);
         //AdicionarListeners.adicionar(jButtonMarcas, jButtonModelos, jButtonVeiculo);
         
         adicionarTela(new TelaWelcome());
@@ -159,6 +161,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         jButtonModelos = new javax.swing.JButton();
         jButtonVeiculo = new javax.swing.JButton();
         jButtonCategoria = new javax.swing.JButton();
+        jButtonAcessorios = new javax.swing.JButton();
         jPanelBarra = new javax.swing.JPanel();
         jPanelX = new javax.swing.JPanel();
         jLabelX = new javax.swing.JLabel();
@@ -186,7 +189,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         getContentPane().setLayout(null);
 
         jPanelVeiculosExp.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelVeiculosExp.setPreferredSize(new java.awt.Dimension(133, 124));
+        jPanelVeiculosExp.setPreferredSize(new java.awt.Dimension(133, 155));
         jPanelVeiculosExp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanelVeiculosExpMouseEntered(evt);
@@ -240,6 +243,17 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
             }
         });
 
+        jButtonAcessorios.setText("Acessórios");
+        jButtonAcessorios.setBorder(null);
+        jButtonAcessorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAcessorios.setFocusable(false);
+        jButtonAcessorios.setPreferredSize(new java.awt.Dimension(92, 31));
+        jButtonAcessorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcessoriosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelVeiculosExpLayout = new javax.swing.GroupLayout(jPanelVeiculosExp);
         jPanelVeiculosExp.setLayout(jPanelVeiculosExpLayout);
         jPanelVeiculosExpLayout.setHorizontalGroup(
@@ -248,6 +262,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
             .addComponent(jButtonModelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButtonCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButtonAcessorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelVeiculosExpLayout.setVerticalGroup(
             jPanelVeiculosExpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,11 +274,13 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
                 .addComponent(jButtonVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jButtonCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jButtonAcessorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanelVeiculosExp);
-        jPanelVeiculosExp.setBounds(540, 30, 133, 124);
+        jPanelVeiculosExp.setBounds(540, 30, 133, 155);
 
         jPanelBarra.setBackground(new java.awt.Color(250, 250, 250));
         jPanelBarra.setPreferredSize(new java.awt.Dimension(980, 30));
@@ -655,6 +672,12 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
         adicionarTela(telaCliente);
     }//GEN-LAST:event_jLabeliconeClienteMouseClicked
 
+    private void jButtonAcessoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcessoriosActionPerformed
+        // TODO add your handling code here:
+        telaAcessorios = new TelaAcessorios();
+        adicionarTela(telaAcessorios);
+    }//GEN-LAST:event_jButtonAcessoriosActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -695,6 +718,7 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     }e aqui */ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAcessorios;
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonMarcas;
     private javax.swing.JButton jButtonModelos;

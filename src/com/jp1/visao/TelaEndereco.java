@@ -237,12 +237,12 @@ public class TelaEndereco extends javax.swing.JFrame {
 
     private void jTextFieldLogradouroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLogradouroKeyTyped
         // TODO add your handling code here:
-        Texto.validarLetrasEspacoENumero(jTextFieldLogradouro, 0, evt, false, '.');
+        Texto.validarLetrasEspacoENumero(jTextFieldLogradouro, 0, evt, false, '.', '-');
     }//GEN-LAST:event_jTextFieldLogradouroKeyTyped
 
     private void jTextFieldComplementoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldComplementoKeyTyped
         // TODO add your handling code here:
-        Texto.validarLetrasEspacoENumero(jTextFieldComplemento, 0, evt, false, ',', '.');
+        Texto.validarLetrasEspacoENumero(jTextFieldComplemento, 0, evt, false, ',', '.', '-');
     }//GEN-LAST:event_jTextFieldComplementoKeyTyped
 
     private void jTextFieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBairroKeyTyped

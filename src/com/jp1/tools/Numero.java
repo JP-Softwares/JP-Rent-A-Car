@@ -29,7 +29,7 @@ public class Numero {
         return Float.parseFloat(texto);
     }
     
-    public static int numerosSemPonto(String texto){
+    public static String numerosSemPonto(String texto){
         char letras[] = texto.toCharArray();
         texto = "";
         
@@ -39,8 +39,8 @@ public class Numero {
             }
             //if(letras[i] == ',') texto += '.';
         }
-        if(texto.equals("")) return 0;
-        return Integer.parseInt(texto);
+        if(texto.equals("")) return "0";
+        return texto;
     }
     
     public static String numeral(int numero){

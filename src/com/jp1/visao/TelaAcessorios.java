@@ -4,61 +4,56 @@
  */
 package com.jp1.visao;
 
-import com.jp1.modelos.Categoria;
-import com.jp1.Renderer.TableRenderer;
-
-
+import com.jp1.modelos.Acessorios;
+import com.jp1.tools.Numero;
+import com.jp1.tools.Texto;
+import com.jp1.controle.IAcessoriosControle;
+import com.jp1.controle.AcessoriosControle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import com.jp1.controle.ICategoriaControle;
-import com.jp1.controle.CategoriaControle;
-import com.jp1.tools.Numero;
-import com.jp1.tools.Texto;
+import com.jp1.Renderer.TableRenderer;
 
 /**
  *
  * @author aluno
  */
-public class TelaCategorias extends javax.swing.JInternalFrame {
+public class TelaAcessorios extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form TelaCategoria
+     * Creates new form TelaAcessorios
      */
     
     int linha = 0;
-    ICategoriaControle categoriaControle = new CategoriaControle();
-    
     private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
     
-    Locale local = new Locale("pt", "br");
+    IAcessoriosControle acessoriosControle = new AcessoriosControle();
     
-    public TelaCategorias() {
+    public TelaAcessorios() {
         initComponents();
         
         try {
-            listar(categoriaControle.listar());
+            listar(acessoriosControle.listar());
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             e.printStackTrace();
         }
     }
     
-    public void listar(ArrayList<Categoria> listaDeCategorias){
+    public void listar(ArrayList<Acessorios> listaDeCategorias){
         try {
             DefaultTableModel modelo =  (DefaultTableModel) jTableCategoria.getModel();
             //Limpa a tabela 
             modelo.setNumRows(0);
-            Iterator<Categoria> lista = listaDeCategorias.iterator();
+            Iterator<Acessorios> lista = listaDeCategorias.iterator();
             while(lista.hasNext()){
-                Object[] saida= new Object[4];
-                Categoria categoria = lista.next();
-                saida[0] = categoria.getId();
-                saida[1]= categoria.getDescricao();
-                saida[2] = Numero.real(categoria.getValorDaLocacao());
+                Acessorios acessorios = lista.next();
+                Object[] saida = acessorios.toString().split(";");
+                saida[2] = Numero.real(saida[2].toString());
+                saida[3] = Numero.numerosSemPonto(saida[3].toString());
+                saida[4] = Numero.numerosSemPonto(saida[4].toString());
                 //Incluir nova linha na Tabela
                 modelo.addRow(saida);
             }
@@ -72,6 +67,8 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
         jTextFieldIdentificador.setText("");
         jTextFieldDescricao.setText("");
         jTextFieldValor.setText(CAMPODINHEIRO_DEFAULT);
+        jTextFieldQuantidadeTotal.setText(" un");
+        jTextFieldQuantidadeDisponivel.setText(" un");
         jTableCategoria.clearSelection();
     }
 
@@ -96,6 +93,10 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
         jTableCategoria = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldQuantidadeTotal = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldQuantidadeDisponivel = new javax.swing.JTextField();
 
         setBorder(null);
 
@@ -132,7 +133,7 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
 
         jButtonIncluir.setBackground(new java.awt.Color(250, 250, 250));
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonIncluir.setText("INCLUIR CATEGORIA");
+        jButtonIncluir.setText("INCLUIR ACESSÓRIOS");
         jButtonIncluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIncluir.setFocusable(false);
         jButtonIncluir.setMaximumSize(new java.awt.Dimension(150, 28));
@@ -146,7 +147,7 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
 
         jButtonAlterar.setBackground(new java.awt.Color(250, 250, 250));
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAlterar.setText("ALTERAR CATEGORIA");
+        jButtonAlterar.setText("ALTERAR ACESSÓRIOS");
         jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonAlterar.setFocusable(false);
         jButtonAlterar.setMaximumSize(new java.awt.Dimension(150, 28));
@@ -170,11 +171,11 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "IDENTIFICADOR", "DESCRIÇÃO", "VALOR DA LOCAÇÃO"
+                "IDENTIFICADOR", "DESCRIÇÃO", "VALOR DA LOCAÇÃO", "QUANTIDADE TOTAL", "QUANTIDADE DISPONÍVEL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -199,11 +200,13 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
             jTableCategoria.getColumnModel().getColumn(0).setCellRenderer(new TableRenderer());
             jTableCategoria.getColumnModel().getColumn(1).setCellRenderer(new TableRenderer());
             jTableCategoria.getColumnModel().getColumn(2).setCellRenderer(new TableRenderer());
+            jTableCategoria.getColumnModel().getColumn(3).setCellRenderer(new TableRenderer());
+            jTableCategoria.getColumnModel().getColumn(4).setCellRenderer(new TableRenderer());
         }
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("CATEGORIA");
+        jLabel8.setText("ACESSÓRIOS");
 
         jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldValor.setText("R$ 0,00");
@@ -213,10 +216,34 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Quantidade Total");
+
+        jTextFieldQuantidadeTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldQuantidadeTotal.setText(" un");
+        jTextFieldQuantidadeTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeTotalKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Quantidade Disponível");
+
+        jTextFieldQuantidadeDisponivel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldQuantidadeDisponivel.setText(" un");
+        jTextFieldQuantidadeDisponivel.setEnabled(false);
+        jTextFieldQuantidadeDisponivel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeDisponivelKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,19 +258,33 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldValor)
+                                        .addGap(121, 121, 121)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextFieldQuantidadeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(322, 322, 322)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(83, 83, 83))))
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(83, 83, 83))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldQuantidadeDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,8 +308,16 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextFieldQuantidadeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFieldQuantidadeDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -285,7 +334,7 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -299,9 +348,12 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         try {
-            Categoria categoria = new Categoria(0, jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
-            categoriaControle.incluir(categoria);
-            listar(categoriaControle.listar());
+            Acessorios acessorio = new Acessorios(0, jTextFieldDescricao.getText(), 
+                    Numero.numeros(jTextFieldValor.getText()), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeTotal.getText())), 
+                    0);
+            acessoriosControle.incluir(acessorio);
+            listar(acessoriosControle.listar());
             jTextFieldIdentificador.setText("");
             jTextFieldDescricao.setText("");
             jTextFieldValor.setText(CAMPODINHEIRO_DEFAULT);
@@ -314,9 +366,12 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
             try {
-                Categoria categoria = new Categoria(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), Numero.numeros(jTextFieldValor.getText()));
-                categoriaControle.alterar(categoria);
-                listar(categoriaControle.listar());
+                Acessorios acessorio = new Acessorios(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), 
+                    Numero.numeros(jTextFieldValor.getText()), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeTotal.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeDisponivel.getText())));
+                acessoriosControle.alterar(acessorio);
+                listar(acessoriosControle.listar());
                 jTableCategoria.changeSelection(linha, 0, false, false);
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -328,18 +383,24 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
             linha = jTableCategoria.getSelectedRow();
-            Categoria categoria = new Categoria(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()), jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 1).toString(), Numero.numeros(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 2).toString()));
-            jTextFieldIdentificador.setText(categoria.getId() + "");
-            jTextFieldDescricao.setText(categoria.getDescricao());
-            jTextFieldValor.setText(Numero.real(categoria.getValorDaLocacao()) + "");
+            Acessorios acessorio = acessoriosControle.buscar(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()));
+            jTextFieldIdentificador.setText(acessorio.getId() + "");
+            jTextFieldDescricao.setText(acessorio.getDescricao());
+            jTextFieldValor.setText(Numero.real(acessorio.getValorDaLocacao()) + "");
+            jTextFieldQuantidadeTotal.setText(acessorio.getQuantidadeTotal() + " un");
+            jTextFieldQuantidadeDisponivel.setText(acessorio.getQuantidadeDisponivel() + " un");
         }
-
     }//GEN-LAST:event_jTableCategoriaMouseClicked
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
         limparTabela();
     }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        // TODO add your handling code here:
+        Texto.validarNumeroReal(jTextFieldValor, 10, evt);
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
@@ -351,10 +412,19 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
         Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
     }//GEN-LAST:event_jPanel1MouseEntered
 
-    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+    private void jTextFieldQuantidadeTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeTotalKeyTyped
         // TODO add your handling code here:
-        Texto.validarNumeroReal(jTextFieldValor, 10, evt);
-    }//GEN-LAST:event_jTextFieldValorKeyTyped
+        Texto.validarNumero(jTextFieldQuantidadeTotal, 0, evt);
+        
+        jTextFieldQuantidadeTotal.setText(jTextFieldQuantidadeTotal.getText() + " un");
+    }//GEN-LAST:event_jTextFieldQuantidadeTotalKeyTyped
+
+    private void jTextFieldQuantidadeDisponivelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeDisponivelKeyTyped
+        // TODO add your handling code here:
+        Texto.validarNumero(jTextFieldQuantidadeDisponivel, 0, evt);
+        
+        jTextFieldQuantidadeDisponivel.setText(jTextFieldQuantidadeDisponivel.getText() + " un");
+    }//GEN-LAST:event_jTextFieldQuantidadeDisponivelKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -363,12 +433,16 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCategoria;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldIdentificador;
+    private javax.swing.JTextField jTextFieldQuantidadeDisponivel;
+    private javax.swing.JTextField jTextFieldQuantidadeTotal;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -67,6 +67,18 @@ public class Texto {
         }
     }
     
+    public static void validarNumeroReal(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, char... charAceitos){
+        char c = evt.getKeyChar();
+        if(c != ''){
+            evt.consume();
+            String texto = Texto.validadorX(jTextField.getText() + c, qtd, Texto.tipoDoTexto.INT, false, charAceitos);
+            if(!texto.equals("")){
+                double numero = Long.parseLong(texto)/100.0;
+                jTextField.setText(Numero.real(numero) + "");
+            }else jTextField.setText(Numero.real(0));
+        }
+    }
+    
     public static void validarLetrasENumeros(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, boolean toUpperCase, char... charAceitos){
         char c = evt.getKeyChar();
         if(c != ''){

@@ -62,8 +62,8 @@
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jFormattedTextFieldDDI" min="-2" pref="43" max="-2" attributes="0"/>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <Component id="jFormattedTextFieldDDI" min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jFormattedTextFieldDDD" min="-2" pref="40" max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;    MaskFormatter mascara = new MaskFormatter();&#xd;&#xa;    mascara.setMask(&quot;+##&quot;);&#xd;&#xa;    mascara.setPlaceholderCharacter(&apos; &apos;);&#xd;&#xa;    jFormattedTextFieldDDI = new JFormattedTextField(mascara);&#xd;&#xa;}catch(Exception e){&#xd;&#xa;    e.printStackTrace();&#xd;&#xa;    JOptionPane.showMessageDialog(null, e.getMessage());&#xd;&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;    MaskFormatter mascara = new MaskFormatter();&#xd;&#xa;    mascara.setMask(&quot;+###&quot;);&#xd;&#xa;    mascara.setPlaceholderCharacter(&apos; &apos;);&#xd;&#xa;    jFormattedTextFieldDDI = new JFormattedTextField(mascara);&#xd;&#xa;}catch(Exception e){&#xd;&#xa;    e.printStackTrace();&#xd;&#xa;    JOptionPane.showMessageDialog(null, e.getMessage());&#xd;&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>

@@ -13,6 +13,9 @@ public class Acessorios {
     private int id = 0;
     private String descricao = "";
     private float valorDaLocacao = 0;
+    private int quantidadeTotal = 0;
+    private int quantidadeDisponivel = 0;
+    
     
     // Métodos
     
@@ -20,15 +23,17 @@ public class Acessorios {
         
     }
     
-    public Acessorios(int id, String descricao, float valorDaLocacao){
+    public Acessorios(int id, String descricao, float valorDaLocacao, int quantidadeTotal, int quantidadeDisponivel){
         this.id = id;
         this.descricao = descricao;
         this.valorDaLocacao = valorDaLocacao;
+        this.quantidadeTotal = quantidadeTotal;
+        this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
     @Override
     public String toString(){
-        return id + ";" + descricao + ";" + valorDaLocacao + "\n";
+        return id + ";" + descricao + ";" + valorDaLocacao + ";" + quantidadeTotal + ";" + quantidadeDisponivel + "\n";
     }
     
 
@@ -54,6 +59,22 @@ public class Acessorios {
 
     public void setValorDaLocacao(float valorDaLocacao) {
         this.valorDaLocacao = valorDaLocacao;
+    }
+
+    public int getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public void setQuantidadeTotal(int quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
     }
     
 }

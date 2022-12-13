@@ -48,6 +48,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showConfirmDialog(null, e.getMessage());
         }
+        
+        System.out.println(jTableCliente.getValueAt(1, 2));
     }
     
     public void listar(ArrayList<Cliente> array){
@@ -58,8 +60,10 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         Iterator<Cliente> clientes = array.iterator();
         
         while(clientes.hasNext()){
-            String cliente[] = clientes.next().toString().split(";");
-            model.addRow(cliente);
+            Cliente cliente = clientes.next();
+            String vetorcliente[] = cliente.toString().split(";");
+            //System.out.println(cliente.toString());
+            model.addRow(vetorcliente);
         }
         
         jTableCliente.setModel(model);
@@ -354,7 +358,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         });
         jTableCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTableCliente.setFocusable(false);
-        jTableCliente.setName("TabelaVeículo"); // NOI18N
+        jTableCliente.setName("TabelaClientes"); // NOI18N
         jTableCliente.setRowHeight(50);
         jTableCliente.setSelectionBackground(new java.awt.Color(52, 135, 231));
         jTableCliente.setSelectionForeground(new java.awt.Color(255, 255, 255));
@@ -613,9 +617,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
         // TODO add your handling code here:
         try {
-            Telefone telefone = new Telefone(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDD.getText()), 
-                    Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDI.getText()), 
-                    Numero.numerosSemPonto(telaTelefone.jTextFieldNumero.getText()));
+            Telefone telefone = new Telefone(Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDD.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDI.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jTextFieldNumero.getText())));
             
             Endereco endereco = new Endereco(telaEndereco.jTextFieldLogradouro.getText(), 
                     telaEndereco.jTextFieldComplemento.getText(), 
@@ -647,9 +651,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         // TODO add your handling code here:
         try {
-            Telefone telefone = new Telefone(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDD.getText()), 
-                    Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDI.getText()), 
-                    Numero.numerosSemPonto(telaTelefone.jTextFieldNumero.getText()));
+            Telefone telefone = new Telefone(Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDD.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jFormattedTextFieldDDI.getText())), 
+                    Integer.parseInt(Numero.numerosSemPonto(telaTelefone.jTextFieldNumero.getText())));
             
             Endereco endereco = new Endereco(telaEndereco.jTextFieldLogradouro.getText(), 
                     telaEndereco.jTextFieldComplemento.getText(), 
@@ -661,12 +665,12 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             
             switch(TipoDoCliente.valueOf(jComboBoxTipoDoCliente.getSelectedItem().toString())){
                 case PESSOAFISICA:
-                    cliente = new Cliente(Numero.numerosSemPonto(jTextFieldIdentificador.getText()), 
+                    cliente = new Cliente(Integer.parseInt(Numero.numerosSemPonto(jTextFieldIdentificador.getText())), 
                             jFormattedTextFieldCPF.getText(), jTextFieldNome.getText(), 
                             "", jTextFieldRG.getText(), telefone, jTextFieldEmail.getText(), endereco, TipoDoCliente.PESSOAFISICA);
                     break;
                 case PESSOAJURIDICA:
-                    cliente = new Cliente(Numero.numerosSemPonto(jTextFieldIdentificador.getText()), 
+                    cliente = new Cliente(Integer.parseInt(Numero.numerosSemPonto(jTextFieldIdentificador.getText())), 
                             jFormattedTextFieldCNPJ.getText(), "", jTextFieldRazaoSocial.getText(), 
                             "", telefone, jTextFieldEmail.getText(), endereco, TipoDoCliente.PESSOAJURIDICA);
                     break;
