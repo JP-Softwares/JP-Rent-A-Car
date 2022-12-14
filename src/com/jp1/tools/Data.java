@@ -10,13 +10,23 @@ package com.jp1.tools;
  */
 public class Data {
     
-    int dia = 0, mes = 0, ano = 0;
+    String dia = "", mes = "", ano = "";
     
-    public Data(int dia, int mes, int ano){
+    public Data(int dia, int mes, int ano) throws Exception{
+        if(dia < 10) this.dia = "0" + dia;
+        else this.dia = dia + "";
         
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+        if(mes < 10) this.dia = "0" + mes;
+        else this.mes = mes + "";
+        
+        if((ano + "").length() == 4) this.ano = ano + "";
+        else throw new Exception("O ano precisa ter 4 dígitos.");
+    }
+    
+    public Data(String[] data){
+        this.dia = data[0];
+        this.mes = data[1];
+        this.ano = data[2];
     }
     
     public int toInt(){
@@ -25,47 +35,32 @@ public class Data {
     
     public Data(String data){
         String texto[] = data.split("/");
-        
-        try {
-            this.dia = Integer.parseInt(texto[0]);
-        } catch (Exception e) {
-            this.dia = 0;
-        }
-        
-        try {
-            this.mes = Integer.parseInt(texto[1]);
-        } catch (Exception e) {
-            this.mes = 0;
-        }
-        
-        try {
-            this.ano = Integer.parseInt(texto[2]);
-        } catch (Exception e) {
-            this.ano = 0;
-        }
+        this.dia = texto[0];
+        this.mes = texto[1];
+        this.ano = texto[2];
     }
 
-    public int getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(int dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 
-    public int getMes() {
+    public String getMes() {
         return mes;
     }
 
-    public void setMes(int mes) {
+    public void setMes(String mes) {
         this.mes = mes;
     }
 
-    public int getAno() {
+    public String getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(String ano) {
         this.ano = ano;
     }
     

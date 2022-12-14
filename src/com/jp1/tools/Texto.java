@@ -60,6 +60,7 @@ public class Texto {
     }
     
     public static void validarNumero(javax.swing.JTextField jTextField, int qtd, java.awt.event.KeyEvent evt, char... charAceitos){
+        if(qtd == 0 || qtd > 10) qtd = 10;
         char c = evt.getKeyChar();
         if(c != ''){
             evt.consume();

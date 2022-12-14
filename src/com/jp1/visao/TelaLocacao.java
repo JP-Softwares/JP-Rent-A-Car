@@ -4,6 +4,10 @@
  */
 package com.jp1.visao;
 
+import com.jp1.tools.Data;
+import com.jp1.tools.Texto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aluno
@@ -13,9 +17,31 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaLocacao
      */
+    boolean apagar = false;
+    
+    
+    private final String CAMPODATA_DEFAULT = "  /  /    ";
+    
     public TelaLocacao() {
         initComponents();
+        AdicionarTela(jPanelMotorista);
+        jTextFieldMotoristaDataDeVencimento.setText(CAMPODATA_DEFAULT);
+    }
+    
+    public void AdicionarTela(javax.swing.JPanel painel){
+        javax.swing.GroupLayout jPanelTelasLayout = new javax.swing.GroupLayout(jPanelTelas);
+        jPanelTelas.removeAll();
+        jPanelTelas.setLayout(jPanelTelasLayout);
         
+        jPanelTelasLayout.setHorizontalGroup(
+            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            //.addGap(0, painel.getPreferredSize().width, Short.MAX_VALUE)
+                .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, painel.getPreferredSize().width, Short.MAX_VALUE)
+        );
+        jPanelTelasLayout.setVerticalGroup(
+            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painel)
+        );
     }
 
     /**
@@ -27,8 +53,115 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelMotorista = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldMotoristaIdentificador = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldMotoristaNome = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldMotoristaCNH = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldMotoristaDataDeVencimento = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanelTelas = new javax.swing.JPanel();
+
+        jPanelMotorista.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelMotorista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelMotoristaMouseEntered(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Identificador");
+
+        jTextFieldMotoristaIdentificador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldMotoristaIdentificador.setEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Nome");
+
+        jTextFieldMotoristaNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldMotoristaNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMotoristaNomeKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Número da CNH");
+
+        jTextFieldMotoristaCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldMotoristaCNH.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMotoristaCNHKeyTyped(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Motorista");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Data de Vencimento");
+
+        jTextFieldMotoristaDataDeVencimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldMotoristaDataDeVencimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldMotoristaDataDeVencimentoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMotoristaDataDeVencimentoKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelMotoristaLayout = new javax.swing.GroupLayout(jPanelMotorista);
+        jPanelMotorista.setLayout(jPanelMotoristaLayout);
+        jPanelMotoristaLayout.setHorizontalGroup(
+            jPanelMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMotoristaLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanelMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMotoristaLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMotoristaCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMotoristaDataDeVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelMotoristaLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMotoristaIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMotoristaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanelMotoristaLayout.setVerticalGroup(
+            jPanelMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMotoristaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(34, 34, 34)
+                .addGroup(jPanelMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldMotoristaIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldMotoristaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanelMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldMotoristaCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFieldMotoristaDataDeVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
 
         setBorder(null);
 
@@ -36,20 +169,37 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TELA LOCAÇÃO");
+        jLabel1.setText("LOCAÇÃO");
+
+        javax.swing.GroupLayout jPanelTelasLayout = new javax.swing.GroupLayout(jPanelTelas);
+        jPanelTelas.setLayout(jPanelTelasLayout);
+        jPanelTelasLayout.setHorizontalGroup(
+            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 941, Short.MAX_VALUE)
+        );
+        jPanelTelasLayout.setVerticalGroup(
+            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 417, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jPanelTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -66,9 +216,54 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldMotoristaNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMotoristaNomeKeyTyped
+        // TODO add your handling code here:
+        Texto.validarLetrasEEspaco(jTextFieldMotoristaNome, 0, evt, false);
+    }//GEN-LAST:event_jTextFieldMotoristaNomeKeyTyped
+
+    private void jTextFieldMotoristaCNHKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMotoristaCNHKeyTyped
+        // TODO add your handling code here:
+        Texto.validarNumero(jTextFieldMotoristaCNH, 9, evt);
+    }//GEN-LAST:event_jTextFieldMotoristaCNHKeyTyped
+
+    private void jPanelMotoristaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelMotoristaMouseEntered
+        // TODO add your handling code here:
+        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
+    }//GEN-LAST:event_jPanelMotoristaMouseEntered
+
+    private void jTextFieldMotoristaDataDeVencimentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMotoristaDataDeVencimentoKeyTyped
+        // TODO add your handling code here:
+        try {
+            Data.validarCampo(jTextFieldMotoristaDataDeVencimento, apagar, evt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldMotoristaDataDeVencimentoKeyTyped
+
+    private void jTextFieldMotoristaDataDeVencimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMotoristaDataDeVencimentoKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            apagar = true;
+            evt.consume();
+        }
+        else apagar = false;
+    }//GEN-LAST:event_jTextFieldMotoristaDataDeVencimentoKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelMotorista;
+    private javax.swing.JPanel jPanelTelas;
+    private javax.swing.JTextField jTextFieldMotoristaCNH;
+    private javax.swing.JTextField jTextFieldMotoristaDataDeVencimento;
+    private javax.swing.JTextField jTextFieldMotoristaIdentificador;
+    private javax.swing.JTextField jTextFieldMotoristaNome;
     // End of variables declaration//GEN-END:variables
 }

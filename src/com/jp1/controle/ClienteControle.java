@@ -36,7 +36,6 @@ public class ClienteControle implements IClienteControle {
     public void alterar(Cliente objeto) throws Exception {
         verificarCampos(objeto);
         clientePersistencia.alterar(objeto);
-        
     }
 
     @Override
@@ -64,6 +63,9 @@ public class ClienteControle implements IClienteControle {
             if(!validarCNPJ(Numero.numerosSemPonto(objeto.getCpf_cnpj())))throw new Exception("O CNPJ informado é inválido!!");
             if(objeto.getRazaoSocial().length() < 6) throw new Exception("A razão social informada é inválida, por favor digite uma razão social com pelo menos 6 digitos!!");
         }
+        System.out.println("DDI: " + objeto.getTelefone().getDDI());
+        System.out.println("DDD: " + objeto.getTelefone().getDDD());
+        System.out.println("Telefone: " + objeto.getTelefone().getNumero());
         if(!objeto.getEmail().contains("@") || !objeto.getEmail().contains(".com") || objeto.getEmail().length() < 6 ) throw new Exception("O email informado é inválido, por favor digite um email válido!!");
         if(objeto.getEndereco().getBairro().length() < 1) throw new Exception("O bairro informado é inválido, por favor digite um bairro válido!!");
         if(objeto.getEndereco().getCEP().length() != 9) throw new Exception("O CEP informado é inválido, por favor digite um CEP válido!!");
@@ -72,12 +74,12 @@ public class ClienteControle implements IClienteControle {
         if(objeto.getEndereco().getLogradouro().length() <1 ) throw new Exception("O logradouro informado é inválido, por favor digite um logradouro válido!!");
         if(objeto.getTelefone().getDDD() < 11) throw new Exception("O DDD informado é inválido, por favor digite um DDD válido!!");
         if(objeto.getTelefone().getDDI() < 1) throw new Exception("O DDI informado é inválido, por favor digite um DDI válido!!");
-        if(objeto.getTelefone().getNumero() > 9  || objeto.getTelefone().getNumero() < 8) throw new Exception("O telefone informado é inválido, por favor digite um telefone válido!!");
+        if(objeto.getTelefone().getNumero() < 10000000) throw new Exception("O telefone informado é inválido, por favor digite um telefone válido!!");
         return true;
     }
 
     private boolean validarCPF (String CPF) {
-        if (CPF.length() != 11) return(false);
+        if (CPF.length() != 11 || CPF.equals("00000000000") ||  CPF.equals("11111111111") ||    CPF.equals("22222222222") || CPF.equals("33333333333") ||   CPF.equals("44444444444") || CPF.equals("55555555555") ||   CPF.equals("66666666666") || CPF.equals("77777777777") ||   CPF.equals("88888888888") || CPF.equals("99999999999")) return(false);
         char dig10, dig11;
         int sm, i, r, num, peso;
         try {
@@ -116,7 +118,7 @@ public class ClienteControle implements IClienteControle {
         }
 
     public static boolean validarCNPJ (String CNPJ) {
-        if (CNPJ.length() != 14)return(false);
+        if (CNPJ.length() != 14 || CNPJ.equals("00000000000000") || CNPJ.equals("11111111111111") || CNPJ.equals("22222222222222") || CNPJ.equals("33333333333333") ||  CNPJ.equals("44444444444444") || CNPJ.equals("55555555555555") || CNPJ.equals("66666666666666") || CNPJ.equals("77777777777777") || CNPJ.equals("88888888888888") || CNPJ.equals("99999999999999"))return(false);
             char dig13, dig14;
             int sm, i, r, num, peso;
         try {

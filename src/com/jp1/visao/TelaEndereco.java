@@ -82,6 +82,7 @@ public class TelaEndereco extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Estado (UF)");
 
+        jFormattedTextFieldCEP.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
         jFormattedTextFieldCEP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -96,6 +97,7 @@ public class TelaEndereco extends javax.swing.JFrame {
 
         jButton2.setText("OK");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

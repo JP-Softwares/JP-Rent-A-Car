@@ -49,7 +49,6 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             JOptionPane.showConfirmDialog(null, e.getMessage());
         }
         
-        System.out.println(jTableCliente.getValueAt(1, 2));
     }
     
     public void listar(ArrayList<Cliente> array){
@@ -183,6 +182,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("CPF");
 
+        jFormattedTextFieldCPF.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
         jFormattedTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -259,6 +259,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("CNPJ");
 
+        jFormattedTextFieldCNPJ.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
         jFormattedTextFieldCNPJ.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanelPessoaJuridicaLayout = new javax.swing.GroupLayout(jPanelPessoaJuridica);
@@ -298,6 +299,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
             }
         });
 
@@ -694,6 +698,11 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limparCampos();
     }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        Run.telaPrincipal.jPanelVeiculosExp.setVisible(false);
+    }//GEN-LAST:event_jPanel1MouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

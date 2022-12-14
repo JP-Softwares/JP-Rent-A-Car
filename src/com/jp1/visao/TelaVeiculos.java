@@ -44,7 +44,6 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
     IVeiculoControle veiculoControle = new VeiculoControle();
     
     private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
-    //private final String CAMPODATA_DEFAULT = "  /  /    ";
     
     public TelaVeiculos() {
         initComponents();
@@ -188,6 +187,7 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
         jTextFieldPrecoDeVenda = new javax.swing.JTextField();
 
         setBorder(null);
+        setFocusable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(980, 510));
@@ -373,6 +373,7 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
         jButtonIncluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonIncluir.setText("INCLUIR VEÍCULO");
         jButtonIncluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonIncluir.setFocusable(false);
         jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIncluirActionPerformed(evt);
@@ -383,6 +384,7 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
         jButtonAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonAlterar.setText("ALTERAR VEÍCULO");
         jButtonAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAlterar.setFocusable(false);
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAlterarActionPerformed(evt);
@@ -607,7 +609,10 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
 
     private void jTextFieldPrecoDeCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecoDeCompraKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) apagar = true;
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE){
+            apagar = true;
+            evt.consume();
+        }
         else apagar = false;
     }//GEN-LAST:event_jTextFieldPrecoDeCompraKeyPressed
 
@@ -618,7 +623,10 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
 
     private void jTextFieldPrecoDeVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecoDeVendaKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE) apagar = true;
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_BACK_SPACE){
+            apagar = true;
+            evt.consume();
+        }
         else apagar = false;
     }//GEN-LAST:event_jTextFieldPrecoDeVendaKeyPressed
 
@@ -718,27 +726,30 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         // TODO add your handling code here:
-        try {
-            Veiculo veiculo = new Veiculo(Integer.parseInt(jTextFieldIdentificador.getText()), 
-                    jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), 
-                    categoriaControle.buscar(jComboBoxCategoria.getSelectedItem().toString()), 
-                    Numero.numeros(jTextFieldPrecoDeCompra.getText()), 
-                    Numero.numeros(jTextFieldPrecoDeVenda.getText()), 
-                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText())), 
-                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText())), 
-                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldKilometragem.getText())), 
-                    TipoDoCombustivel.valueOf(jComboBoxTipoDoCombustivel.getSelectedItem().toString()), 
-                    TipoDoVeiculo.valueOf(jComboBoxTipoDoVeiculo.getSelectedItem().toString()), 
-                    SituacaoDoVeiculo.valueOf(jComboBoxSituacaoDoVeiculo.getSelectedItem().toString()), 
-                    modeloControle.buscar(jComboBoxModelo.getSelectedItem().toString()));
-            veiculoControle.alterar(veiculo);
-            listar(veiculoControle.listar());
-            jTableVeiculo.changeSelection(linha, 0, false, false);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        if(jTableVeiculo.getSelectedRow() != -1){
+            try {
+                Veiculo veiculo = new Veiculo(Integer.parseInt(jTextFieldIdentificador.getText()), 
+                        jTextFieldPlaca.getText(), jTextFieldRenavam.getText(), 
+                        categoriaControle.buscar(jComboBoxCategoria.getSelectedItem().toString()), 
+                        Numero.numeros(jTextFieldPrecoDeCompra.getText()), 
+                        Numero.numeros(jTextFieldPrecoDeVenda.getText()), 
+                        Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDeFabricacao.getText())), 
+                        Integer.parseInt(Numero.numerosSemPonto(jTextFieldAnoDoModelo.getText())), 
+                        Integer.parseInt(Numero.numerosSemPonto(jTextFieldKilometragem.getText())), 
+                        TipoDoCombustivel.valueOf(jComboBoxTipoDoCombustivel.getSelectedItem().toString()), 
+                        TipoDoVeiculo.valueOf(jComboBoxTipoDoVeiculo.getSelectedItem().toString()), 
+                        SituacaoDoVeiculo.valueOf(jComboBoxSituacaoDoVeiculo.getSelectedItem().toString()), 
+                        modeloControle.buscar(jComboBoxModelo.getSelectedItem().toString()));
+                veiculoControle.alterar(veiculo);
+                listar(veiculoControle.listar());
+                jTableVeiculo.changeSelection(linha, 0, false, false);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Veículo primeiro para alterá-lo.");
+        
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked

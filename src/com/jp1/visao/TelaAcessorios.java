@@ -27,6 +27,7 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
      */
     
     int linha = 0;
+    int quantidadeLocada = 0;
     private final String CAMPODINHEIRO_DEFAULT = "R$ 0,00";
     
     IAcessoriosControle acessoriosControle = new AcessoriosControle();
@@ -53,12 +54,15 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
                 Object[] saida = acessorios.toString().split(";");
                 saida[2] = Numero.real(saida[2].toString());
                 saida[3] = Numero.numerosSemPonto(saida[3].toString());
-                saida[4] = Numero.numerosSemPonto(saida[4].toString());
+                int qtdTotal = Integer.parseInt(saida[3].toString());
+                int qtdLocada = Integer.parseInt(Numero.numerosSemPonto(saida[4].toString()));
+                saida[4] = qtdTotal - qtdLocada + "";
                 //Incluir nova linha na Tabela
                 modelo.addRow(saida);
             }
             jTableCategoria.setModel(modelo);
         } catch(Exception erro){
+            erro.printStackTrace();
             JOptionPane.showMessageDialog(this, erro.getMessage());
       }
     }
@@ -67,9 +71,11 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
         jTextFieldIdentificador.setText("");
         jTextFieldDescricao.setText("");
         jTextFieldValor.setText(CAMPODINHEIRO_DEFAULT);
-        jTextFieldQuantidadeTotal.setText(" un");
-        jTextFieldQuantidadeDisponivel.setText(" un");
+        jTextFieldQuantidadeTotal.setText("0 un");
+        jTextFieldQuantidadeDisponivel.setText("0 un");
         jTableCategoria.clearSelection();
+        linha = -1;
+        quantidadeLocada = 0;
     }
 
     /**
@@ -220,8 +226,11 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
         jLabel5.setText("Quantidade Total");
 
         jTextFieldQuantidadeTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldQuantidadeTotal.setText(" un");
+        jTextFieldQuantidadeTotal.setText("0 un");
         jTextFieldQuantidadeTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeTotalKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldQuantidadeTotalKeyTyped(evt);
             }
@@ -231,13 +240,8 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
         jLabel6.setText("Quantidade Disponível");
 
         jTextFieldQuantidadeDisponivel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldQuantidadeDisponivel.setText(" un");
+        jTextFieldQuantidadeDisponivel.setText("0 un");
         jTextFieldQuantidadeDisponivel.setEnabled(false);
-        jTextFieldQuantidadeDisponivel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldQuantidadeDisponivelKeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,33 +261,29 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
                         .addContainerGap(14, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldValor)
+                                    .addGap(121, 121, 121)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldValor)
-                                        .addGap(121, 121, 121)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jTextFieldQuantidadeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(322, 322, 322)))
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldQuantidadeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(83, 83, 83))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldQuantidadeDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldQuantidadeDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -305,7 +305,7 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -334,7 +334,7 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -366,29 +366,36 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
             try {
+                int quantidadeTotal = Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeTotal.getText()));
                 Acessorios acessorio = new Acessorios(Integer.parseInt(jTextFieldIdentificador.getText()), jTextFieldDescricao.getText(), 
                     Numero.numeros(jTextFieldValor.getText()), 
-                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeTotal.getText())), 
-                    Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeDisponivel.getText())));
+                    quantidadeTotal, 
+                    acessoriosControle.buscar(Integer.parseInt(jTextFieldIdentificador.getText())).getQuantidadeLocada());
                 acessoriosControle.alterar(acessorio);
                 listar(acessoriosControle.listar());
                 jTableCategoria.changeSelection(linha, 0, false, false);
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
-        }else JOptionPane.showMessageDialog(null, "Selecione uma Marca primeiro para alterá-la.");
+        }else JOptionPane.showMessageDialog(null, "Selecione um Acessório primeiro para alterá-lo.");
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriaMouseClicked
         // TODO add your handling code here:
         if(jTableCategoria.getSelectedRow() != -1){
-            linha = jTableCategoria.getSelectedRow();
-            Acessorios acessorio = acessoriosControle.buscar(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()));
-            jTextFieldIdentificador.setText(acessorio.getId() + "");
-            jTextFieldDescricao.setText(acessorio.getDescricao());
-            jTextFieldValor.setText(Numero.real(acessorio.getValorDaLocacao()) + "");
-            jTextFieldQuantidadeTotal.setText(acessorio.getQuantidadeTotal() + " un");
-            jTextFieldQuantidadeDisponivel.setText(acessorio.getQuantidadeDisponivel() + " un");
+            try {
+                linha = jTableCategoria.getSelectedRow();
+                Acessorios acessorio = acessoriosControle.buscar(Integer.parseInt(jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0).toString()));
+                jTextFieldIdentificador.setText(acessorio.getId() + "");
+                jTextFieldDescricao.setText(acessorio.getDescricao());
+                jTextFieldValor.setText(Numero.real(acessorio.getValorDaLocacao()) + "");
+                jTextFieldQuantidadeTotal.setText(acessorio.getQuantidadeTotal() + " un");
+                quantidadeLocada = acessorio.getQuantidadeLocada();
+                jTextFieldQuantidadeDisponivel.setText((acessorio.getQuantidadeTotal() - quantidadeLocada) + " un");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }//GEN-LAST:event_jTableCategoriaMouseClicked
 
@@ -415,16 +422,21 @@ public class TelaAcessorios extends javax.swing.JInternalFrame {
     private void jTextFieldQuantidadeTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeTotalKeyTyped
         // TODO add your handling code here:
         Texto.validarNumero(jTextFieldQuantidadeTotal, 0, evt);
+        if(jTextFieldQuantidadeTotal.getText().equals("")) jTextFieldQuantidadeTotal.setText("0");
+        if(jTextFieldQuantidadeTotal.getText().equals("0" + evt.getKeyChar())) jTextFieldQuantidadeTotal.setText(jTextFieldQuantidadeTotal.getText().substring(1, jTextFieldQuantidadeTotal.getText().length()));
         
         jTextFieldQuantidadeTotal.setText(jTextFieldQuantidadeTotal.getText() + " un");
+        
+        
+        int quantidadeTotal = Integer.parseInt(Numero.numerosSemPonto(jTextFieldQuantidadeTotal.getText()));
+        
+        jTextFieldQuantidadeDisponivel.setText(quantidadeTotal - quantidadeLocada + " un");
     }//GEN-LAST:event_jTextFieldQuantidadeTotalKeyTyped
 
-    private void jTextFieldQuantidadeDisponivelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeDisponivelKeyTyped
+    private void jTextFieldQuantidadeTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeTotalKeyPressed
         // TODO add your handling code here:
-        Texto.validarNumero(jTextFieldQuantidadeDisponivel, 0, evt);
-        
-        jTextFieldQuantidadeDisponivel.setText(jTextFieldQuantidadeDisponivel.getText() + " un");
-    }//GEN-LAST:event_jTextFieldQuantidadeDisponivelKeyTyped
+        jTextFieldQuantidadeTotal.setText(jTextFieldQuantidadeTotal.getText().replace(" un", ""));
+    }//GEN-LAST:event_jTextFieldQuantidadeTotalKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

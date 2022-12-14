@@ -71,6 +71,7 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldCPF">
           <Properties>
+            <Property name="focusLostBehavior" type="int" value="0"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
@@ -195,6 +196,7 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldCNPJ">
           <Properties>
+            <Property name="focusLostBehavior" type="int" value="0"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
@@ -253,6 +255,7 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseEntered"/>
       </Events>
 
       <Layout>

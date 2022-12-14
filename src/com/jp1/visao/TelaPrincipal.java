@@ -43,6 +43,8 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
     public TelaCategorias telaCategoria = null;
     public TelaClientes telaCliente = null;
     public TelaAcessorios telaAcessorios = null;
+    public TelaLocacao telaLocacao = null;
+    public TelaDevolucao telaDevolucao = null;
     
 //    boolean texto = false;
 //    boolean panel = false;

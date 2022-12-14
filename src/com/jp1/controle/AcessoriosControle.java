@@ -4,6 +4,8 @@
  */
 package com.jp1.controle;
 import com.jp1.modelos.Acessorios;
+import com.jp1.persistencia.AcessoriosDao;
+import com.jp1.persistencia.IAcessoriosDao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.jp1.tools.ID;
@@ -46,7 +48,7 @@ public class AcessoriosControle implements IAcessoriosControle {
         if(buscarAcessorios(objeto)){
             throw new Exception("Acessorio já cadastrado");
         }
-        if(objeto.getQuantidadeTotal() < buscar(objeto.getId()).getQuantidadeTotal() - buscar(objeto.getId()).getQuantidadeDisponivel()) throw new Exception("O numero de unidades totais não pode ser menor do que o numero de unidades locadas");
+        if(objeto.getQuantidadeTotal() < buscar(objeto.getId()).getQuantidadeLocada()) throw new Exception("O numero de unidades totais não pode ser menor do que o numero de unidades locadas");
         acessoriosPersistencia.alterar(objeto);
         
     }
@@ -87,7 +89,6 @@ public class AcessoriosControle implements IAcessoriosControle {
             Iterator<Acessorios> lista = listagem.iterator();
             while(lista.hasNext()){
                 Acessorios aux = lista.next();
-                System.out.println(aux.getDescricao());
                 if(aux.getDescricao().equalsIgnoreCase(objeto.getDescricao()) && aux.getId() != objeto.getId()){
                     return true;
                 }

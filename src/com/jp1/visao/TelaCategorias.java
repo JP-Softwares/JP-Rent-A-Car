@@ -321,7 +321,7 @@ public class TelaCategorias extends javax.swing.JInternalFrame {
             } catch (Exception erro) {
                 JOptionPane.showMessageDialog(null, erro.getMessage());
             }
-        }else JOptionPane.showMessageDialog(null, "Selecione uma Marca primeiro para alterá-la.");
+        }else JOptionPane.showMessageDialog(null, "Selecione uma Categoria primeiro para alterá-la.");
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriaMouseClicked
