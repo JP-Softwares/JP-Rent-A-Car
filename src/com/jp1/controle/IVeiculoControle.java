@@ -20,4 +20,6 @@ public interface IVeiculoControle {
     ArrayList<Veiculo> listar() throws Exception;
 
     public Veiculo buscar(int id) throws Exception;
+
+    public Veiculo buscar(String placa) throws Exception;
 }

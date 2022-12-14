@@ -65,6 +65,11 @@ public class VeiculoControle implements IVeiculoControle{
         return veiculoPersistencia.buscar(id);
     }
 
+    @Override
+    public Veiculo buscar(String placa) throws Exception {
+        return veiculoPersistencia.buscar(placa);
+    }
+
     private boolean buscarPlacaVeiculo(Veiculo objeto) throws Exception{
         try {
             ArrayList<Veiculo> listagem = listar();

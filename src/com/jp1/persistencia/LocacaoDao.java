@@ -130,5 +130,45 @@ public class LocacaoDao implements ILocacaoDao {
             throw erro;
         }
     }
+    @Override
+    public Locacao buscar(String placa) throws Exception {
+         try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+            String texto = "";
+            Locacao objetoLocacao = new Locacao();
+            IMotoristaControle motoristaControle = new MotoristaControle();
+            IClienteControle clienteControle = new ClienteControle();
+            IVeiculoControle veiculoControle = new VeiculoControle();
+            IAcessoriosControle acessoriosControle = new AcessoriosControle();
+            while(!(vetorString = br.readLine().split(";"))[7].equals(veiculoControle.buscar(placa).getID));
+                objetoLocacao.setId(Integer.parseInt(vetorString[0]));
+                objetoLocacao.setDataInicio(new Data((vetorString[1]).split("/")));
+                objetoLocacao.setDataFim(new Data((vetorString[2]).split("/")));
+                objetoLocacao.setValorDaLocacao(Float.parseFloat(vetorString[3]));
+                objetoLocacao.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[4]));
+                try {
+                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[5])));
+                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[6])));
+                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[7])));
+                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[8])));
+                } catch (Exception e) {
+                    throw e;
+                }
+                br.close();
+            return objetoLocacao;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+    }
+
+    public static boolean estaLocado(String placa, Data inicio, Data fim) throws Exception{
+        try{
+            buscar(placa).getData
+        }
+    }
     
 }

@@ -16,6 +16,7 @@ import com.jp1.modelos.Motorista;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import com.jp1.modelos.*;
 
 /**
  *
@@ -90,7 +91,7 @@ public class MotoristaDao implements IMotoristaDao {
     @Override
     public ArrayList<Motorista> listar() throws Exception {
         try {
-            ArrayList<Motorista> listaDeMarcas = new ArrayList<Motorista>();
+            ArrayList<Motorista> listaDeMotoristas = new ArrayList<Motorista>();
             FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
             BufferedReader br = new BufferedReader(fr);
 
@@ -101,12 +102,26 @@ public class MotoristaDao implements IMotoristaDao {
                 String vetorString[] = linha.split(";");
                 objetoMotorista.setId(Integer.parseInt(vetorString[0]));
                 objetoMotorista.setDataVencimento(new Data(vetorString[1].split("/")));
-                objetoMotorista.setUrl(vetorString[2]);
-                listaDeMarcas.add(objetoMarca);
-                //TelaMarcas.jTableMarcas.add
+                objetoMotorista.setNome(vetorString[2]);
+                objetoMotorista.setNumeroCNH(vetorString[3]);
+                objetoMotorista.setUrlImagemCNH(vetorString[4]);
+                Telefone telefone = new Telefone();
+                    telefone.setDDD(Integer.parseInt(vetorString[5]));
+                    telefone.setDDI(Integer.parseInt(vetorString[6]));
+                    telefone.setNumero(Integer.parseInt(vetorString[7]));
+                objetoMotorista.setTelefone(telefone);
+                Endereco endereco = new Endereco();
+                    endereco.setLogradouro(vetorString[8]);
+                    endereco.setComplemento(vetorString[9]);
+                    endereco.setCEP(vetorString[10]);
+                    endereco.setEstado(Estado.valueOf(vetorString[11]));
+                    endereco.setCidade(vetorString[12]);
+                     endereco.setBairro(vetorString[13]);
+                objetoMotorista.setEndereco(endereco);
+                listaDeMotoristas.add(objetoMarca);
             }
             br.close();
-            return listaDeMarcas;
+            return listaDeMotoristas;
         } catch (Exception erro) {
             throw erro;
         }
@@ -114,15 +129,79 @@ public class MotoristaDao implements IMotoristaDao {
 
     @Override
     public Motorista buscar(String CNH) throws Exception {
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+
+            Cliente objetoCliente = new Cliente();
+            while(!(vetorString = br.readLine().split(";"))[3].equals(numeroCNH));
+            Motorista objetoMotorista = new Motorista();
+            String vetorString[] = linha.split(";");
+            objetoMotorista.setId(Integer.parseInt(vetorString[0]));
+            objetoMotorista.setDataVencimento(new Data(vetorString[1].split("/")));
+            objetoMotorista.setNome(vetorString[2]);
+            objetoMotorista.setNumeroCNH(vetorString[3]);
+            objetoMotorista.setUrlImagemCNH(vetorString[4]);
+            Telefone telefone = new Telefone();
+                telefone.setDDD(Integer.parseInt(vetorString[5]));
+                telefone.setDDI(Integer.parseInt(vetorString[6]));
+                telefone.setNumero(Integer.parseInt(vetorString[7]));
+            objetoMotorista.setTelefone(telefone);
+            Endereco endereco = new Endereco();
+                endereco.setLogradouro(vetorString[8]);
+                endereco.setComplemento(vetorString[9]);
+                endereco.setCEP(vetorString[10]);
+                endereco.setEstado(Estado.valueOf(vetorString[11]));
+                endereco.setCidade(vetorString[12]);
+                endereco.setBairro(vetorString[13]);
+            objetoMotorista.setEndereco(endereco);
+            br.close();
+            return objetoMotorista;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
 
     }
 
     @Override
     public Motorista buscar(int id) throws Exception {
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
 
-    }
+            String vetorString[] = null;
 
-    public static boolean verificarMotorista(Motorista objeto) throws Exception {
+            Cliente objetoCliente = new Cliente();
+            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
+            Motorista objetoMotorista = new Motorista();
+            String vetorString[] = linha.split(";");
+            objetoMotorista.setId(Integer.parseInt(vetorString[0]));
+            objetoMotorista.setDataVencimento(new Data(vetorString[1].split("/")));
+            objetoMotorista.setNome(vetorString[2]);
+            objetoMotorista.setNumeroCNH(vetorString[3]);
+            objetoMotorista.setUrlImagemCNH(vetorString[4]);
+            Telefone telefone = new Telefone();
+                telefone.setDDD(Integer.parseInt(vetorString[5]));
+                telefone.setDDI(Integer.parseInt(vetorString[6]));
+                telefone.setNumero(Integer.parseInt(vetorString[7]));
+            objetoMotorista.setTelefone(telefone);
+            Endereco endereco = new Endereco();
+                endereco.setLogradouro(vetorString[8]);
+                endereco.setComplemento(vetorString[9]);
+                endereco.setCEP(vetorString[10]);
+                endereco.setEstado(Estado.valueOf(vetorString[11]));
+                endereco.setCidade(vetorString[12]);
+                endereco.setBairro(vetorString[13]);
+            objetoMotorista.setEndereco(endereco);
+            br.close();
+            return objetoMotorista;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
 
     }
     

@@ -7,6 +7,7 @@ package com.jp1.visao;
 import com.jp1.tools.Data;
 import com.jp1.tools.Texto;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -24,24 +25,16 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     
     public TelaLocacao() {
         initComponents();
-        AdicionarTela(jPanelMotorista);
+        AdicionarTela(jInternalFrameMotorista);
         jTextFieldMotoristaDataDeVencimento.setText(CAMPODATA_DEFAULT);
     }
     
-    public void AdicionarTela(javax.swing.JPanel painel){
-        javax.swing.GroupLayout jPanelTelasLayout = new javax.swing.GroupLayout(jPanelTelas);
-        jPanelTelas.removeAll();
-        jPanelTelas.setLayout(jPanelTelasLayout);
-        
-        jPanelTelasLayout.setHorizontalGroup(
-            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            //.addGap(0, painel.getPreferredSize().width, Short.MAX_VALUE)
-                .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, painel.getPreferredSize().width, Short.MAX_VALUE)
-        );
-        jPanelTelasLayout.setVerticalGroup(
-            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel)
-        );
+    public void AdicionarTela(javax.swing.JInternalFrame tela){
+        tela.setSize(941, 417);
+        ((BasicInternalFrameUI)tela.getUI()).setNorthPane(null);
+        //jDesktopPane1.removeAll();
+        jDesktopPane1.add(tela);
+        tela.setVisible(true);
     }
 
     /**
@@ -53,6 +46,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrameMotorista = new javax.swing.JInternalFrame();
         jPanelMotorista = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldMotoristaIdentificador = new javax.swing.JTextField();
@@ -63,9 +57,14 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldMotoristaDataDeVencimento = new javax.swing.JTextField();
+        jInternalFrameLocacao = new javax.swing.JInternalFrame();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanelTelas = new javax.swing.JPanel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+
+        jInternalFrameMotorista.setBorder(null);
+        jInternalFrameMotorista.setPreferredSize(new java.awt.Dimension(941, 417));
+        jInternalFrameMotorista.setVisible(true);
 
         jPanelMotorista.setBackground(new java.awt.Color(255, 255, 255));
         jPanelMotorista.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,6 +162,41 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 .addContainerGap(261, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout jInternalFrameMotoristaLayout = new javax.swing.GroupLayout(jInternalFrameMotorista.getContentPane());
+        jInternalFrameMotorista.getContentPane().setLayout(jInternalFrameMotoristaLayout);
+        jInternalFrameMotoristaLayout.setHorizontalGroup(
+            jInternalFrameMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 941, Short.MAX_VALUE)
+            .addGroup(jInternalFrameMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jInternalFrameMotoristaLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jInternalFrameMotoristaLayout.setVerticalGroup(
+            jInternalFrameMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 417, Short.MAX_VALUE)
+            .addGroup(jInternalFrameMotoristaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jInternalFrameMotoristaLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jInternalFrameLocacao.setBorder(null);
+        jInternalFrameLocacao.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrameLocacaoLayout = new javax.swing.GroupLayout(jInternalFrameLocacao.getContentPane());
+        jInternalFrameLocacao.getContentPane().setLayout(jInternalFrameLocacaoLayout);
+        jInternalFrameLocacaoLayout.setHorizontalGroup(
+            jInternalFrameLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrameLocacaoLayout.setVerticalGroup(
+            jInternalFrameLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -171,14 +205,21 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOCAÇÃO");
 
-        javax.swing.GroupLayout jPanelTelasLayout = new javax.swing.GroupLayout(jPanelTelas);
-        jPanelTelas.setLayout(jPanelTelasLayout);
-        jPanelTelasLayout.setHorizontalGroup(
-            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(941, 417));
+        jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jDesktopPane1MouseEntered(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 941, Short.MAX_VALUE)
         );
-        jPanelTelasLayout.setVerticalGroup(
-            jPanelTelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
@@ -189,7 +230,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jPanelTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,9 +238,9 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,8 +291,15 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         else apagar = false;
     }//GEN-LAST:event_jTextFieldMotoristaDataDeVencimentoKeyPressed
 
+    private void jDesktopPane1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDesktopPane1MouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JInternalFrame jInternalFrameLocacao;
+    private javax.swing.JInternalFrame jInternalFrameMotorista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -260,7 +308,6 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelMotorista;
-    private javax.swing.JPanel jPanelTelas;
     private javax.swing.JTextField jTextFieldMotoristaCNH;
     private javax.swing.JTextField jTextFieldMotoristaDataDeVencimento;
     private javax.swing.JTextField jTextFieldMotoristaIdentificador;

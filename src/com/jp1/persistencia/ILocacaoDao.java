@@ -14,6 +14,6 @@ public interface ILocacaoDao {
     void incluir(Locacao objeto) throws Exception;
     void alterar(Locacao objeto) throws Exception;
     ArrayList<Locacao> listar() throws Exception;
-    //Locacao buscar(String descricao) throws Exception;
+    Locacao buscar(String placa) throws Exception;
     Locacao buscar(int id) throws Exception; 
 }

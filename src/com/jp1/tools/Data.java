@@ -63,6 +63,12 @@ public class Data {
     public void setAno(String ano) {
         this.ano = ano;
     }
+
+    public static boolean dataCNH(Data cnh, Data fimLocacao) throws Exception {
+        cnh.setMes((Integer.parseInt(cnh.getMes()) + 1) + "");
+        if(cnh.toInt() < fimLocacao.toInt()) throw new Exception("O motorista estará com a CNH vencida por mais de 30 dias durante a locação");
+        return true;
+    }
     
     public static void validarCampo(javax.swing.JTextField campo, boolean apagar, java.awt.event.KeyEvent evt) throws Exception{
         String texto = campo.getText();
