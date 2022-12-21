@@ -46,7 +46,7 @@ public class TelaWelcome extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonDevolucao.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButtonDevolucao.setText("Devolução");
+        jButtonDevolucao.setText("Locações ativas");
         jButtonDevolucao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonDevolucao.setFocusable(false);
         jButtonDevolucao.addActionListener(new java.awt.event.ActionListener() {
@@ -70,10 +70,10 @@ public class TelaWelcome extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(247, 247, 247)
+                .addGap(161, 161, 161)
                 .addComponent(jButtonLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(jButtonDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105)
+                .addComponent(jButtonDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(290, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,7 +107,7 @@ public class TelaWelcome extends javax.swing.JInternalFrame {
 
     private void jButtonDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDevolucaoActionPerformed
         // TODO add your handling code here:
-        Run.telaPrincipal.telaDevolucao = new TelaDevolucao();
+        Run.telaPrincipal.telaDevolucao = new TelaLocacoesAtivas();
         Run.telaPrincipal.telaDevolucao.setVisible(true);
         
         Run.telaPrincipal.adicionarTela(Run.telaPrincipal.telaDevolucao);

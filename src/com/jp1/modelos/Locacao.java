@@ -15,7 +15,6 @@ public class Locacao {
     private Data dataInicio = null;
     private Data dataFim = null;
     private float valorDaLocacao = 0;
-    private SituacaoDoVeiculo situacao = null;
     private Motorista motorista = null;
     private Cliente cliente = null;
     private Veiculo veiculo = null;
@@ -25,12 +24,11 @@ public class Locacao {
         
     }
     
-    public Locacao(int id, Data dataInicio, Data dataFim, float valorDaLocacao, SituacaoDoVeiculo situacao, Motorista motorista, Cliente cliente, Veiculo veiculo, Acessorios acessorios){
+    public Locacao(int id, Data dataInicio, Data dataFim, float valorDaLocacao, Motorista motorista, Cliente cliente, Veiculo veiculo, Acessorios acessorios){
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.valorDaLocacao = valorDaLocacao;
-        this.situacao = situacao;
         this.motorista = motorista;
         this.cliente = cliente;
         this.veiculo = veiculo;
@@ -39,7 +37,7 @@ public class Locacao {
 
     @Override
     public String toString() {
-        return  id + ";" + dataInicio + ";"  + dataFim + ";" + dataFim + ";" + valorDaLocacao + ";"  + situacao + ";" + motorista.getId() + ";" + cliente.getId() + ";" + veiculo.getId() + ";" + acessorios.getId() + "\n";
+        return  id + ";" + dataInicio + ";"  + dataFim + ";" + valorDaLocacao + ";"  + motorista.getId() + ";" + cliente.getId() + ";" + veiculo.getId() + ";" + acessorios.getId() + "\n";
     }
 
     public int getId() {
@@ -72,14 +70,6 @@ public class Locacao {
 
     public void setValorDaLocacao(float valorDaLocacao) {
         this.valorDaLocacao = valorDaLocacao;
-    }
-
-    public SituacaoDoVeiculo getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(SituacaoDoVeiculo situacao) {
-        this.situacao = situacao;
     }
 
     public Motorista getMotorista() {

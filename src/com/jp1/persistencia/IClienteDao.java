@@ -16,6 +16,7 @@ public interface IClienteDao {
     void alterar(Cliente objeto) throws Exception;
     ArrayList<Cliente> listar() throws Exception;
     Cliente buscar(int id) throws Exception; 
+    Cliente buscar(String cpf_cnpj) throws Exception; 
     
        
 }

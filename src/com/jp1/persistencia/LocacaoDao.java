@@ -79,12 +79,11 @@ public class LocacaoDao implements ILocacaoDao {
                 objetoLocacao.setDataInicio(new Data((vetorString[1]).split("/")));
                 objetoLocacao.setDataFim(new Data((vetorString[2]).split("/")));
                 objetoLocacao.setValorDaLocacao(Float.parseFloat(vetorString[3]));
-                objetoLocacao.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[4]));
                 try {
-                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[5])));
-                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[6])));
-                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[7])));
-                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[8])));
+                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[4])));
+                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[5])));
+                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[6])));
+                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[7])));
                 } catch (Exception e) {
                     throw e;
                 }
@@ -96,37 +95,40 @@ public class LocacaoDao implements ILocacaoDao {
             throw erro;
         }
     }   
-    @Override
-    public Locacao buscar(int id) throws Exception {
+    
+    public ArrayList<Locacao> listarRelacionados(String cpf_cnpj) throws Exception {
          try {
-            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
-            BufferedReader br = new BufferedReader(fr); 
-
-            String vetorString[] = null;
-            String texto = "";
-            Locacao objetoLocacao = new Locacao();
-            IMotoristaControle motoristaControle = new MotoristaControle();
-            IClienteControle clienteControle = new ClienteControle();
-            IVeiculoControle veiculoControle = new VeiculoControle();
-            IAcessoriosControle acessoriosControle = new AcessoriosControle();
-            while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
+            ArrayList<Locacao> listaDeMarcas = new ArrayList<Locacao>();
+            FileReader fr = new FileReader(new File(nomeDoArquivoNoDisco));
+            BufferedReader br = new BufferedReader(fr);
+            String linha = "";
+            while((linha = br.readLine()) != null){
+                Locacao objetoLocacao = new Locacao();
+                String vetorString[] = linha.split(";");
+                ILocacaoControle locacaoControle = new LocacaoControle();
+                if(locacaoControle.buscar(Integer.parseInt(vetorString[0])).getCliente().getCpf_cnpj().equals(cpf_cnpj)){
+                IMotoristaControle motoristaControle = new MotoristaControle();
+                IClienteControle clienteControle = new ClienteControle();
+                IVeiculoControle veiculoControle = new VeiculoControle();
+                IAcessoriosControle acessoriosControle = new AcessoriosControle();
                 objetoLocacao.setId(Integer.parseInt(vetorString[0]));
                 objetoLocacao.setDataInicio(new Data((vetorString[1]).split("/")));
                 objetoLocacao.setDataFim(new Data((vetorString[2]).split("/")));
                 objetoLocacao.setValorDaLocacao(Float.parseFloat(vetorString[3]));
-                objetoLocacao.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[4]));
                 try {
-                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[5])));
-                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[6])));
-                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[7])));
-                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[8])));
+                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[4])));
+                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[5])));
+                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[6])));
+                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[7])));
                 } catch (Exception e) {
                     throw e;
                 }
-                br.close();
-            return objetoLocacao;
-            
-        } catch (Exception erro) {  
+                listaDeMarcas.add(objetoLocacao);
+                }
+            }
+            br.close();
+            return listaDeMarcas;
+        } catch (Exception erro) {
             throw erro;
         }
     }
@@ -135,28 +137,69 @@ public class LocacaoDao implements ILocacaoDao {
          try {
             FileReader fr = new FileReader(nomeDoArquivoNoDisco);
             BufferedReader br = new BufferedReader(fr); 
-
-            String vetorString[] = null;
-            String texto = "";
+            String linha = "";
             Locacao objetoLocacao = new Locacao();
             IMotoristaControle motoristaControle = new MotoristaControle();
             IClienteControle clienteControle = new ClienteControle();
             IVeiculoControle veiculoControle = new VeiculoControle();
             IAcessoriosControle acessoriosControle = new AcessoriosControle();
-            while(!(vetorString = br.readLine().split(";"))[7].equals(veiculoControle.buscar(placa).getID));
+            while((linha = br.readLine()) != null){
+                String vetorString[] = linha.split(";");
+                if(vetorString[7].equals((veiculoControle.buscar(placa)).getId() + "")){
                 objetoLocacao.setId(Integer.parseInt(vetorString[0]));
                 objetoLocacao.setDataInicio(new Data((vetorString[1]).split("/")));
                 objetoLocacao.setDataFim(new Data((vetorString[2]).split("/")));
                 objetoLocacao.setValorDaLocacao(Float.parseFloat(vetorString[3]));
-                objetoLocacao.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[4]));
                 try {
-                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[5])));
-                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[6])));
-                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[7])));
-                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[8])));
+                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[4])));
+                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[5])));
+                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[6])));
+                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[7])));
                 } catch (Exception e) {
                     throw e;
                 }
+            }else{
+                    objetoLocacao = null;
+                }
+              
+            }    
+                br.close();
+            return objetoLocacao;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+    } @Override
+    public Locacao buscar(int id) throws Exception {
+         try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+            String linha = "";
+            Locacao objetoLocacao = new Locacao();
+            IMotoristaControle motoristaControle = new MotoristaControle();
+            IClienteControle clienteControle = new ClienteControle();
+            IVeiculoControle veiculoControle = new VeiculoControle();
+            IAcessoriosControle acessoriosControle = new AcessoriosControle();
+            while((linha = br.readLine()) != null){
+                String vetorString[] = linha.split(";");
+                if(vetorString[0].equals(id + "")){
+                objetoLocacao.setId(Integer.parseInt(vetorString[0]));
+                objetoLocacao.setDataInicio(new Data((vetorString[1]).split("/")));
+                objetoLocacao.setDataFim(new Data((vetorString[2]).split("/")));
+                objetoLocacao.setValorDaLocacao(Float.parseFloat(vetorString[3]));
+                try {
+                    objetoLocacao.setMotorista(motoristaControle.buscar(Integer.parseInt(vetorString[4])));
+                    objetoLocacao.setCliente(clienteControle.buscar(Integer.parseInt(vetorString[5])));
+                    objetoLocacao.setVeiculo(veiculoControle.buscar(Integer.parseInt(vetorString[6])));
+                    objetoLocacao.setAcessorios(acessoriosControle.buscar(Integer.parseInt(vetorString[7])));
+                } catch (Exception e) {
+                    throw e;
+                }
+            }else{
+                    objetoLocacao = null;
+                }
+              
+            }    
                 br.close();
             return objetoLocacao;
             
@@ -164,11 +207,14 @@ public class LocacaoDao implements ILocacaoDao {
             throw erro;
         }
     }
+    
 
-    public static boolean estaLocado(String placa, Data inicio, Data fim) throws Exception{
-        try{
-            buscar(placa).getData
+    public boolean estaLocado(String placa, Data inicio) throws Exception{
+        if(buscar(placa).equals(null)) return false;
+        if(buscar(placa).getDataInicio().toInt() > inicio.toInt() && inicio.toInt() < buscar(placa).getDataFim().toInt()){
+                return true;
         }
+        return false;
     }
     
 }

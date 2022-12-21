@@ -16,4 +16,5 @@ public interface ILocacaoDao {
     ArrayList<Locacao> listar() throws Exception;
     Locacao buscar(String placa) throws Exception;
     Locacao buscar(int id) throws Exception; 
+    ArrayList<Locacao> listarRelacionados(String cpf_cnpj) throws Exception;
 }

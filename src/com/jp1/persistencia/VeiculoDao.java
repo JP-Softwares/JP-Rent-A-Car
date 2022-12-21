@@ -15,7 +15,10 @@ import com.jp1.controle.IModeloControle;
 import com.jp1.controle.ICategoriaControle;
 import com.jp1.controle.ModeloControle;
 import com.jp1.controle.CategoriaControle;
+import com.jp1.modelos.Categoria;
+import com.jp1.persistencia.LocacaoDao;
 import com.jp1.modelos.SituacaoDoVeiculo;
+import com.jp1.tools.Data;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -122,7 +125,7 @@ public class VeiculoDao implements IVeiculoDao {
        
     }
 
-    public ArrayList<Veiculo> listarNaoLocados(Data inicio, Data fim) throws IOException,FileNotFoundException,Exception {
+    public ArrayList<Veiculo> listarNaoLocados(Data inicio, Categoria categoria) throws Exception {
 
          try {
             ArrayList<Veiculo> listaDeVeiculos = new ArrayList<Veiculo>();
@@ -130,35 +133,38 @@ public class VeiculoDao implements IVeiculoDao {
             BufferedReader br = new BufferedReader(fr);
 
              String linha = "";
-
               while((linha = br.readLine()) != null){
                 Veiculo objetoVeiculo = new Veiculo();
                 String vetorString[] = linha.split(";");
-                objetoVeiculo.setId(Integer.parseInt(vetorString[0]));
-                objetoVeiculo.setPlaca(vetorString[1]);
-                objetoVeiculo.setRenavam(vetorString[2]);
-                ICategoriaControle categoriaControle = new CategoriaControle();
-                objetoVeiculo.setCategoria(categoriaControle.buscar(Integer.parseInt(vetorString[3])));
-                objetoVeiculo.setPrecoDeCompra(Float.parseFloat(vetorString[4]));
-                objetoVeiculo.setPrecoDeVenda(Float.parseFloat(vetorString[5]));
-                objetoVeiculo.setAnoFabricacao(Integer.parseInt(vetorString[6]));
-                objetoVeiculo.setAnoModelo(Integer.parseInt(vetorString[7]));
-                objetoVeiculo.setKilometragem(Integer.parseInt(vetorString[8]));
-                objetoVeiculo.setCombustivel(TipoDoCombustivel.valueOf(vetorString[9]));
-                objetoVeiculo.setCarro(TipoDoVeiculo.valueOf(vetorString[10]));
-                objetoVeiculo.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[11]));
-                IModeloControle modeloControle = new ModeloControle();
-                objetoVeiculo.setModelo(modeloControle.buscar(Integer.parseInt(vetorString[12])));
-                if(estaLocado(objetoVeiculo.getPlaca, inicio, fim))
-                else listaDeVeiculos.add(objetoVeiculo);
-
-
-
+                if(vetorString[3].equals(categoria.getId() + "")){
+                    objetoVeiculo.setId(Integer.parseInt(vetorString[0]));
+                    objetoVeiculo.setPlaca(vetorString[1]);
+                    objetoVeiculo.setRenavam(vetorString[2]);
+                    ICategoriaControle categoriaControle = new CategoriaControle();
+                    objetoVeiculo.setCategoria(categoriaControle.buscar(Integer.parseInt(vetorString[3])));
+                    objetoVeiculo.setPrecoDeCompra(Float.parseFloat(vetorString[4]));
+                    objetoVeiculo.setPrecoDeVenda(Float.parseFloat(vetorString[5]));
+                    objetoVeiculo.setAnoFabricacao(Integer.parseInt(vetorString[6]));
+                    objetoVeiculo.setAnoModelo(Integer.parseInt(vetorString[7]));
+                    objetoVeiculo.setKilometragem(Integer.parseInt(vetorString[8]));
+                    objetoVeiculo.setCombustivel(TipoDoCombustivel.valueOf(vetorString[9]));
+                    objetoVeiculo.setCarro(TipoDoVeiculo.valueOf(vetorString[10]));
+                    objetoVeiculo.setSituacao(SituacaoDoVeiculo.valueOf(vetorString[11]));
+                    IModeloControle modeloControle = new ModeloControle();
+                    objetoVeiculo.setModelo(modeloControle.buscar(Integer.parseInt(vetorString[12])));
+                    LocacaoDao locacaoPersistencia = new LocacaoDao();
+                    boolean estaLocado = false;
+                    try {
+                        estaLocado = locacaoPersistencia.estaLocado(objetoVeiculo.getPlaca(), inicio);
+                    } catch (Exception e) {
+                    }
+                    if(!estaLocado) listaDeVeiculos.add(objetoVeiculo);
+                }
             }
             br.close();
             return listaDeVeiculos;
         } catch (Exception erro) {
-            throw erro; 
+            throw erro;
         }
        
     }

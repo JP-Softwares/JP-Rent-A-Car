@@ -157,6 +157,49 @@ public class ClienteDao implements IClienteDao {
         }
        
     }
+    
+    @Override
+    public Cliente buscar(String cpf_cnpj) throws Exception,FileNotFoundException,Exception {
+       
+        
+        try {
+            FileReader fr = new FileReader(nomeDoArquivoNoDisco);
+            BufferedReader br = new BufferedReader(fr); 
+
+            String vetorString[] = null;
+
+            Cliente objetoCliente = new Cliente();
+            while(!(vetorString = br.readLine().split(";"))[1].equals(cpf_cnpj));
+                objetoCliente.setId(Integer.parseInt(vetorString[0]));
+                objetoCliente.setCpf_cnpj(vetorString[1]);
+                objetoCliente.setNome(vetorString[2]);
+                objetoCliente.setRazaoSocial(vetorString[3]);
+                objetoCliente.setIdentidade(vetorString[4]);
+                Telefone telefone = new Telefone();
+                    telefone.setDDD(Integer.parseInt(vetorString[5]));
+                    telefone.setDDI(Integer.parseInt(vetorString[6]));
+                    telefone.setNumero(Integer.parseInt(vetorString[7]));
+                objetoCliente.setTelefone(telefone);
+                objetoCliente.setEmail(vetorString[8]);
+                Endereco endereco = new Endereco();
+                    endereco.setLogradouro(vetorString[9]);
+                    endereco.setComplemento(vetorString[10]);
+                    endereco.setCEP(vetorString[11]);
+                    endereco.setEstado(Estado.valueOf(vetorString[12]));
+                    endereco.setCidade(vetorString[13]);
+                    endereco.setBairro(vetorString[14]);
+                objetoCliente.setEndereco(endereco);
+                objetoCliente.setTipo(TipoDoCliente.valueOf(vetorString[15]));
+
+
+            br.close();  
+            return objetoCliente;
+            
+        } catch (Exception erro) {  
+            throw erro;
+        }
+       
+    }
 
 
     }

@@ -35,7 +35,7 @@ public class Motorista {
 
     @Override
     public String toString() {
-        return  id + ";" + dataVencimento + ";" + nome + ";" + numeroCNH + ";" + urlImagemCNH + ";" + telefone + ";" + endereco;
+        return  id + ";" + dataVencimento + ";" + nome + ";" + numeroCNH + ";" + urlImagemCNH + ";" + telefone + ";" + endereco + "\n";
     }
 
     public int getId() {

@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.jp1.controle;
+import com.jp1.modelos.Motorista;
+import com.jp1.persistencia.IMotoristaDao;
+import com.jp1.persistencia.MotoristaDao;
 import com.jp1.tools.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -49,10 +53,11 @@ public class MotoristaControle implements IMotoristaControle {
         return motoristaPersistencia.buscar(numeroCNH);
     }
     public static boolean verificarCampos(Motorista objeto) throws Exception{  
-        if((objeto.getNumeroCNH).length < 9) throw new Exception("Numero de CNH inválido!!");
-        if((objeto.getUrlImagemCNH).length < 1) throw new Exception("Insira uma imagem da CNH");
-        if((objeto.getNome).length < 1) throw new Exception("Insira um nome para o motorista!");
-        if((objeto.getDataVencimento).length != 10); throw new Exception("Preencha o campo de data de vencimento da CNH corretamente");
+        if((objeto.getNumeroCNH()).length()< 9) throw new Exception("Numero de CNH inválido!!");
+        if((objeto.getUrlImagemCNH()).length() < 1) throw new Exception("Insira uma imagem da CNH");
+        if((objeto.getNome()).length() < 1) throw new Exception("Insira um nome para o motorista!");
+        if((objeto.getDataVencimento().toString()).length() != 10) throw new Exception("Preencha o campo de data de vencimento da CNH corretamente");
+        if(Integer.parseInt(objeto.getDataVencimento().getAno()) < 2000 || Integer.parseInt(objeto.getDataVencimento().getMes()) < 1 || Integer.parseInt(objeto.getDataVencimento().getMes()) > 12 || Integer.parseInt(objeto.getDataVencimento().getDia()) < 1 || Integer.parseInt(objeto.getDataVencimento().getDia()) > 31) throw new Exception("Preencha o campo de data de vencimento da CNH corretamente");
         if(objeto.getEndereco().getBairro().length() < 1) throw new Exception("O bairro informado para o motorista é inválido, por favor digite um bairro válido!!");
         if(objeto.getEndereco().getCEP().length() != 9) throw new Exception("O CEP informado para o motorista é inválido, por favor digite um CEP válido!!");
         if(objeto.getEndereco().getCidade().length() <1 ) throw new Exception("A cidade informada para o motorista é inválida, por favor digite uma cidade válida!!");
@@ -61,7 +66,7 @@ public class MotoristaControle implements IMotoristaControle {
         if(objeto.getTelefone().getDDD() < 11) throw new Exception("O DDD informado para o motorista é inválido, por favor digite um DDD válido!!");
         if(objeto.getTelefone().getDDI() < 1) throw new Exception("O DDI informado para o motorista é inválido, por favor digite um DDI válido!!");
         if(objeto.getTelefone().getNumero() < 10000000) throw new Exception("O telefone informado para o motorista é inválido, por favor digite um telefone válido!!");
-
+        return true;
     }
 
     

@@ -29,15 +29,30 @@ public class Data {
         this.ano = data[2];
     }
     
-    public int toInt(){
-        return Integer.parseInt(ano + "" + mes + "" + dia);
-    }
-    
     public Data(String data){
         String texto[] = data.split("/");
         this.dia = texto[0];
         this.mes = texto[1];
         this.ano = texto[2];
+    }
+    
+    public int toInt(){
+        return Integer.parseInt(ano + "" + mes + "" + dia);
+    }
+    
+    public String toString(){
+        return (ano + "/" + mes + "/" + dia);
+    }
+    
+    public boolean eData(){
+        try {
+            Integer.parseInt(dia);
+            Integer.parseInt(mes);
+            Integer.parseInt(ano);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public String getDia() {
@@ -63,10 +78,19 @@ public class Data {
     public void setAno(String ano) {
         this.ano = ano;
     }
+    
+    public static int dias(Data dataInicio, Data dataFim){
+        int ano = Integer.parseInt(dataFim.getAno()) - Integer.parseInt(dataInicio.getAno());
+        int mes = Integer.parseInt(dataFim.getMes()) - Integer.parseInt(dataInicio.getMes()) + ano * 12;
+        int dia = Integer.parseInt(dataFim.getDia()) - Integer.parseInt(dataInicio.getDia()) + mes * 30;
+        
+        return dia;
+    }
 
     public static boolean dataCNH(Data cnh, Data fimLocacao) throws Exception {
-        cnh.setMes((Integer.parseInt(cnh.getMes()) + 1) + "");
-        if(cnh.toInt() < fimLocacao.toInt()) throw new Exception("O motorista estará com a CNH vencida por mais de 30 dias durante a locação");
+        //cnh.setMes((Integer.parseInt(cnh.getMes()) + 1) + "");
+        if(Data.dias(cnh, fimLocacao) <= -30) throw new Exception("O motorista estará com a CNH vencida por mais de 30 dias durante a locação");
+        
         return true;
     }
     

@@ -4,9 +4,11 @@
  */
 package com.jp1.controle;
 
+import com.jp1.modelos.Categoria;
 import com.jp1.modelos.Veiculo;
 import com.jp1.persistencia.IVeiculoDao;
 import com.jp1.persistencia.VeiculoDao;
+import com.jp1.tools.Data;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.jp1.tools.ID;
@@ -111,6 +113,15 @@ public class VeiculoControle implements IVeiculoControle{
         if(objeto.getAnoFabricacao() < 1950) throw new Exception("O ano de fabricação informado é inválido, por favor digite um ano de fabricação válido");
         if(objeto.getAnoModelo() < 1950) throw new Exception("O ano do modelo informado é inválido, por favor digite um ano de modelo válido");
         return true;
+    }
+    
+    public ArrayList<Veiculo> listarNaoLocados(Data inicio, Categoria categoria) throws Exception{
+        try{
+            return veiculoPersistencia.listarNaoLocados(inicio, categoria);
+        }catch(Exception erro){
+            erro.printStackTrace();
+            return new ArrayList<Veiculo>();
+        }
     }
     
 }

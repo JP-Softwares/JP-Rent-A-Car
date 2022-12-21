@@ -53,6 +53,15 @@ public class ClienteControle implements IClienteControle {
         return clientePersistencia.buscar(id);
     }
     
+    @Override
+    public Cliente buscar(String cpf_cnpj) throws Exception {
+        try {
+            return clientePersistencia.buscar(cpf_cnpj);
+        } catch (Exception e) {
+            throw new Exception("O CPF/CNPJ informado é inválido!!");
+        }
+    }
+    
     private boolean verificarCampos(Cliente objeto) throws Exception{
         if(objeto.getTipo() == TipoDoCliente.PESSOAFISICA){
             if(!validarCPF(Numero.numerosSemPonto(objeto.getCpf_cnpj())))throw new Exception("O CPF informado é inválido!!");
@@ -63,9 +72,6 @@ public class ClienteControle implements IClienteControle {
             if(!validarCNPJ(Numero.numerosSemPonto(objeto.getCpf_cnpj())))throw new Exception("O CNPJ informado é inválido!!");
             if(objeto.getRazaoSocial().length() < 6) throw new Exception("A razão social informada é inválida, por favor digite uma razão social com pelo menos 6 digitos!!");
         }
-        System.out.println("DDI: " + objeto.getTelefone().getDDI());
-        System.out.println("DDD: " + objeto.getTelefone().getDDD());
-        System.out.println("Telefone: " + objeto.getTelefone().getNumero());
         if(!objeto.getEmail().contains("@") || !objeto.getEmail().contains(".com") || objeto.getEmail().length() < 6 ) throw new Exception("O email informado é inválido, por favor digite um email válido!!");
         if(objeto.getEndereco().getBairro().length() < 1) throw new Exception("O bairro informado é inválido, por favor digite um bairro válido!!");
         if(objeto.getEndereco().getCEP().length() != 9) throw new Exception("O CEP informado é inválido, por favor digite um CEP válido!!");
@@ -78,7 +84,7 @@ public class ClienteControle implements IClienteControle {
         return true;
     }
 
-    private boolean validarCPF (String CPF) {
+    public boolean validarCPF (String CPF) {
         if (CPF.length() != 11 || CPF.equals("00000000000") ||  CPF.equals("11111111111") ||    CPF.equals("22222222222") || CPF.equals("33333333333") ||   CPF.equals("44444444444") || CPF.equals("55555555555") ||   CPF.equals("66666666666") || CPF.equals("77777777777") ||   CPF.equals("88888888888") || CPF.equals("99999999999")) return(false);
         char dig10, dig11;
         int sm, i, r, num, peso;

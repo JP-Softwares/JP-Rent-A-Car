@@ -118,7 +118,7 @@ public class MotoristaDao implements IMotoristaDao {
                     endereco.setCidade(vetorString[12]);
                      endereco.setBairro(vetorString[13]);
                 objetoMotorista.setEndereco(endereco);
-                listaDeMotoristas.add(objetoMarca);
+                listaDeMotoristas.add(objetoMotorista);
             }
             br.close();
             return listaDeMotoristas;
@@ -136,9 +136,8 @@ public class MotoristaDao implements IMotoristaDao {
             String vetorString[] = null;
 
             Cliente objetoCliente = new Cliente();
-            while(!(vetorString = br.readLine().split(";"))[3].equals(numeroCNH));
+            while(!(vetorString = br.readLine().split(";"))[3].equals(CNH));
             Motorista objetoMotorista = new Motorista();
-            String vetorString[] = linha.split(";");
             objetoMotorista.setId(Integer.parseInt(vetorString[0]));
             objetoMotorista.setDataVencimento(new Data(vetorString[1].split("/")));
             objetoMotorista.setNome(vetorString[2]);
@@ -177,7 +176,6 @@ public class MotoristaDao implements IMotoristaDao {
             Cliente objetoCliente = new Cliente();
             while(!(vetorString = br.readLine().split(";"))[0].equals(id+""));
             Motorista objetoMotorista = new Motorista();
-            String vetorString[] = linha.split(";");
             objetoMotorista.setId(Integer.parseInt(vetorString[0]));
             objetoMotorista.setDataVencimento(new Data(vetorString[1].split("/")));
             objetoMotorista.setNome(vetorString[2]);
