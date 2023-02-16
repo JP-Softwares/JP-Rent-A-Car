@@ -56,19 +56,19 @@ public final class TelaPrincipal extends javax.swing.JFrame /*implements ActionL
 //    javax.swing.JPanel jPanelInicial = new javax.swing.JPanel();
 //    Timer timer = new Timer(1000/30, this);
     
-    /*public void pintar(Graphics g) {
-        if (g != null) {
-            Graphics2D g2d = (Graphics2D) g;
-            System.out.println(opacity/10);
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity/10));
-            opacity-= 1;
-            super.paint(g);
-            if(opacity == 0) {
-                g = null;
-                jPanelInicial.setVisible(false);
-            }
-        }
-    }*/
+//    public void pintar(Graphics g) {
+//        if (g != null) {
+//            Graphics2D g2d = (Graphics2D) g;
+//            System.out.println(opacity/10);
+//            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity/10));
+//            opacity-= 1;
+//            super.paint(g);
+//            if(opacity == 0) {
+//                g = null;
+//                jPanelInicial.setVisible(false);
+//            }
+//        }
+//    }
     
     public TelaPrincipal() {
         lookAndFeel();
